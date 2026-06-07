@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>All Products — Superbowl Lipis Store</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <div class="announcement-bar">
+    <p>🚚 Free shipping on orders above RM 100 &nbsp;|&nbsp; Use code <strong>SBL10</strong> for 10% off your first order</p>
+  </div>
+
+  <header class="header" id="header">
+    <div class="container header__inner">
+      <button class="menu-btn" id="menuBtn" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+      <a href="index.html" class="logo">
+        <span class="logo__mark">SBL</span>
+        <span class="logo__wordmark"><span>Superbowl</span><em>Lipis</em></span>
+      </a>
+      <nav class="nav" id="mainNav">
+        <a href="index.html" class="nav__link">Home</a>
+        <a href="products.html" class="nav__link active">All Products</a>
+        <a href="index.html#collections" class="nav__link">Collections</a>
+        <a href="index.html#about" class="nav__link">About</a>
+      </nav>
+      <div class="header__actions">
+        <a href="cart.html" class="cart-btn" id="cartBtn" aria-label="Cart">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+          <span class="cart-count" id="cartCount">0</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <div class="mobile-nav" id="mobileNav">
+    <button class="mobile-nav__close" id="closeNav">✕</button>
+    <a href="index.html">Home</a>
+    <a href="products.html">All Products</a>
+    <a href="index.html#collections">Collections</a>
+    <a href="cart.html">Cart (<span id="mobileCartCount">0</span>)</a>
+  </div>
+  <div class="overlay" id="overlay"></div>
+
+  <!-- Page Header -->
+  <div class="page-hero">
+    <div class="container">
+      <p class="breadcrumb"><a href="index.html">Home</a> / All Products</p>
+      <h1>All Products</h1>
+      <p id="productCount">Loading...</p>
+    </div>
+  </div>
+
+  <!-- Filter & Sort -->
+  <div class="filter-bar">
+    <div class="container filter-bar__inner">
+      <div class="filter-tabs" id="filterTabs">
+        <button class="filter-tab active" data-cat="all">All</button>
+        <button class="filter-tab" data-cat="apparel">Apparel</button>
+        <button class="filter-tab" data-cat="accessories">Accessories</button>
+        <button class="filter-tab" data-cat="lifestyle">Lifestyle</button>
+      </div>
+      <div class="sort-wrap">
+        <label for="sortSelect">Sort by:</label>
+        <select id="sortSelect" class="sort-select">
+          <option value="default">Featured</option>
+          <option value="price-asc">Price: Low to High</option>
+          <option value="price-desc">Price: High to Low</option>
+          <option value="name-asc">Name: A–Z</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <!-- Products -->
+  <section class="section">
+    <div class="container">
+      <div class="product-grid" id="productsGrid"></div>
+      <p class="no-results" id="noResults" style="display:none;">No products found in this category.</p>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="footer__bottom">
+      <div class="container footer__bottom-inner">
+        <p>© 2025 Superbowl Lipis (SBL Co). All rights reserved.</p>
+        <div class="payment-methods">
+          <span>FPX</span><span>Visa</span><span>Mastercard</span><span>GrabPay</span><span>TnG</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <div class="toast" id="toast"></div>
+
+  <script src="js/app.js"></script>
+  <script>
+    let currentCat = 'all';
+    let currentSort = 'default';
+
+    const urlCat = new URLSearchParams(window.location.search).get('cat');
+    if (urlCat) {
+      currentCat = urlCat;
+      document.querySelectorAll('.filter-tab').forEach(t => {
+        t.classList.toggle('active', t.dataset.cat === urlCat);
+      });
+    }
+
+    function renderProducts() {
+      let products = [...SBL_PRODUCTS];
+      if (currentCat !== 'all') products = products.filter(p => p.category === currentCat);
+      if (currentSort === 'price-asc') products.sort((a,b) => a.price - b.price);
+      else if (currentSort === 'price-desc') products.sort((a,b) => b.price - a.price);
+      else if (currentSort === 'name-asc') products.sort((a,b) => a.name.localeCompare(b.name));
+
+      const grid = document.getElementById('productsGrid');
+      const noResults = document.getElementById('noResults');
+      const countEl = document.getElementById('productCount');
+
+      if (products.length === 0) {
+        grid.innerHTML = '';
+        noResults.style.display = 'block';
+      } else {
+        noResults.style.display = 'none';
+        grid.innerHTML = products.map(p => renderProductCard(p)).join('');
+        bindAddToCart(grid);
+      }
+      countEl.textContent = products.length + ' product' + (products.length !== 1 ? 's' : '');
+    }
+
+    document.querySelectorAll('.filter-tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        currentCat = tab.dataset.cat;
+        renderProducts();
+      });
+    });
+
+    document.getElementById('sortSelect').addEventListener('change', e => {
+      currentSort = e.target.value;
+      renderProducts();
+    });
+
+    renderProducts();
+  </script>
+</body>
+</html>

@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your Cart — Superbowl Lipis Store</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <div class="announcement-bar">
+    <p>🚚 Free shipping on orders above RM 100</p>
+  </div>
+
+  <header class="header" id="header">
+    <div class="container header__inner">
+      <button class="menu-btn" id="menuBtn" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+      <a href="index.html" class="logo">
+        <span class="logo__mark">SBL</span>
+        <span class="logo__wordmark"><span>Superbowl</span><em>Lipis</em></span>
+      </a>
+      <nav class="nav" id="mainNav">
+        <a href="index.html" class="nav__link">Home</a>
+        <a href="products.html" class="nav__link">All Products</a>
+      </nav>
+      <div class="header__actions">
+        <a href="cart.html" class="cart-btn active" id="cartBtn" aria-label="Cart">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+          <span class="cart-count" id="cartCount">0</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <div class="mobile-nav" id="mobileNav">
+    <button class="mobile-nav__close" id="closeNav">✕</button>
+    <a href="index.html">Home</a>
+    <a href="products.html">All Products</a>
+    <a href="cart.html">Cart</a>
+  </div>
+  <div class="overlay" id="overlay"></div>
+
+  <div class="page-hero">
+    <div class="container">
+      <p class="breadcrumb"><a href="index.html">Home</a> / Cart</p>
+      <h1>Your Cart</h1>
+    </div>
+  </div>
+
+  <section class="section">
+    <div class="container cart-layout" id="cartLayout">
+      <!-- Populated by JS -->
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="footer__bottom">
+      <div class="container footer__bottom-inner">
+        <p>© 2025 Superbowl Lipis (SBL Co). All rights reserved.</p>
+        <div class="payment-methods">
+          <span>FPX</span><span>Visa</span><span>Mastercard</span><span>GrabPay</span><span>TnG</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <div class="toast" id="toast"></div>
+
+  <script src="js/app.js"></script>
+  <script>
+    function renderCart() {
+      const cart = getCart();
+      const layout = document.getElementById('cartLayout');
+
+      if (cart.length === 0) {
+        layout.innerHTML = `
+          <div class="cart-empty">
+            <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="1.5"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+            <h2>Your cart is empty</h2>
+            <p>Looks like you haven't added anything yet.</p>
+            <a href="products.html" class="btn btn--primary">Continue Shopping</a>
+          </div>`;
+        return;
+      }
+
+      const subtotal = cart.reduce((sum, item) => sum + item.price * item.qty, 0);
+      const shipping = subtotal >= 100 ? 0 : 9.90;
+      const total = subtotal + shipping;
+
+      layout.innerHTML = `
+        <div class="cart-items">
+          <table class="cart-table">
+            <thead>
+              <tr>
+                <th colspan="2">Product</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Total</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="cartTableBody"></tbody>
+          </table>
+          <div class="cart-actions">
+            <a href="products.html" class="btn btn--outline-dark">← Continue Shopping</a>
+          </div>
+        </div>
+        <aside class="cart-summary">
+          <h3>Order Summary</h3>
+          <div class="summary-row"><span>Subtotal</span><span>RM ${subtotal.toFixed(2)}</span></div>
+          <div class="summary-row"><span>Shipping</span><span>${shipping === 0 ? '<span class="free-ship">FREE</span>' : 'RM ' + shipping.toFixed(2)}</span></div>
+          ${shipping > 0 ? '<p class="ship-notice">Add RM ' + (100 - subtotal).toFixed(2) + ' more for free shipping</p>' : ''}
+          <div class="summary-row summary-row--total"><span>Total</span><span>RM ${total.toFixed(2)}</span></div>
+          <div class="promo-wrap">
+            <input type="text" placeholder="Discount code" class="promo-input" id="promoInput">
+            <button class="btn btn--outline-dark" onclick="applyPromo()">Apply</button>
+          </div>
+          <button class="btn btn--primary btn--full checkout-btn" onclick="checkout()">Proceed to Checkout</button>
+          <div class="payment-trust">
+            <p>🔒 Secure checkout &nbsp;·&nbsp; All major payment methods accepted</p>
+          </div>
+        </aside>`;
+
+      const tbody = document.getElementById('cartTableBody');
+      cart.forEach(item => {
+        tbody.innerHTML += `
+          <tr class="cart-row" data-id="${item.id}">
+            <td class="cart-img-cell">
+              <div class="cart-img" style="background:${item.color}">
+                <span>${item.name.split(' ').pop()}</span>
+              </div>
+            </td>
+            <td class="cart-name-cell">
+              <strong>${item.name}</strong>
+              ${item.variant ? '<br><small>' + item.variant + '</small>' : ''}
+            </td>
+            <td>RM ${item.price.toFixed(2)}</td>
+            <td>
+              <div class="qty-wrap">
+                <button class="qty-btn" onclick="updateQty('${item.id}', ${item.qty - 1})">−</button>
+                <span class="qty-num">${item.qty}</span>
+                <button class="qty-btn" onclick="updateQty('${item.id}', ${item.qty + 1})">+</button>
+              </div>
+            </td>
+            <td>RM ${(item.price * item.qty).toFixed(2)}</td>
+            <td><button class="remove-btn" onclick="removeFromCart('${item.id}')" aria-label="Remove">✕</button></td>
+          </tr>`;
+      });
+    }
+
+    function updateQty(id, qty) {
+      if (qty < 1) { removeFromCart(id); return; }
+      let cart = getCart();
+      cart = cart.map(i => i.id === id ? {...i, qty} : i);
+      saveCart(cart);
+      updateCartCount();
+      renderCart();
+    }
+
+    function checkout() {
+      showToast('🎉 Redirecting to payment gateway...');
+      setTimeout(() => { alert('Thank you for your order! This is a demo store — no actual payment will be processed.'); }, 1500);
+    }
+
+    function applyPromo() {
+      const code = document.getElementById('promoInput').value.trim().toUpperCase();
+      if (code === 'SBL10') showToast('✅ Promo code applied: 10% off!');
+      else showToast('❌ Invalid promo code.');
+    }
+
+    renderCart();
+  </script>
+</body>
+</html>
