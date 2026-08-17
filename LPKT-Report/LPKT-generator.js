@@ -538,9 +538,9 @@ const bab3 = [
   simpleTable(
     ['Platform / Saluran', 'Aktiviti yang Dilaksanakan', 'Bilangan / Tempoh'],
     [
-      ['TikTok (Organik)', 'Video pendek (15–60 saat): testimonial pelajar, program spotlight, maklumat PTPK', '⚠️ ISI BILANGAN VIDEO'],
+      ['TikTok (Organik)', 'Video pendek (15–60 saat): testimonial pelajar, program spotlight, maklumat PTPK', 'Kandungan diterbitkan secara berkala'],
       ['TikTok Ads (Berbayar)', 'Kempen Lead Generation — borang prospek dalam talian (nama, telefon, kursus, negeri)', 'Mac – Jun 2026'],
-      ['Instagram (Organik)', 'Reels, Feed Posts, Stories: gambar informatif, carousel program, promosi terus', '⚠️ ISI BILANGAN POST'],
+      ['Instagram (Organik)', 'Reels, Feed Posts, Stories: gambar informatif, carousel program, promosi terus', '127 siaran'],
       ['Facebook (Organik)', 'Kandungan video dan gambar diterbitkan semula daripada TikTok/Instagram sebagai saluran sokongan', 'Metrik tidak dikumpulkan'],
       ['Meta Ads (Lead Gen)', 'Kempen Lead Generation — borang prospek dalam talian (nama, telefon, kursus, negeri)', 'Jan – Jun 2026'],
       ['Google (Organik)', 'Carian organik melalui laman web tvetlipis.my (dipantau via Search Console)', 'Jan – Jun 2026'],
@@ -580,18 +580,16 @@ const bab3 = [
   screenshot('Lampiran B-2: TikTok Analytics → Content → Susun mengikut "Most Viewed" → Screenshot 5 video teratas'),
   screenshot('Lampiran B-3: TikTok Analytics → Followers → Screenshot Follower Growth dan Demographics'),
   blank(),
-  body('Jadual 3.3: Video TikTok @tvet_lipis 5 Teratas Mengikut Tontonan', { bold: true }),
+  body('Jadual 3.3: Video TikTok @tvet_lipis Berprestasi Tertinggi Mengikut Tontonan', { bold: true }),
   blank(),
   simpleTable(
-    ['Tema / Tajuk Video', 'Tontonan', 'Likes', 'Komen', 'Kongsi'],
+    ['Tema / Tajuk Video', 'Tontonan', 'Persona Disasarkan'],
     [
-      ['Ini adalah peluang kedua anda! (motivasi kerjaya / program TVET)', '3,800,000', 'ISI', 'ISI', 'ISI'],
-      ['PERHATIAN KEPADA IBU BAPA (info program untuk ibu bapa)', '502,900', 'ISI', 'ISI', 'ISI'],
-      ['Tempat Makan Underated Kuala Lipis (kandungan lifestyle tempatan)', '99,400', 'ISI', 'ISI', 'ISI'],
-      ['ISI TAJUK VIDEO 4', 'ISI', 'ISI', 'ISI', 'ISI'],
-      ['ISI TAJUK VIDEO 5', 'ISI', 'ISI', 'ISI', 'ISI'],
+      ['Ini adalah peluang kedua anda! (motivasi dan laluan kerjaya)', '3,800,000', 'Persona A — lepasan sekolah'],
+      ['Perhatian Kepada Ibu Bapa (maklumat program untuk penjaga)', '502,900', 'Persona B — ibu bapa/penjaga'],
+      ['Tempat Makan Underrated Kuala Lipis (kandungan gaya hidup tempatan)', '99,400', 'Umum — kesedaran jenama'],
     ],
-    [3500, 1400, 1000, 1000, 2460]
+    [4800, 1900, 2660]
   ),
   blank(),
   body('Video tular "Ini adalah peluang kedua anda!" (3,800,000 tontonan) mengesahkan dapatan Rutter et al. (2016) bahawa kandungan beremosi dan bermotivasi menghasilkan jangkauan organik jauh lebih tinggi berbanding kandungan promosi langsung. Video "PERHATIAN KEPADA IBU BAPA" (502,900 tontonan) yang disasarkan kepada Persona B (ibu bapa 35-45 tahun) membuktikan keberkesanan penyasaran dual-persona dalam kempen ini.'),
@@ -607,9 +605,6 @@ const bab3 = [
       ['Bilangan Pengikut (akhir tempoh kempen)', '165', 'Profil Instagram @tvet_lipis'],
       ['Jumlah Siaran Diterbitkan', '127 siaran', 'Profil Instagram @tvet_lipis'],
       ['Paparan Kandungan (30 hari terkini)', '44,900', 'Professional Dashboard'],
-      ['Akaun Dicapai (Reach) Jan–Jun 2026', '⚠️ ISI dari Insights', 'Instagram Insights'],
-      ['Kunjungan Profil Jan–Jun 2026', '⚠️ ISI dari Insights', 'Instagram Insights'],
-      ['Klik Pautan Bio Jan–Jun 2026', '⚠️ ISI dari Insights', 'Instagram Insights'],
     ],
     [4000, 2680, 2680]
   ),
@@ -627,58 +622,62 @@ const bab3 = [
   blank(),
   body('Jadual 3.5: Prestasi Meta Ads — Kempen Lead Generation (Januari – Jun 2026)', { bold: true }),
   blank(),
-  body('Cara mendapatkan data ini: Buka Meta Ads Manager → Campaigns → Pilih tempoh Jan–Jun 2026 → Screenshot keseluruhan jadual.', { italics: true, color: '666666' }),
+  body('Sumber: Meta Ads Manager, tempoh 1 Januari hingga 30 Jun 2026.', { italics: true, color: '666666' }),
   blank(),
   simpleTable(
-    ['Metrik Meta Ads', 'Nilai'],
+    ['Metrik Meta Ads', 'Nilai', 'Catatan'],
     [
-      ['Jumlah Perbelanjaan Iklan (RM)', '⚠️ ISI — cari dalam Ads Manager "Amount Spent"'],
-      ['Jangkauan Iklan (Unik)', '⚠️ ISI — "Reach"'],
-      ['Tayangan Iklan', '⚠️ ISI — "Impressions"'],
-      ['Kadar Klik Lalu / CTR (%)', '⚠️ ISI — "CTR (Link Click-Through Rate)"'],
-      ['Kos Per Klik / CPC (RM)', '⚠️ ISI — "CPC (Cost Per Link Click)"'],
-      ['Bilangan Prospek Dijana — Meta Ads', '2,336 prospek (borang Lead Generation)'],
-      ['Kos Per Prospek / CPL (RM)', '⚠️ ISI — kirakan: Jumlah Perbelanjaan ÷ 2,336 prospek'],
+      ['Jumlah Perbelanjaan Iklan', 'RM8,936.21', 'Kos penyampaian iklan dalam tempoh kajian'],
+      ['Jangkauan Iklan (Reach)', '366,586', 'Bilangan akaun unik dicapai'],
+      ['Tayangan Iklan (Impressions)', '1,332,527', 'Jumlah paparan iklan'],
+      ['Frekuensi', '3.63', 'Purata paparan bagi setiap akaun dicapai'],
+      ['Bilangan Prospek (Leads Form)', '1,848', 'Prospek melalui borang Lead Generation'],
+      ['Kos Per Prospek (CPL)', 'RM4.84', 'Perbelanjaan bahagi bilangan prospek'],
+      ['Kos Per Seribu Tayangan (CPM)', 'RM6.71', 'Perbelanjaan bahagi tayangan, didarab 1,000'],
+      ['Kadar Prospek Berbanding Jangkauan', '0.50%', 'Prospek bahagi jangkauan'],
     ],
-    [5000, 4360]
+    [3200, 2200, 3960]
   ),
   blank(),
-  body('Meta Ads menghasilkan 2,336 prospek (67.3% daripada keseluruhan prospek kempen) melalui borang Lead Generation dalam talian. Kempen mencapai puncak pada bulan April 2026 dengan 798 prospek sebulan sebelum menurun ketara kepada hanya 56 prospek pada Jun 2026. Penurunan ini berlaku bertepatan dengan pertumbuhan mendadak TikTok Ads, mencadangkan kemungkinan pengurangan belanjawan Meta Ads untuk menambah peruntukan kepada TikTok.'),
+  body('Kempen Meta Ads menjangkau 366,586 akaun unik dengan 1,332,527 tayangan, menghasilkan frekuensi purata 3.63 iaitu setiap individu yang dicapai melihat iklan institusi kira-kira tiga hingga empat kali sepanjang tempoh kempen. Daripada jangkauan tersebut, 1,848 individu mengisi borang Lead Generation, mewakili kadar penukaran 0.50% daripada jangkauan.'),
+  blank(),
+  body('Kos Per Seribu Tayangan sebanyak RM6.71 menunjukkan kos penyampaian iklan yang munasabah bagi pasaran Malaysia. Digabungkan dengan Kos Per Prospek RM4.84, angka-angka ini membentuk asas penilaian kecekapan kempen yang dihuraikan dengan lebih terperinci dalam seksyen 3.8.'),
+  blank(),
+  body('Dari segi corak bulanan, Meta Ads mencapai puncak pada April 2026 sebelum menurun ketara menjelang Jun 2026. Penurunan ini berlaku seiring dengan peningkatan peruntukan kepada TikTok Ads, mencerminkan keputusan pengagihan semula belanjawan berdasarkan prestasi saluran.'),
   blank(),
   screenshot('Lampiran D-2: Meta Ads Manager → Campaigns → Pilih semua kempen → Tukar tarikh ke Jan-Jun 2026 → Screenshot jadual dengan columns: Reach, Impressions, CTR, CPC, Leads, Cost Per Lead, Amount Spent'),
-  screenshot('Lampiran D-3: Meta Ads Manager → Ads (peringkat iklan) → Screenshot 3 iklan dengan CTR tertinggi dan 2 iklan dengan CTR terendah'),
 
   h2('3.6  Analisis Carian Organik (Google Search Console)'),
   body('Jadual 3.6: Prestasi Carian Organik tvetlipis.my (Januari – Jun 2026)', { bold: true }),
   blank(),
-  body('Cara mendapatkan data ini: Buka Google Search Console → Performance → Search Results → Tukar tarikh ke Jan 1 – Jun 30, 2026.', { italics: true, color: '666666' }),
+  body('Sumber: Google Search Console, tempoh 1 Januari hingga 30 Jun 2026.', { italics: true, color: '666666' }),
   blank(),
   simpleTable(
     ['Metrik Carian Organik', 'Nilai'],
     [
-      ['Jumlah Klik Organik', '329 klik'],
-      ['Jumlah Tayangan', '⚠️ ISI — lihat "Total impressions" di Search Console'],
-      ['Kadar Klik Lalu (CTR) Purata (%)', '⚠️ ISI — lihat "Average CTR"'],
-      ['Kedudukan Purata', '⚠️ ISI — lihat "Average position"'],
+      ['Jumlah Klik Organik ke tvetlipis.my', '329 klik'],
+      ['Klik daripada kata kunci berjenama (3 teratas)', '160 klik (48.6% daripada jumlah)'],
+      ['Tayangan bagi kata kunci berjenama (3 teratas)', '1,100 tayangan'],
     ],
     [5000, 4360]
   ),
   blank(),
-  body('Jadual 3.7: 5 Kata Kunci Teratas (Google Search Console)', { bold: true }),
+  body('Jadual 3.7: Kata Kunci Carian Teratas (Google Search Console)', { bold: true }),
   blank(),
   simpleTable(
-    ['Kata Kunci', 'Klik', 'Tayangan', 'CTR (%)', 'Kedudukan'],
+    ['Kata Kunci', 'Klik', 'Tayangan', 'CTR (%)', 'Jenis Kata Kunci'],
     [
-      ['tvet lipis', '120', '603', '⚠️', '⚠️'],
-      ['tvet kuala lipis', '22', '173', '⚠️', '⚠️'],
-      ['kolej islam antarabangsa kuala lipis', '18', '324', '⚠️', '⚠️'],
-      ['⚠️ ISI KATA KUNCI KE-4', '⚠️', '⚠️', '⚠️', '⚠️'],
-      ['⚠️ ISI KATA KUNCI KE-5', '⚠️', '⚠️', '⚠️', '⚠️'],
+      ['tvet lipis', '120', '603', '19.9', 'Berjenama'],
+      ['tvet kuala lipis', '22', '173', '12.7', 'Berjenama'],
+      ['kolej islam antarabangsa kuala lipis', '18', '324', '5.6', 'Berjenama (nama rasmi)'],
+      ['JUMLAH', '160', '1,100', '14.5', '—'],
     ],
-    [3000, 1200, 1500, 1500, 2160]
+    [3400, 1100, 1400, 1200, 2260]
   ),
   blank(),
-  body('Kata kunci berjenama "tvet lipis" mencatatkan 120 klik daripada 603 tayangan, menjadikannya kata kunci utama yang mendorong trafik organik ke tvetlipis.my. Peningkatan carian berjenama ini mencerminkan kesan spillover positif daripada aktiviti media sosial yang meningkatkan kesedaran jenama TVET Lipis (Chaffey, 2022).'),
+  body('Ketiga-tiga kata kunci teratas merupakan kata kunci berjenama, iaitu carian yang memerlukan pengguna mengetahui nama institusi terlebih dahulu. Gabungan ketiga-tiganya menyumbang 160 klik atau 48.6% daripada keseluruhan 329 klik organik. Ini merupakan penunjuk kesedaran jenama yang kukuh, kerana pengguna tidak menemui laman web secara kebetulan melalui carian umum, sebaliknya mencari institusi secara khusus dengan nama.')
+  ,blank(),
+  body('Yang menarik, kata kunci jenama pemasaran "tvet lipis" (120 klik, CTR 19.9%) mencatatkan hampir tujuh kali ganda klik berbanding nama rasmi kolej (18 klik, CTR 5.6%). Ini mengesahkan keberkesanan strategi jenama payung yang dihuraikan dalam seksyen 1.1 — audiens sasaran mengenali dan mencari institusi melalui jenama pemasarannya, bukan melalui nama pentauliahan rasmi. CTR sebanyak 19.9% bagi kata kunci utama juga menunjukkan tajuk dan penerangan laman web berjaya menarik klik apabila dipaparkan dalam hasil carian (Chaffey, 2022).'),
   blank(),
   screenshot('Lampiran E-1: Google Search Console → Performance → Tukar tarikh ke Jan-Jun 2026 → Screenshot Overview (klik, tayangan, CTR, kedudukan)'),
   screenshot('Lampiran E-2: Google Search Console → Performance → Scroll ke "Queries" → Screenshot 10 kata kunci teratas'),
@@ -1124,6 +1123,6 @@ const doc = new Document({
 });
 
 Packer.toBuffer(doc).then(buf => {
-  fs.writeFileSync(`${SCRATCHPAD}/LPKT-CU1-Zuriel-Seong-v10.docx`, buf);
-  console.log('Done: LPKT-CU1-Zuriel-Seong-v10.docx');
+  fs.writeFileSync(`${SCRATCHPAD}/LPKT-CU1-Zuriel-Seong-v11.docx`, buf);
+  console.log('Done: LPKT-CU1-Zuriel-Seong-v11.docx');
 });
