@@ -175,19 +175,9 @@ const pengesahanPage = [
 // ─── ABSTRAK ──────────────────────────────────────────────────────────────────
 const abstractSection = [
   h1('ABSTRAK'),
-  body('Laporan Pengalaman Keterampilan Terdahulu (LPKT) ini mendokumentasikan pengalaman kerja Zuriel Seong Ming Ee dalam merancang dan melaksanakan strategi media sosial bagi meningkatkan pengambilan pelajar baharu bagi program Diploma Kemahiran Malaysia yang dipasarkan di bawah jenama "TVET Lipis" — sebuah jenama payung bagi pusat bertauliah Jabatan Pembangunan Kemahiran (No. Tauliah K16005) di Kuala Lipis, Pahang.'),
+  body('Kempen pemasaran media sosial telah menjadi saluran utama bagi institusi pendidikan kemahiran menjangkau bakal pelajar, khususnya bagi institusi yang beroperasi di luar kawasan bandar utama. Laporan Pengalaman Keterampilan Terdahulu (LPKT) ini mendokumentasikan pengalaman merancang, melaksana, memantau dan menilai kempen pemasaran media sosial bersepadu bagi program Diploma Kemahiran Malaysia yang dipasarkan di bawah jenama "TVET Lipis", iaitu jenama payung bagi pusat bertauliah Jabatan Pembangunan Kemahiran (K16005) di Kuala Lipis, Pahang, sepanjang Januari hingga Jun 2026. Kempen ini merangkumi penerbitan kandungan organik di TikTok, Instagram dan Facebook serta pengurusan kempen iklan berbayar Lead Generation di Meta Ads dan TikTok Ads. Pendekatan kajian tindakan berkitar PDCA digunakan sebagai kerangka pelaksanaan, manakala model RACE digunakan sebagai kerangka pengukuran prestasi. Data dikumpulkan melalui analitik platform, penyata bil rasmi platform iklan, Google Search Console dan Sistem Pengurusan Hubungan Pelanggan (CRM) institusi, serta dianalisis secara deskriptif. Dapatan menunjukkan kempen menjana 2,927,157 tontonan video dengan jangkauan audiens 2,622,406, serta 3,470 prospek dalam talian iaitu 2,336 (67.3%) melalui Meta Ads dan 1,134 (32.7%) melalui TikTok Ads. Program Pendidikan Awal Kanak-Kanak mencatatkan permintaan tertinggi dengan 1,903 prospek (54.8%), manakala taburan geografi merangkumi seluruh negara dengan Selangor, Kelantan dan Pahang sebagai penyumbang utama. Dari segi keberkesanan kos, perbelanjaan iklan keseluruhan sebanyak RM12,292.39 menghasilkan Kos Per Prospek gabungan RM3.54; TikTok Ads beroperasi pada RM2.03 berbanding Meta Ads RM4.28, iaitu 52.5% lebih rendah, sambil menyumbang 32.7% prospek daripada hanya 18.8% belanjawan. Pemantauan berkala turut membolehkan Kos Per Prospek Meta Ads diturunkan daripada RM9.65 pada Februari kepada RM3.32 menjelang April 2026, iaitu penambahbaikan 65.6%, manakala ketepatan penyasaran disahkan dengan 86.4% prospek berumur 21 tahun ke bawah. Kajian menyimpulkan bahawa strategi media sosial yang berstruktur dan berasaskan data mampu mengatasi batasan geografi institusi kemahiran luar bandar, dan mengemukakan lapan cadangan penambahbaikan dengan pelaksanaan WhatsApp Business API sebagai saluran susulan berskala sebagai keutamaan tertinggi.'),
   blank(),
-  body('Tujuan LPKT ini ialah untuk mendokumentasikan pengalaman keterampilan dalam merancang Kalendar Kandungan, menerbitkan kandungan organik merentas platform TikTok, Instagram dan Facebook, serta menguruskan kempen iklan berbayar Meta Ads yang disasarkan kepada bakal pelajar berumur 17–25 tahun di Pahang dan negeri berjiran, merangkumi tempoh Januari hingga Jun 2026. Pembolehubah utama ialah keberkesanan strategi media sosial dalam menjana prospek (leads) yang direkodkan dalam Sistem CRM TVET Lipis.'),
-  blank(),
-  body('Instrumen yang digunakan merangkumi analitik platform (TikTok Analytics, Meta Business Suite, Google Search Console), Sistem CRM TVET Lipis untuk pengesanan prospek dalam talian, dan senarai semak kualiti kandungan. Pendekatan kajian tindakan berkitar PDCA (Plan-Do-Check-Act) digunakan sebagai kerangka pelaksanaan, manakala model RACE (Reach, Act, Convert, Engage) digunakan sebagai kerangka pengukuran prestasi.'),
-  blank(),
-  body('Dapatan menunjukkan kempen menghasilkan 2,927,157 tontonan video di TikTok dengan jangkauan audiens 2,622,406, serta 3,470 prospek dalam talian — 2,336 (67.3%) melalui Meta Ads dan 1,134 (32.7%) melalui TikTok Ads. Prospek direkodkan daripada seluruh negara dengan Selangor (443), Kelantan (401) dan Pahang (293) sebagai penyumbang tertinggi, membuktikan keupayaan pemasaran digital mengatasi batasan geografi institusi luar bandar. Kursus PAKK mencatatkan permintaan tertinggi dengan 1,903 prospek (54.8%).'),
-  blank(),
-  body('Dari segi keberkesanan kos, perbelanjaan iklan keseluruhan sebanyak RM12,292.39 menghasilkan Kos Per Prospek gabungan RM3.54. Analisis mengikut platform mendapati TikTok Ads beroperasi pada CPL RM2.03 berbanding Meta Ads RM4.28, iaitu 52.5% lebih rendah, sambil menyumbang 32.7% prospek daripada hanya 18.8% belanjawan. Pemantauan berkala turut membolehkan CPL Meta Ads diturunkan daripada RM9.65 (Februari) kepada RM3.32 (April), iaitu penambahbaikan 65.6%. Penyasaran iklan disahkan tepat dengan 86.4% prospek berumur 21 tahun ke bawah.'),
-  blank(),
-  body('Lapan cadangan penambahbaikan dikemukakan mengikut keutamaan impak, dengan pelaksanaan WhatsApp Business API sebagai saluran susulan berskala sebagai keutamaan tertinggi bagi melengkapkan rantaian kempen daripada penjanaan prospek kepada pemupukan prospek.'),
-  blank(),
-  body('Kata Kunci: Media Sosial, Pengambilan Pelajar Baharu, Meta Ads, TikTok Ads, CRM, Penjanaan Prospek, Corong Pemasaran, Institusi TVET', { bold: true }),
+  body('Kata Kunci: Media Sosial, Pengambilan Pelajar Baharu, Meta Ads, TikTok Ads, Kos Per Prospek, Penjanaan Prospek, Institusi TVET', { bold: true }),
   pageBreak(),
 ];
 
@@ -1123,6 +1113,6 @@ const doc = new Document({
 });
 
 Packer.toBuffer(doc).then(buf => {
-  fs.writeFileSync(`${SCRATCHPAD}/LPKT-CU1-Zuriel-Seong-v11.docx`, buf);
-  console.log('Done: LPKT-CU1-Zuriel-Seong-v11.docx');
+  fs.writeFileSync(`${SCRATCHPAD}/LPKT-CU1-Zuriel-Seong-v12.docx`, buf);
+  console.log('Done: LPKT-CU1-Zuriel-Seong-v12.docx');
 });
