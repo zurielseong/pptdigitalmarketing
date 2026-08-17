@@ -219,8 +219,9 @@ const senaraiJadual = [
   indent('Jadual 3.14  Negeri Teratas Mengikut Bilangan Prospek'),
   indent('Jadual 3.15  Ringkasan Perbelanjaan dan Kos Per Prospek Mengikut Platform'),
   indent('Jadual 3.16  Perbelanjaan Meta Ads dan Kos Per Prospek Mengikut Bulan'),
-  indent('Jadual 3.17  Perbelanjaan TikTok Ads dan Kos Per Prospek Mengikut Bulan'),
-  indent('Jadual 3.18  Penilaian Pencapaian Objektif Kempen'),
+  indent('Jadual 3.17  Kecekapan Set Iklan Meta Ads Mengikut Kos Per Prospek'),
+  indent('Jadual 3.18  Perbelanjaan TikTok Ads dan Kos Per Prospek Mengikut Bulan'),
+  indent('Jadual 3.19  Penilaian Pencapaian Objektif Kempen'),
   blank(),
   body('SENARAI LAMPIRAN', { bold: true }),
   indent('Lampiran A  Kalendar Kandungan Media Sosial (Jan – Jun 2026)'),
@@ -811,7 +812,7 @@ const bab3 = [
   h2('3.8  Analisis Keberkesanan Kos Kempen Iklan Berbayar'),
   body('Seksyen ini menilai keberkesanan kos kempen iklan berbayar dengan mengira Kos Per Prospek (Cost Per Lead, CPL), iaitu metrik utama bagi menilai kecekapan perbelanjaan kempen penjanaan prospek. Data perbelanjaan diperoleh daripada penyata bil rasmi Meta Platforms Ireland Limited bagi tempoh 1 Januari hingga 1 Julai 2026.'),
   blank(),
-  body('Jadual 3.15: Ringkasan Perbelanjaan dan Kos Per Prospek Mengikut Platform', { bold: true }),
+  body('Jadual 3.15: Ringkasan Perbelanjaan dan Kos Per Prospek Mengikut Platform (asas: penyata bil platform dan rekod prospek CRM)', { bold: true }),
   blank(),
   simpleTable(
     ['Platform Iklan', 'Perbelanjaan (RM)', 'Prospek Dijana', 'Kos Per Prospek (RM)'],
@@ -826,6 +827,26 @@ const bab3 = [
   body('Keseluruhan kempen iklan berbayar melibatkan perbelanjaan RM12,292.39 bagi menjana 3,470 prospek, menghasilkan Kos Per Prospek gabungan sebanyak RM3.54. Setiap prospek merupakan individu yang secara sukarela memberikan nama, nombor telefon, kursus diminati dan negeri asal melalui borang Lead Generation.'),
   blank(),
   body('Perbandingan antara kedua-dua platform mendedahkan perbezaan kecekapan kos yang ketara. TikTok Ads mencatatkan Kos Per Prospek sebanyak RM2.03 berbanding Meta Ads RM4.28 \u2014 iaitu 52.5% lebih rendah. Perbezaan ini menjadi lebih bermakna apabila dilihat dari sudut agihan sumber: TikTok Ads hanya menerima 18.8% daripada jumlah belanjawan iklan tetapi menyumbang 32.7% daripada keseluruhan prospek yang dijana. Dengan kata lain, setiap ringgit yang dibelanjakan di TikTok Ads menghasilkan lebih dua kali ganda bilangan prospek berbanding Meta Ads.'),
+  blank(),
+  body('Penjelasan Sumber Data dan Perbezaan Angka', { bold: true }),
+  blank(),
+  body('Tiga sumber data digunakan dalam analisis kos ini, dan setiap satu mengukur perkara yang berbeza. Perbezaan antara angka-angka tersebut bukan percanggahan, sebaliknya mencerminkan sifat setiap sumber:'),
+  blank(),
+  simpleTable(
+    ['Sumber Data', 'Angka Direkodkan', 'Apa yang Diukur'],
+    [
+      ['Penyata bil Meta Platforms', 'RM9,987.56', 'Wang sebenar dibayar antara 1 Jan \u2013 1 Jul 2026'],
+      ['Meta Ads Manager', 'RM8,936.21 / 1,848 prospek', 'Kos penyampaian iklan dan prospek dijana dalam tempoh 1 Jan \u2013 30 Jun 2026'],
+      ['Sistem CRM TVET Lipis', '2,336 prospek bersumber Meta', 'Rekod prospek yang diterima dan disimpan oleh institusi'],
+    ],
+    [2800, 2680, 3880]
+  ),
+  blank(),
+  body('Perbezaan antara penyata bil (RM9,987.56) dan Meta Ads Manager (RM8,936.21) berpunca daripada kaedah pengebilan Meta yang mengenakan caj secara tertunggak. Bayaran pertama pada 3 Januari 2026 sebanyak RM807.09 sebenarnya menyelesaikan kos penyampaian iklan pada Disember 2025 — iaitu wang yang dibayar dalam tempoh kajian tetapi bagi iklan yang disampaikan sebelum tempoh tersebut bermula.'),
+  blank(),
+  body('Perbezaan antara bilangan prospek dalam Ads Manager (1,848) dan CRM (2,336) pula berpunca daripada tiga faktor: pertama, terdapat 130 hasil berbentuk perbualan mesej (messaging conversations) yang direkodkan berasingan daripada prospek borang tetapi turut masuk ke dalam CRM; kedua, medan sumber dalam CRM merangkumi semua prospek berasal daripada platform Meta termasuk yang menghubungi secara organik tanpa melalui iklan; dan ketiga, terdapat kemungkinan rekod berulang apabila individu yang sama mengisi borang lebih daripada sekali.'),
+  blank(),
+  body('Bagi tujuan analisis dalam LPKT ini, data Meta Ads Manager digunakan untuk penilaian kecekapan kempen kerana perbelanjaan dan prospek diukur oleh sistem yang sama dalam tempoh yang sama. Data CRM pula digunakan untuk analisis profil prospek mengikut kursus, umur dan lokasi kerana ia merupakan rekod sebenar maklumat yang diterima institusi. Kesedaran terhadap perbezaan sumber ini penting bagi memastikan setiap angka ditafsirkan mengikut konteks yang betul.'),
   blank(),
   body('Dapatan ini mengesahkan bahawa keputusan melancarkan TikTok Ads pada Mac 2026 \u2014 yang pada asalnya diambil sebagai tindak balas kepada penurunan prestasi Meta Ads pada Februari \u2014 adalah tepat dari dua sudut serentak: bukan sahaja TikTok Ads menjana jumlah prospek yang semakin meningkat setiap bulan, malah ia melakukannya pada kos per prospek yang jauh lebih rendah. Keputusan berasaskan data ini merupakan contoh konkrit amalan pengoptimuman kempen yang berkesan.'),
   blank(),
@@ -853,7 +874,35 @@ const bab3 = [
   blank(),
   body('Peningkatan semula Kos Per Prospek kepada RM9.87 pada Jun 2026 berlaku seiring dengan pengurangan belanjawan Meta Ads apabila tumpuan dialihkan kepada TikTok Ads. Pada bulan tersebut, TikTok Ads menjana 254 prospek berbanding Meta Ads 56 prospek, menunjukkan peralihan keberkesanan saluran menjelang penghujung tempoh kempen.'),
   blank(),
-  body('Jadual 3.17: Perbelanjaan TikTok Ads dan Kos Per Prospek Mengikut Bulan', { bold: true }),
+  body('Analisis pada peringkat set iklan mendedahkan julat kecekapan kos yang luas dalam kempen Meta Ads. Jadual 3.17 menyusun kesemua set iklan berorientasikan borang prospek mengikut Kos Per Prospek, daripada yang paling cekap kepada yang paling mahal.'),
+  blank(),
+  body('Jadual 3.17: Kecekapan Set Iklan Meta Ads Mengikut Kos Per Prospek (Sumber: Meta Ads Manager)', { bold: true }),
+  blank(),
+  simpleTable(
+    ['Set Iklan', 'Perbelanjaan (RM)', 'Prospek', 'CPL (RM)', 'Kategori Kecekapan'],
+    [
+      ['Set Iklan A', '421.45', '143', '2.95', 'Bawah purata (cekap)'],
+      ['Set Iklan B', '142.32', '45', '3.16', 'Bawah purata (cekap)'],
+      ['Set Iklan C', '1,411.77', '373', '3.78', 'Bawah purata (cekap)'],
+      ['Set Iklan D', '2,651.70', '616', '4.30', 'Bawah purata (cekap)'],
+      ['Set Iklan E', '310.72', '66', '4.71', 'Atas purata (mahal)'],
+      ['Set Iklan F', '1,172.06', '228', '5.14', 'Atas purata (mahal)'],
+      ['Set Iklan G', '183.40', '29', '6.32', 'Atas purata (mahal)'],
+      ['Set Iklan H', '2,104.77', '303', '6.95', 'Atas purata (mahal)'],
+      ['JUMLAH', '8,398.19', '1,803', '4.66', 'Purata keseluruhan'],
+    ],
+    [1800, 1900, 1300, 1300, 3060]
+  ),
+  blank(),
+  body('Jurang antara set iklan paling cekap (RM2.95) dan paling mahal (RM6.95) ialah 2.4 kali ganda. Apabila set iklan dikumpulkan kepada dua kategori mengikut purata keseluruhan, perbezaan hasil menjadi sangat ketara: empat set iklan berkos rendah membelanjakan RM4,627.24 dan menjana 1,177 prospek, manakala empat set iklan berkos tinggi membelanjakan RM3,770.95 tetapi hanya menjana 626 prospek. Dengan perbelanjaan yang hampir sama, kumpulan pertama menghasilkan 88% lebih banyak prospek berbanding kumpulan kedua.'),
+  blank(),
+  body('Sekiranya keseluruhan belanjawan RM8,398.19 beroperasi pada kadar set iklan paling cekap (RM2.95), anggaran 2,850 prospek boleh dijana berbanding 1,803 prospek sebenar — iaitu potensi peningkatan sebanyak 58% tanpa sebarang penambahan belanjawan. Pengiraan ini menunjukkan bahawa peluang penambahbaikan terbesar dalam kempen berbayar bukanlah pada penambahan perbelanjaan, tetapi pada pengagihan semula belanjawan sedia ada kepada set iklan berprestasi tinggi.'),
+  blank(),
+  body('Perlu diambil perhatian bahawa kadar penukaran prospek berbanding jangkauan bagi kesemua set iklan berada dalam julat sempit antara 0.23% hingga 0.47%. Ini menunjukkan perbezaan Kos Per Prospek didorong terutamanya oleh kos penyampaian iklan dan bukan oleh perbezaan keberkesanan kreatif dalam menukar penonton kepada prospek.'),
+  blank(),
+  screenshot('Lampiran D-6: Meta Ads Manager \u2192 Ad Sets \u2192 Tukar tempoh ke 1 Jan \u2013 30 Jun 2026 \u2192 Susun mengikut Cost per result \u2192 Screenshot menunjukkan Amount spent, Results dan Cost per result bagi setiap set iklan'),
+  blank(),
+  body('Jadual 3.18: Perbelanjaan TikTok Ads dan Kos Per Prospek Mengikut Bulan', { bold: true }),
   blank(),
   simpleTable(
     ['Bulan', 'Perbelanjaan (RM)', 'Prospek', 'CPL (RM)', 'Catatan Prestasi'],
@@ -877,9 +926,9 @@ const bab3 = [
   screenshot('Lampiran D-5: TikTok Ads Manager \u2192 Campaign \u2192 Tukar tempoh ke Mac\u2013Jun 2026 \u2192 Screenshot menunjukkan Total Spend dan bilangan Leads'),
 
   h2('3.9  Pencapaian Berbanding Objektif'),
-  body('Jadual 3.18 menilai sejauh mana setiap objektif kempen yang ditetapkan dalam Bab 1 telah dicapai berdasarkan data yang dikumpulkan.'),
+  body('Jadual 3.19 menilai sejauh mana setiap objektif kempen yang ditetapkan dalam Bab 1 telah dicapai berdasarkan data yang dikumpulkan.'),
   blank(),
-  body('Jadual 3.18: Penilaian Pencapaian Objektif Kempen (Januari – Jun 2026)', { bold: true }),
+  body('Jadual 3.19: Penilaian Pencapaian Objektif Kempen (Januari – Jun 2026)', { bold: true }),
   blank(),
   simpleTable(
     ['Objektif', 'KPI / Sasaran', 'Keputusan Sebenar', 'Status'],
@@ -1088,6 +1137,6 @@ const doc = new Document({
 });
 
 Packer.toBuffer(doc).then(buf => {
-  fs.writeFileSync(`${SCRATCHPAD}/LPKT-CU1-Zuriel-Seong-v8.docx`, buf);
-  console.log('Done: LPKT-CU1-Zuriel-Seong-v8.docx');
+  fs.writeFileSync(`${SCRATCHPAD}/LPKT-CU1-Zuriel-Seong-v9.docx`, buf);
+  console.log('Done: LPKT-CU1-Zuriel-Seong-v9.docx');
 });
