@@ -183,7 +183,7 @@ const abstractSection = [
   blank(),
   body('Dapatan menunjukkan kempen menghasilkan 2,927,157 tontonan video di TikTok dengan jangkauan audiens 2,622,406, serta 3,470 prospek dalam talian — 2,336 (67.3%) melalui Meta Ads dan 1,134 (32.7%) melalui TikTok Ads. Prospek direkodkan daripada seluruh negara dengan Selangor (443), Kelantan (401) dan Pahang (293) sebagai penyumbang tertinggi, membuktikan keupayaan pemasaran digital mengatasi batasan geografi institusi luar bandar. Kursus PAKK mencatatkan permintaan tertinggi dengan 1,903 prospek (54.8%).'),
   blank(),
-  body('Dari segi keberkesanan kos, kempen Meta Ads mencatatkan perbelanjaan RM9,987.56 bagi menjana 2,336 prospek, menghasilkan Kos Per Prospek sebanyak RM4.28. Pemantauan berkala membolehkan tindakan pengoptimuman dilaksanakan apabila Kos Per Prospek meningkat kepada RM9.65 pada Februari 2026; hasilnya kos tersebut berjaya diturunkan kepada RM3.32 menjelang April 2026, iaitu penambahbaikan sebanyak 65.6%. Penyasaran iklan juga disahkan tepat dengan 86.4% prospek berumur 21 tahun ke bawah.'),
+  body('Dari segi keberkesanan kos, perbelanjaan iklan keseluruhan sebanyak RM12,292.39 menghasilkan Kos Per Prospek gabungan RM3.54. Analisis mengikut platform mendapati TikTok Ads beroperasi pada CPL RM2.03 berbanding Meta Ads RM4.28, iaitu 52.5% lebih rendah, sambil menyumbang 32.7% prospek daripada hanya 18.8% belanjawan. Pemantauan berkala turut membolehkan CPL Meta Ads diturunkan daripada RM9.65 (Februari) kepada RM3.32 (April), iaitu penambahbaikan 65.6%. Penyasaran iklan disahkan tepat dengan 86.4% prospek berumur 21 tahun ke bawah.'),
   blank(),
   body('Lapan cadangan penambahbaikan dikemukakan mengikut keutamaan impak, dengan pelaksanaan WhatsApp Business API sebagai saluran susulan berskala sebagai keutamaan tertinggi bagi melengkapkan rantaian kempen daripada penjanaan prospek kepada pemupukan prospek.'),
   blank(),
@@ -219,7 +219,8 @@ const senaraiJadual = [
   indent('Jadual 3.14  Negeri Teratas Mengikut Bilangan Prospek'),
   indent('Jadual 3.15  Ringkasan Perbelanjaan dan Kos Per Prospek Mengikut Platform'),
   indent('Jadual 3.16  Perbelanjaan Meta Ads dan Kos Per Prospek Mengikut Bulan'),
-  indent('Jadual 3.17  Penilaian Pencapaian Objektif Kempen'),
+  indent('Jadual 3.17  Perbelanjaan TikTok Ads dan Kos Per Prospek Mengikut Bulan'),
+  indent('Jadual 3.18  Penilaian Pencapaian Objektif Kempen'),
   blank(),
   body('SENARAI LAMPIRAN', { bold: true }),
   indent('Lampiran A  Kalendar Kandungan Media Sosial (Jan – Jun 2026)'),
@@ -296,7 +297,7 @@ const bab1 = [
   blank(),
   body('Strategi jenama payung ini terbukti berkesan apabila kata kunci berjenama "tvet lipis" menjadi kata kunci carian organik tertinggi dengan 120 klik daripada 603 tayangan di Google (lihat seksyen 3.6), menunjukkan jenama tersebut berjaya tertanam dalam ingatan audiens sasaran. Sepanjang laporan ini, istilah "TVET Lipis" merujuk kepada jenama pemasaran tersebut, manakala urusan pentauliahan dan pensijilan kekal di bawah entiti berdaftar JPK K16005.'),
   blank(),
-  dataNeeded('SAHKAN: Nyatakan nama rasmi kedua-dua kolej yang berada di bawah jenama TVET Lipis, dan nama entiti rasmi yang memegang tauliah JPK K16005. Maklumat ini perlu tepat kerana ia muncul di muka hadapan dan halaman pengesahan LPKT.'),
+  dataNeeded('SAHKAN: Rekod akaun TikTok Ads menunjukkan nama entiti "Kolej Islam Antarabangsa Cawangan Kuala Lipis". Sahkan sama ada entiti ini yang memegang tauliah JPK K16005, dan nyatakan nama rasmi kolej kedua yang turut berada di bawah jenama TVET Lipis. Maklumat ini perlu tepat kerana ia muncul di muka hadapan dan halaman pengesahan LPKT.'),
   blank(),
   body('Pengambilan pelajar baharu merupakan nadi kesinambungan operasi institusi pendidikan swasta. Bagi TVET Lipis yang beroperasi di Kuala Lipis — sebuah bandar kecil di pedalaman Pahang — cabaran pengambilan pelajar adalah lebih besar berbanding institusi di kawasan bandar utama. Kedudukan geografi yang jauh daripada pusat bandar utama menghadkan keberkesanan kaedah pemasaran konvensional seperti lawatan sekolah, pameran pendidikan dan risalah cetak, yang terikat kepada jarak fizikal dan kos perjalanan.'),
   blank(),
@@ -816,13 +817,17 @@ const bab3 = [
     ['Platform Iklan', 'Perbelanjaan (RM)', 'Prospek Dijana', 'Kos Per Prospek (RM)'],
     [
       ['Meta Ads (Facebook & Instagram)', '9,987.56', '2,336', '4.28'],
-      ['TikTok Ads', '\u26a0\ufe0f ISI dari TikTok Ads Manager', '1,134', '\u26a0\ufe0f kira: perbelanjaan \u00f7 1,134'],
-      ['JUMLAH KESELURUHAN', '\u26a0\ufe0f jumlahkan kedua-dua', '3,470', '\u26a0\ufe0f kira: jumlah \u00f7 3,470'],
+      ['TikTok Ads', '2,304.83', '1,134', '2.03'],
+      ['JUMLAH KESELURUHAN', '12,292.39', '3,470', '3.54'],
     ],
     [3000, 2200, 2000, 2160]
   ),
   blank(),
-  body('Kempen Meta Ads mencatatkan perbelanjaan sebanyak RM9,987.56 (termasuk kredit iklan RM5.03) bagi menjana 2,336 prospek, menghasilkan Kos Per Prospek sebanyak RM4.28. Bagi konteks institusi pendidikan, angka ini menunjukkan kecekapan kos yang munasabah memandangkan setiap prospek merupakan individu yang secara sukarela memberikan nama, nombor telefon, kursus diminati dan negeri asal melalui borang Lead Generation.'),
+  body('Keseluruhan kempen iklan berbayar melibatkan perbelanjaan RM12,292.39 bagi menjana 3,470 prospek, menghasilkan Kos Per Prospek gabungan sebanyak RM3.54. Setiap prospek merupakan individu yang secara sukarela memberikan nama, nombor telefon, kursus diminati dan negeri asal melalui borang Lead Generation.'),
+  blank(),
+  body('Perbandingan antara kedua-dua platform mendedahkan perbezaan kecekapan kos yang ketara. TikTok Ads mencatatkan Kos Per Prospek sebanyak RM2.03 berbanding Meta Ads RM4.28 \u2014 iaitu 52.5% lebih rendah. Perbezaan ini menjadi lebih bermakna apabila dilihat dari sudut agihan sumber: TikTok Ads hanya menerima 18.8% daripada jumlah belanjawan iklan tetapi menyumbang 32.7% daripada keseluruhan prospek yang dijana. Dengan kata lain, setiap ringgit yang dibelanjakan di TikTok Ads menghasilkan lebih dua kali ganda bilangan prospek berbanding Meta Ads.'),
+  blank(),
+  body('Dapatan ini mengesahkan bahawa keputusan melancarkan TikTok Ads pada Mac 2026 \u2014 yang pada asalnya diambil sebagai tindak balas kepada penurunan prestasi Meta Ads pada Februari \u2014 adalah tepat dari dua sudut serentak: bukan sahaja TikTok Ads menjana jumlah prospek yang semakin meningkat setiap bulan, malah ia melakukannya pada kos per prospek yang jauh lebih rendah. Keputusan berasaskan data ini merupakan contoh konkrit amalan pengoptimuman kempen yang berkesan.'),
   blank(),
   body('Jadual 3.16: Perbelanjaan Meta Ads dan Kos Per Prospek Mengikut Bulan', { bold: true }),
   blank(),
@@ -848,20 +853,40 @@ const bab3 = [
   blank(),
   body('Peningkatan semula Kos Per Prospek kepada RM9.87 pada Jun 2026 berlaku seiring dengan pengurangan belanjawan Meta Ads apabila tumpuan dialihkan kepada TikTok Ads. Pada bulan tersebut, TikTok Ads menjana 254 prospek berbanding Meta Ads 56 prospek, menunjukkan peralihan keberkesanan saluran menjelang penghujung tempoh kempen.'),
   blank(),
+  body('Jadual 3.17: Perbelanjaan TikTok Ads dan Kos Per Prospek Mengikut Bulan', { bold: true }),
+  blank(),
+  simpleTable(
+    ['Bulan', 'Perbelanjaan (RM)', 'Prospek', 'CPL (RM)', 'Catatan Prestasi'],
+    [
+      ['Mac 2026', '\u2014', '5', '\u2014', 'Kempen dilancarkan pada penghujung bulan'],
+      ['April 2026', '416.71', '560', '0.74', 'Fasa pertumbuhan pesat'],
+      ['Mei 2026', '1,063.15', '315', '3.37', 'Belanjawan ditingkatkan'],
+      ['Jun 2026', '824.97', '254', '3.25', 'Melebihi Meta Ads dari segi jumlah prospek'],
+      ['JUMLAH', '2,304.83', '1,134', '2.03', 'Purata keseluruhan tempoh'],
+    ],
+    [1600, 1900, 1300, 1300, 3260]
+  ),
+  blank(),
+  body('Nota: Bil pertama TikTok Ads direkodkan pada 1 April 2026, meliputi penyampaian iklan pada penghujung Mac 2026. Prospek bulan Mac (5 rekod) tidak mempunyai bil berasingan dan diserapkan dalam pengiraan keseluruhan.', { italics: true, color: '666666' }),
+  blank(),
+  body('TikTok Ads menunjukkan corak pertumbuhan yang berbeza daripada Meta Ads. Bermula dengan perbelanjaan kecil sebanyak RM416.71 pada April 2026, peruntukan ditingkatkan secara berperingkat kepada RM1,063.15 pada Mei sebaik prestasi awal disahkan. Menjelang Jun 2026, TikTok Ads menjana 254 prospek berbanding Meta Ads yang hanya menjana 56 prospek pada bulan yang sama \u2014 iaitu lebih empat kali ganda \u2014 walaupun dengan perbelanjaan yang lebih tinggi berbanding Meta pada bulan tersebut.'),
+  blank(),
+  body('Sepanjang tempoh operasi TikTok Ads, Kos Per Prospek kekal berada di bawah paras Meta Ads pada setiap bulan. Ini mengukuhkan asas cadangan pengagihan semula belanjawan yang dikemukakan dalam Bab 4.'),
+  blank(),
   screenshot('Lampiran D-4: Meta Ads Manager \u2192 Billing \u2192 Tukar tempoh ke 1 Jan \u2013 1 Jul 2026 \u2192 Screenshot penyata bil menunjukkan Total amount billed MYR9,987.56'),
   screenshot('Lampiran D-5: TikTok Ads Manager \u2192 Campaign \u2192 Tukar tempoh ke Mac\u2013Jun 2026 \u2192 Screenshot menunjukkan Total Spend dan bilangan Leads'),
 
   h2('3.9  Pencapaian Berbanding Objektif'),
-  body('Jadual 3.17 menilai sejauh mana setiap objektif kempen yang ditetapkan dalam Bab 1 telah dicapai berdasarkan data yang dikumpulkan.'),
+  body('Jadual 3.18 menilai sejauh mana setiap objektif kempen yang ditetapkan dalam Bab 1 telah dicapai berdasarkan data yang dikumpulkan.'),
   blank(),
-  body('Jadual 3.17: Penilaian Pencapaian Objektif Kempen (Januari – Jun 2026)', { bold: true }),
+  body('Jadual 3.18: Penilaian Pencapaian Objektif Kempen (Januari – Jun 2026)', { bold: true }),
   blank(),
   simpleTable(
     ['Objektif', 'KPI / Sasaran', 'Keputusan Sebenar', 'Status'],
     [
       ['Obj. 1: Rancang dan laksana strategi media sosial komprehensif', 'Kalendar Kandungan 6 bulan dibangunkan; kandungan organik diterbitkan merentas TikTok, Instagram dan Facebook; kempen Lead Generation aktif di Meta Ads dan TikTok Ads', 'Kalendar Kandungan dibangunkan dan dilaksanakan. Meta Ads Lead Generation aktif Januari–Jun 2026. TikTok Ads dilancarkan Mac 2026. Akaun TikTok mencapai 13,800 pengikut dan 118,500 likes kumulatif; Instagram 165 pengikut dengan 127 siaran.', 'DICAPAI'],
       ['Obj. 2: Analisis prestasi berdasarkan metrik utama', 'Metrik jangkauan, tontonan, penglibatan, trafik carian dan data prospek dikumpul dan dianalisis mengikut sumber, kursus dan lokasi', 'TikTok: 2,927,157 tontonan, 2,622,406 jangkauan audiens, 15,251 paparan profil. Google Search Console: 329 klik organik. CRM: 3,470 prospek dianalisis mengikut sumber, bulan, kursus, umur, jantina dan negeri.', 'DICAPAI'],
-      ['Obj. 3: Nilai keberkesanan kempen dan kemukakan cadangan berasaskan data', 'Kos Per Prospek dikira dan dipantau; kecekapan kempen dinilai; cadangan penambahbaikan dikemukakan', 'Meta Ads: perbelanjaan RM9,987.56 menjana 2,336 prospek pada CPL RM4.28. Pengoptimuman berjaya menurunkan CPL daripada RM9.65 (Feb) kepada RM3.32 (Apr) — penambahbaikan 65.6%. 3,470 prospek dijana keseluruhan; 16 pendaftaran disahkan. Tujuh cadangan dikemukakan dalam Bab 4.', 'DICAPAI'],
+      ['Obj. 3: Nilai keberkesanan kempen dan kemukakan cadangan berasaskan data', 'Kos Per Prospek dikira dan dipantau; kecekapan kempen dinilai; cadangan penambahbaikan dikemukakan', 'Perbelanjaan keseluruhan RM12,292.39 menjana 3,470 prospek pada CPL gabungan RM3.54. Meta Ads: RM9,987.56 / 2,336 prospek / CPL RM4.28. TikTok Ads: RM2,304.83 / 1,134 prospek / CPL RM2.03 — 52.5% lebih rendah. Pengoptimuman Meta menurunkan CPL daripada RM9.65 (Feb) kepada RM3.32 (Apr). Lapan cadangan dikemukakan dalam Bab 4.', 'DICAPAI'],
     ],
     [2200, 2200, 3200, 1760]
   ),
@@ -882,7 +907,7 @@ const bab4 = [
   blank(),
   bodyRun([{ text: 'i.    Jangkauan Digital Mengatasi Batasan Geografi: ', bold: true }, { text: 'Dapatan paling ketara ialah kemampuan kempen menjangkau audiens jauh melepasi kedudukan fizikal institusi. Dengan 2,927,157 tontonan video dan prospek yang datang dari seluruh negara — Selangor (443), Kelantan (401), Johor (261) dan Sabah (129) — kempen ini membuktikan bahawa sebuah institusi kemahiran di pedalaman Pahang mampu bersaing merebut perhatian bakal pelajar pada skala nasional. Pahang sendiri hanya menyumbang 293 prospek (8.4%), menunjukkan bahawa nilai sebenar pemasaran digital bagi institusi luar bandar terletak pada keupayaannya menembusi pasaran luar kawasan.' }]),
   blank(),
-  bodyRun([{ text: 'ii.   Keberkesanan Strategi Dwi-Platform Lead Generation: ', bold: true }, { text: 'Gabungan Meta Ads (2,336 prospek) dan TikTok Ads (1,134 prospek) menghasilkan 3,470 prospek sepanjang enam bulan. Yang lebih penting daripada jumlah tersebut ialah keputusan strategik yang membawa kepadanya: apabila prestasi Meta Ads menurun daripada 345 prospek (Januari) kepada 133 (Februari), saluran kedua dibuka pada Mac 2026. Menjelang Jun 2026, TikTok Ads menghasilkan 254 prospek berbanding Meta Ads 56 prospek. Keputusan berasaskan data ini menyelamatkan momentum kempen dan mencerminkan amalan pengoptimuman berterusan yang menjadi teras pendekatan PDCA (Deming, 1986).' }]),
+  bodyRun([{ text: 'ii.   Keberkesanan Strategi Dwi-Platform Lead Generation: ', bold: true }, { text: 'Gabungan Meta Ads (2,336 prospek) dan TikTok Ads (1,134 prospek) menghasilkan 3,470 prospek sepanjang enam bulan. Yang lebih penting daripada jumlah tersebut ialah keputusan strategik yang membawa kepadanya: apabila prestasi Meta Ads menurun daripada 345 prospek (Januari) kepada 133 (Februari), saluran kedua dibuka pada Mac 2026. Menjelang Jun 2026, TikTok Ads menghasilkan 254 prospek berbanding Meta Ads 56 prospek. Data kos mengesahkan ketepatan keputusan tersebut dari sudut kedua: TikTok Ads beroperasi pada CPL RM2.03 berbanding Meta Ads RM4.28. Justeru saluran baharu yang dibuka bukan sahaja memulihkan jumlah prospek, malah melakukannya pada separuh kos setiap prospek. Keputusan berasaskan data ini menyelamatkan momentum kempen dan mencerminkan amalan pengoptimuman berterusan yang menjadi teras pendekatan PDCA (Deming, 1986).' }]),
   blank(),
   bodyRun([{ text: 'iii.  Kandungan Bermotivasi Menjana Jangkauan Tertinggi: ', bold: true }, { text: 'Video "Ini adalah peluang kedua anda!" mencatatkan 3,800,000 tontonan — jauh mengatasi kandungan promosi program yang lain. Tema video ini menyentuh keresahan sebenar audiens sasaran, iaitu lepasan sekolah yang keputusan peperiksaannya tidak membolehkan kemasukan ke laluan akademik konvensional. Dapatan ini selari dengan pandangan Rutter, Roper dan Lettice (2016) bahawa kandungan yang membina hubungan emosi dengan bakal pelajar memberi kesan lebih besar kepada prestasi pengambilan berbanding kandungan bersifat pengumuman semata-mata. Video "PERHATIAN KEPADA IBU BAPA" (502,900 tontonan) pula mengesahkan kepentingan menyasarkan Persona B, iaitu ibu bapa yang turut terlibat dalam keputusan pengajian anak.' }]),
   blank(),
@@ -928,7 +953,7 @@ const bab4 = [
   body('Cadangan ini mempunyai potensi impak terbesar. Kempen kini mampu menjana ribuan prospek, tetapi tiada saluran yang membenarkan komunikasi susulan pada skala tersebut. Akaun WhatsApp Business biasa tidak sesuai kerana penghantaran mesej pukal berisiko menyebabkan akaun disekat oleh Meta. Pelaksanaan WhatsApp Business API membolehkan penghantaran mesej templat yang diluluskan secara sah dan berskala, penjadualan mesej susulan automatik, serta integrasi terus dengan Sistem CRM. Ini melengkapkan rantaian kempen daripada penjanaan prospek kepada pemupukan prospek.'),
   blank(),
   bodyRun([{ text: 'ii.   Agihkan Belanjawan Iklan Mengikut Prestasi Kos Setiap Saluran', bold: true }]),
-  body('Data enam bulan menunjukkan Kos Per Prospek Meta Ads berubah dengan ketara mengikut bulan, daripada RM3.32 (April) sehingga RM9.87 (Jun). Dicadangkan pemantauan CPL dilakukan secara mingguan dan belanjawan dialihkan secara dinamik kepada saluran serta set iklan yang mencatatkan CPL terendah. Perbandingan langsung antara CPL Meta Ads dan TikTok Ads perlu dijadikan asas keputusan peruntukan belanjawan pada kitaran akan datang.'),
+  body('Data enam bulan menunjukkan TikTok Ads beroperasi pada CPL RM2.03 berbanding Meta Ads RM4.28, sambil menyumbang 32.7% prospek daripada hanya 18.8% belanjawan. Sekiranya nisbah peruntukan diseimbangkan semula ke arah TikTok Ads pada kitaran akan datang, jumlah prospek yang lebih tinggi berpotensi dijana pada belanjawan yang sama. Dicadangkan pemantauan CPL dilakukan secara mingguan di kedua-dua platform, dan belanjawan dialihkan secara dinamik kepada saluran serta set iklan yang mencatatkan CPL terendah. Ujian diagnostik ke atas Meta Ads turut perlu dijalankan bagi menentukan sama ada CPL yang lebih tinggi berpunca daripada keletihan kreatif, persaingan bidaan atau ketepatan penyasaran.'),
   blank(),
   bodyRun([{ text: 'iii.  Selaraskan Kandungan dengan Corak Permintaan Sebenar', bold: true }]),
   body('Data prospek menunjukkan PAKK menyumbang 54.8% permintaan dan Pra-Sekolah 21.7% — bersamaan 76.5% permintaan tertumpu kepada dua program pendidikan kanak-kanak. Nisbah pengeluaran kandungan dan peruntukan iklan wajar diselaraskan mengikut corak permintaan ini. Penyasaran geografi juga perlu memberi keutamaan kepada Selangor, Kelantan, Pahang dan Johor yang mencatatkan bilangan prospek tertinggi.'),
@@ -1063,6 +1088,6 @@ const doc = new Document({
 });
 
 Packer.toBuffer(doc).then(buf => {
-  fs.writeFileSync(`${SCRATCHPAD}/LPKT-CU1-Zuriel-Seong-v7.docx`, buf);
-  console.log('Done: LPKT-CU1-Zuriel-Seong-v7.docx');
+  fs.writeFileSync(`${SCRATCHPAD}/LPKT-CU1-Zuriel-Seong-v8.docx`, buf);
+  console.log('Done: LPKT-CU1-Zuriel-Seong-v8.docx');
 });
