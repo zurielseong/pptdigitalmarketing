@@ -284,19 +284,13 @@ const bab1 = [
   h2('1.1  Latar Belakang'),
   body('Terdapat dua buah pusat bertauliah Jabatan Pembangunan Kemahiran (JPK) yang beroperasi di Kuala Lipis, Pahang. Kedua-dua pusat ini menawarkan program Diploma Kemahiran Malaysia (DKM) dalam bidang Pendidikan Awal Kanak-Kanak (PAKK), Pra-Sekolah, Multimedia dan Elektrik, dengan pembiayaan pelajar melalui skim Perbadanan Tabung Pembangunan Kemahiran (PTPK). LPKT ini disediakan melalui pusat bertauliah bernombor tauliah K16005 yang terletak di Jalan Hospital, 27200 Kuala Lipis.'),
   blank(),
-  bodyRun([{ text: 'Kelahiran Jenama Pemasaran "TVET Lipis". ', bold: true }, { text: 'Walaupun kedua-dua pusat bertauliah tersebut berasingan dari segi pentauliahan dan pentadbiran, kedua-duanya berkongsi cabaran pemasaran yang sama iaitu kedudukan geografi di luar bandar utama serta tahap kesedaran orang ramai yang rendah terhadap laluan pendidikan teknikal dan vokasional (TVET) di wilayah Pantai Timur. Bagi menangani cabaran ini, jenama pemasaran "TVET Lipis" dibangunkan sebagai identiti payung tunggal yang menghimpunkan penawaran program kedua-dua pusat. Matlamat jenama ini bukan sekadar memasarkan program masing-masing, tetapi mengangkat profil pendidikan TVET di Kuala Lipis dan wilayah Pantai Timur secara keseluruhan.' }]),
+  body('Kedua-dua pusat bertauliah ini berkongsi cabaran pemasaran yang sama. Kedudukan di Kuala Lipis, sebuah bandar kecil di pedalaman Pahang, menghadkan keberkesanan kaedah pemasaran konvensional seperti lawatan sekolah, pameran pendidikan dan risalah cetak yang terikat kepada jarak fizikal dan kos perjalanan. Pada masa yang sama, kesedaran orang ramai terhadap laluan pendidikan teknikal dan vokasional (TVET) di wilayah Pantai Timur masih rendah berbanding laluan akademik konvensional.'),
   blank(),
-  body('Keputusan menggunakan jenama payung ini diambil atas tiga pertimbangan pemasaran. Pertama, nama rasmi kedua-dua pusat bertauliah adalah panjang dan sukar diingati oleh bakal pelajar. Kedua, istilah "TVET" telah dikenali secara meluas di Malaysia sebagai rujukan kepada pendidikan teknikal dan vokasional, menjadikannya titik masuk yang lebih mudah difahami berbanding nama institusi. Ketiga, penggunaan satu jenama tunggal membolehkan usaha pemasaran media sosial ditumpukan kepada satu akaun bagi setiap platform, berbanding memecahkan jangkauan, belanjawan dan tenaga pengeluaran kandungan kepada beberapa akaun berasingan.'),
+  bodyRun([{ text: 'Kelahiran Jenama Pemasaran "TVET Lipis". ', bold: true }, { text: 'Bagi menangani cabaran ini, jenama pemasaran "TVET Lipis" dibangunkan sebagai identiti payung tunggal yang menghimpunkan penawaran program kedua-dua pusat bertauliah. Tiga pertimbangan mendasari keputusan ini: nama rasmi kedua-dua pusat adalah panjang dan sukar diingati oleh bakal pelajar; istilah "TVET" telah dikenali secara meluas di Malaysia sehingga menjadi titik masuk yang lebih mudah difahami berbanding nama institusi; dan penggunaan satu jenama tunggal membolehkan usaha pemasaran ditumpukan kepada satu akaun bagi setiap platform, berbanding memecahkan jangkauan dan belanjawan kepada beberapa akaun berasingan. Matlamat jenama ini bukan sekadar memasarkan program masing-masing, tetapi mengangkat profil pendidikan TVET di Kuala Lipis dan wilayah Pantai Timur secara keseluruhan.' }]),
   blank(),
-  body('Perlu ditegaskan bahawa "TVET Lipis" merupakan jenama pemasaran dan bukan nama entiti yang berdaftar dengan JPK. Sepanjang laporan ini, istilah tersebut merujuk kepada jenama pemasaran berkenaan, manakala urusan pentauliahan, pengambilan rasmi dan pensijilan kekal di bawah pusat bertauliah masing-masing.'),
+  body('Perlu ditegaskan bahawa "TVET Lipis" merupakan jenama pemasaran dan bukan nama entiti yang berdaftar dengan JPK. Urusan pentauliahan, pengambilan rasmi dan pensijilan kekal di bawah pusat bertauliah masing-masing. Strategi ini terbukti berkesan apabila kata kunci "tvet lipis" menjadi kata kunci carian organik tertinggi dengan 120 klik — hampir tujuh kali ganda berbanding carian menggunakan nama rasmi kolej yang hanya mencatatkan 18 klik (lihat seksyen 3.6).'),
   blank(),
-  body('Strategi jenama payung ini terbukti berkesan. Kata kunci berjenama "tvet lipis" menjadi kata kunci carian organik tertinggi dengan 120 klik daripada 603 tayangan di Google — hampir tujuh kali ganda berbanding carian menggunakan nama rasmi kolej yang hanya mencatatkan 18 klik (lihat seksyen 3.6). Ini menunjukkan jenama tersebut berjaya tertanam dalam ingatan audiens sasaran, dan bahawa bakal pelajar mencari institusi melalui jenama pemasarannya dan bukan melalui nama pentauliahan rasmi.'),
-  blank(),
-  body('Pengambilan pelajar baharu merupakan nadi kesinambungan operasi institusi pendidikan swasta. Bagi TVET Lipis yang beroperasi di Kuala Lipis — sebuah bandar kecil di pedalaman Pahang — cabaran pengambilan pelajar adalah lebih besar berbanding institusi di kawasan bandar utama. Kedudukan geografi yang jauh daripada pusat bandar utama menghadkan keberkesanan kaedah pemasaran konvensional seperti lawatan sekolah, pameran pendidikan dan risalah cetak, yang terikat kepada jarak fizikal dan kos perjalanan.'),
-  blank(),
-  body('Media sosial telah menjadi saluran pemasaran utama dalam industri pendidikan kerana ia membolehkan institusi menjangkau bakal pelajar tanpa terikat kepada sempadan geografi. Bagi golongan belia lepasan SPM yang menjadi audiens sasaran utama TVET Lipis, platform video pendek seperti TikTok dan Instagram Reels merupakan saluran maklumat harian yang dominan (Datareportal, 2024). Kaplan dan Haenlein (2010) menegaskan bahawa media sosial mengubah hubungan organisasi-pengguna daripada komunikasi sehala kepada interaksi dua hala, manakala Rutter, Roper dan Lettice (2016) mendapati aktiviti media sosial institusi pendidikan mempunyai hubungan positif dengan prestasi pengambilan pelajar.'),
-  blank(),
-  body('Berdasarkan konteks ini, TVET Lipis telah melaksanakan kempen pemasaran media sosial bersepadu sepanjang Januari hingga Jun 2026, menggabungkan kandungan organik di TikTok, Instagram dan Facebook dengan kempen iklan berbayar Lead Generation di dua platform — Meta Ads (Facebook dan Instagram) dan TikTok Ads. Kempen ini menghasilkan 2,927,157 tontonan video di TikTok dan 3,470 prospek dalam talian yang direkodkan dalam Sistem CRM institusi.'),
+  body('Media sosial dipilih sebagai saluran utama kempen kerana ia membolehkan institusi menjangkau bakal pelajar tanpa terikat kepada sempadan geografi, khususnya golongan lepasan SPM yang menjadikan platform video pendek sebagai saluran maklumat harian. Sepanjang Januari hingga Jun 2026, satu kempen pemasaran media sosial bersepadu telah dilaksanakan, menggabungkan kandungan organik di TikTok, Instagram dan Facebook dengan kempen iklan berbayar Lead Generation di Meta Ads dan TikTok Ads. Kempen ini menghasilkan 2,927,157 tontonan video dan 3,470 prospek dalam talian yang direkodkan dalam Sistem CRM institusi.'),
   blank(),
   body('LPKT ini merekodkan pengalaman keterampilan Zuriel Seong Ming Ee dalam merancang, melaksana, memantau dan menilai kempen tersebut, dipetakan kepada keperluan NOSS M731-001-4:2021 CU C01 – Implement Social Media Marketing Campaign Plan.'),
 
@@ -1021,8 +1015,6 @@ const rujukan = [
   blank(),
   body('Chaffey, D., & Ellis-Chadwick, F. (2022). Digital Marketing: Strategy, Implementation and Practice (8th ed.). Pearson Education.'),
   blank(),
-  body('Datareportal. (2024). Digital 2024: Malaysia. https://datareportal.com/reports/digital-2024-malaysia'),
-  blank(),
   body('Deming, W. E. (1986). Out of the Crisis. MIT Press.'),
   blank(),
   body('Dietrich, G. (2014). Spin Sucks: Communication and Reputation Management in the Digital Age. Que Publishing.'),
@@ -1030,12 +1022,6 @@ const rujukan = [
   body('Jabatan Pembangunan Kemahiran (JPK). (2021). Panduan Pelaksanaan PPT Edisi ke-2. Kementerian Sumber Manusia Malaysia.'),
   blank(),
   body('Jabatan Pembangunan Kemahiran (JPK). (2026). Panduan PPT 2026. Kementerian Sumber Manusia Malaysia.'),
-  blank(),
-  body('Kaplan, A. M., & Haenlein, M. (2010). Users of the world, unite! The challenges and opportunities of Social Media. Business Horizons, 53(1), 59–68.'),
-  blank(),
-  body('Keegan, B. J., & Rowley, J. (2017). Evaluation and decision making in social media marketing. Management Decision, 55(1), 15–31.'),
-  blank(),
-  body('Peruta, A., & Shields, A. B. (2017). Social media in higher education: understanding how colleges and universities use Facebook. Journal of Marketing for Higher Education, 27(1), 131–143.'),
   blank(),
   body('Rutter, R., Roper, S., & Lettice, F. (2016). Social media interaction, the university brand and recruitment performance. Journal of Business Research, 69(8), 3096–3104.'),
   blank(),
@@ -1115,6 +1101,6 @@ const doc = new Document({
 });
 
 Packer.toBuffer(doc).then(buf => {
-  fs.writeFileSync(`${SCRATCHPAD}/LPKT-CU1-Zuriel-Seong-v13.docx`, buf);
-  console.log('Done: LPKT-CU1-Zuriel-Seong-v13.docx');
+  fs.writeFileSync(`${SCRATCHPAD}/LPKT-CU1-Zuriel-Seong-v14.docx`, buf);
+  console.log('Done: LPKT-CU1-Zuriel-Seong-v14.docx');
 });
