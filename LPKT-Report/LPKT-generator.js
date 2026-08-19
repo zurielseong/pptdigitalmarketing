@@ -116,7 +116,7 @@ const tocRow = (perkara, halaman, opts = {}) => new TableRow({
 });
 
 const img = (file, w, h) => new Paragraph({
-  children: [new ImageRun({ data: fs.readFileSync(`${SCRATCHPAD}/${file}`), transformation: { width: w, height: h } })],
+  children: [new ImageRun({ type: 'png', data: fs.readFileSync(`${SCRATCHPAD}/${file}`), transformation: { width: w, height: h } })],
   alignment: AlignmentType.CENTER, spacing: { before: 120, after: 120 },
 });
 
