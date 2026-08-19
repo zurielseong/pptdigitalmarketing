@@ -562,16 +562,93 @@ const rujukan = [
 ];
 
 // ═══ LAMPIRAN ═════════════════════════════════════════════════════════════════
+const lampTitle = (kod, tajuk) => new Paragraph({
+  children: [new TextRun({ text: `${kod}     ${tajuk}`, font: F, size: 24, bold: true })],
+  spacing: { before: 0, after: 200 },
+});
+
+const lampDesc = (text) => new Paragraph({
+  children: [new TextRun({ text, font: F, size: 22 })],
+  alignment: AlignmentType.JUSTIFIED,
+  spacing: { line: 300, before: 0, after: 240 },
+});
+
+const lampSlot = (arahan) => new Paragraph({
+  children: [new TextRun({ text: `[ SISIPKAN TANGKAPAN SKRIN DI SINI — ${arahan} ]`, font: F, size: 22, bold: true, color: 'C00000' })],
+  alignment: AlignmentType.CENTER,
+  spacing: { before: 600, after: 600 },
+});
+
 const lampiran = [
   ...babTitle('', 'LAMPIRAN'),
-  body('Lampiran A     Kalendar Kandungan Media Sosial (Januari – Jun 2026)'),
-  body('Lampiran B     Tangkapan Skrin TikTok Analytics'),
-  body('Lampiran C     Tangkapan Skrin Instagram Insights'),
-  body('Lampiran D     Tangkapan Skrin Meta Ads Manager'),
-  body('Lampiran E     Tangkapan Skrin TikTok Ads Manager'),
-  body('Lampiran F     Penyata Bil Meta Ads dan TikTok Ads'),
-  body('Lampiran G     Tangkapan Skrin Sistem CRM TVET Lipis'),
-  body('Lampiran H     Contoh Kandungan Berprestasi Tertinggi'),
+  body('Senarai lampiran yang disertakan dalam laporan ini adalah seperti berikut:'),
+  blank(),
+  new Table({
+    width: { size: 9000, type: WidthType.DXA },
+    columnWidths: [1800, 7200],
+    borders: { top: { style: 'none' }, bottom: { style: 'none' }, left: { style: 'none' }, right: { style: 'none' }, insideHorizontal: { style: 'none' }, insideVertical: { style: 'none' } },
+    rows: [
+      ['Lampiran A', 'Kalendar Kandungan Media Sosial (Januari – Jun 2026)'],
+      ['Lampiran B', 'Tangkapan Skrin TikTok Analytics'],
+      ['Lampiran C', 'Tangkapan Skrin Profil dan Kandungan TikTok'],
+      ['Lampiran D', 'Tangkapan Skrin Profil Instagram'],
+      ['Lampiran E', 'Tangkapan Skrin Meta Ads Manager'],
+      ['Lampiran F', 'Tangkapan Skrin TikTok Ads Manager'],
+      ['Lampiran G', 'Penyata Bil Meta Ads dan TikTok Ads'],
+      ['Lampiran H', 'Laporan Data Prospek Sistem CRM'],
+    ].map(r => new TableRow({
+      children: r.map((c, i) => new TableCell({
+        width: { size: i === 0 ? 1800 : 7200, type: WidthType.DXA },
+        borders: { top: { style: 'none' }, bottom: { style: 'none' }, left: { style: 'none' }, right: { style: 'none' } },
+        children: [new Paragraph({
+          children: [new TextRun({ text: c, font: F, size: 24, bold: i === 0 })],
+          spacing: { line: 300, before: 40, after: 40 },
+        })],
+      })),
+    })),
+  }),
+  pageBreak(),
+
+  lampTitle('LAMPIRAN A', 'KALENDAR KANDUNGAN MEDIA SOSIAL'),
+  lampDesc('Kalendar kandungan bagi tempoh Januari hingga Jun 2026 yang menunjukkan tema kandungan, tajuk, format dan platform bagi setiap kandungan yang dirancang dan diterbitkan. Kandungan yang berlatar kuning merupakan kandungan yang telah disahkan diterbitkan berdasarkan rekod TikTok Analytics.'),
+  img('Lampiran_A1.png', 470, 570),
+  pageBreak(),
+  img('Lampiran_A2.png', 470, 526),
+  pageBreak(),
+
+  lampTitle('LAMPIRAN B', 'TANGKAPAN SKRIN TIKTOK ANALYTICS'),
+  lampDesc('Paparan TikTok Analytics menunjukkan prestasi keseluruhan akaun @tvet_lipis merangkumi tontonan video, jangkauan audiens dan paparan profil bagi tempoh kempen.'),
+  img('Lampiran_B_TikTok_Analytics.png', 290, 630),
+  pageBreak(),
+
+  lampTitle('LAMPIRAN C', 'TANGKAPAN SKRIN PROFIL DAN KANDUNGAN TIKTOK'),
+  lampDesc('Paparan profil TikTok @tvet_lipis menunjukkan bilangan pengikut, jumlah suka serta kandungan berprestasi tertinggi termasuk video bertema motivasi, maklumat untuk ibu bapa dan kandungan tempatan.'),
+  img('Lampiran_C_TikTok_Profil.png', 290, 630),
+  pageBreak(),
+
+  lampTitle('LAMPIRAN D', 'TANGKAPAN SKRIN PROFIL INSTAGRAM'),
+  lampDesc('Paparan profil Instagram @tvet_lipis menunjukkan bilangan pengikut, jumlah siaran yang diterbitkan serta paparan Professional Dashboard.'),
+  img('Lampiran_D_Instagram_Profil.png', 290, 630),
+  pageBreak(),
+
+  lampTitle('LAMPIRAN E', 'TANGKAPAN SKRIN META ADS MANAGER'),
+  lampDesc('Paparan Meta Ads Manager bagi tempoh 1 Januari hingga 30 Jun 2026 menunjukkan senarai kempen, tayangan, perbelanjaan, bilangan prospek serta kos per prospek.'),
+  lampSlot('Meta Ads Manager → Campaigns → tempoh 1 Jan – 30 Jun 2026'),
+  pageBreak(),
+
+  lampTitle('LAMPIRAN F', 'TANGKAPAN SKRIN TIKTOK ADS MANAGER'),
+  lampDesc('Paparan TikTok Ads Manager bagi tempoh Mac hingga Jun 2026 menunjukkan perbelanjaan, tayangan, klik dan bilangan prospek yang dijana.'),
+  lampSlot('TikTok Ads Manager → Campaign → tempoh 1 Jan – 30 Jun 2026'),
+  pageBreak(),
+
+  lampTitle('LAMPIRAN G', 'PENYATA BIL META ADS DAN TIKTOK ADS'),
+  lampDesc('Penyata bil rasmi daripada Meta Platforms Ireland Limited dan rekod transaksi TikTok Ads yang mengesahkan jumlah perbelanjaan iklan sebenar sepanjang tempoh kempen.'),
+  lampSlot('Cetak penyata bil Meta (Invoice Summary) dan rekod transaksi TikTok Ads'),
+  pageBreak(),
+
+  lampTitle('LAMPIRAN H', 'LAPORAN DATA PROSPEK SISTEM CRM'),
+  lampDesc('Laporan data prospek daripada Sistem CRM TVET Lipis menunjukkan bilangan prospek mengikut sumber, bulan, kursus dan negeri bagi tempoh Januari hingga Jun 2026.'),
+  lampSlot('Sistem CRM TVET Lipis → Laporan Prospek Januari – Jun 2026'),
 ];
 
 // ═══ ASSEMBLE ═════════════════════════════════════════════════════════════════
