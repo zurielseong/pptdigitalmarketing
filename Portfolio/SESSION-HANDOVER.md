@@ -52,7 +52,7 @@ Each Level 4 work activity needs **two layers**:
 | C04 | Implement e-commerce marketing plan | 6 | 🟡 Built, 5 gaps, awaiting client review |
 | C05 | Implement mobile marketing plan | 6 | ⬜ Not started |
 | C06 | Implement email marketing plan | 6 | ⬜ Not started |
-| C07 | Manage online reputation | 3 | ⬜ Not started |
+| C07 | Manage online reputation | 3 | 🟡 Built, 20 captures outstanding |
 
 ---
 
@@ -135,20 +135,36 @@ matching `r:embed` ids against `word/_rels/document.xml.rels`.
 ⚠️ April 2026 is close to the application window; check for 2025 Mailchimp activity.
 **Suggest adding:** audience growth chart, per-campaign reports, A/B test if any, automation/journey setup.
 
-### C07 — Online reputation (3 WAs) · no L3 source
-| WA | Document section | Evidence |
-|----|------------------|----------|
-| W01 Handle online customer complaint | Response protocol + worked example | Negative review + reply |
-| W02 Handle online customer compliment | Response protocol + worked example | Positive review + reply |
-| W03 Handle online community | Moderation approach | Comment/DM threads |
+### C07 — Online reputation (3 WAs) · no L3 source · ✅ DOCUMENT BUILT
+`CU7-Reputation-Management/CU7-Plan-generator.js` → `CU7-Online-Reputation-Management-Plan.docx`
+Charts: `CU7-charts.py` (run with `SP=<scratchpad> python3 CU7-charts.py`).
 
-**Start here if a quick win is wanted** — only 3 WAs, evidence is Google Business Profile reviews plus TikTok/Instagram comment threads.
-**Suggest adding:** a response-time standard, an escalation rule for serious complaints, before/after rating if available. The TikTok inbox showing 41 unread is real community-management context.
+Eight Parts, mapped to the NOSS work steps and performance criteria on pp.46–47:
+
+| Part | Covers | Criteria |
+|------|--------|----------|
+| 1–2 | Purpose, scope, channels monitored with owners and frequency | context |
+| 3 | Complaint handling — types/sources, L1/L2/L3 severity with response deadlines, six-step procedure, ticket register, report | W01 · 1.1–1.7 |
+| 4 | Compliment handling — compilation, four repurposing placements, schedule with owners, consent rule, effectiveness | W02 · 2.1–2.9 |
+| 5 | Community — four audience categories with marketing direction, channels, five strategies, weekly cycle, measures | W03 · 3.1–3.9 |
+| 6–8 | Three monthly reports and submission timing, resources and risks, approval page | reporting |
+
+Four charts: complaint flow · severity vs response-time standard · compliment repurposing routes · weekly community cycle.
+
+**Evidence status: nothing captured yet.** 20 red markers in the document, one per capture.
+Capture list with exact instructions: `CU7-Reputation-Management/CU7-SCREENSHOT-LIST.md`.
+
+⚠️ **Entity unresolved** — scoped to Superbowl Lipis (KOWILIP) to match the letterhead and the C04/C05 grouping. Confirm before capture; switching to TVET Lipis changes the subtitle and Part 1 only.
+
+⚠️ The TikTok inbox "41 unread" figure was *not* stated in the document — it has not been seen in a screenshot. It is item 15 on the capture list.
+
+⚠️ The two older drafts in the folder invent ratings and sentiment percentages. None were carried across.
 
 ---
 
 ## 6. Open questions for the client
 
+0. **C07 entity** — is reputation evidenced against Superbowl Lipis or TVET Lipis? Built as Superbowl Lipis; one-line change either way.
 1. **C04 review** — feedback pending on the document just delivered.
 2. **C04 gaps** — TikTok Ads data for shop campaigns, Seller Centre analytics over time, a documented optimisation decision, the content calendar, and a redacted fulfilment record.
 3. **Organisation split** — C04/C05/C07 drafts reference Superbowl Lipis (under KOWILIP); C01/C02/C03/C06 reference TVET Lipis. Confirm which organisation each CU is evidenced against.
@@ -163,14 +179,26 @@ matching `r:embed` ids against `word/_rels/document.xml.rels`.
 LPKT-Report/LPKT-generator.js              C01 LPKT (2026 data) — complete
 LPKT-Report/LPKT-CU1-Zuriel-Seong.docx     built output
 CU4-Ecommerce/CU4-Plan-generator.js        working template for all CUs
+CU7-Reputation-Management/CU7-Plan-generator.js   C07 document
+CU7-Reputation-Management/CU7-charts.py           C07 charts, regenerable
+CU7-Reputation-Management/CU7-SCREENSHOT-LIST.md  C07 capture instructions
 Portfolio/EVIDENCE-MATRIX.md               all 34 WAs, status, capture instructions
 Portfolio/SESSION-HANDOVER.md              this file
 7793-a-M731-001-4-2021 ….pdf               the NOSS — CU/WA definitions from p.22
 ```
 
-Charts and letterhead assets live in the session scratchpad and are regenerated
-by the scripts in `Portfolio/` — re-extract the letterhead from
-`SUPERBOWL_LETTERHEAD.docx` if the scratchpad is cleared.
+**Building a CU document from scratch.** The generators `require('docx')`, so run them
+from a directory that has it installed rather than from the repo folder:
+
+```
+SP=<scratchpad>
+cd $SP && npm install docx
+cp <CU>-generator.js $SP/gen.js && node $SP/gen.js $SP/out.docx
+```
+
+Letterhead assets `lh_image1.png` and `lh_image2.jpg` must be in `$SP` — re-extract them
+from `SUPERBOWL_LETTERHEAD.docx` if the scratchpad is cleared. Charts are regenerated by
+the `CU*-charts.py` script in each CU folder (`SP=$SP python3 CU7-charts.py`).
 
 ---
 

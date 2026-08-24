@@ -103,13 +103,19 @@ The original CU4 drafts in this folder (RM1,487 spend, 67 buyers, five ad sets, 
 
 | WA | Work Activity | Evidence needed | Status |
 |----|---------------|-----------------|--------|
-| W01 | Handle online customer complaint | Negative review + your reply | ⬜ |
-| W02 | Handle online customer compliment | Positive review + your reply | ⬜ |
-| W03 | Handle online community | Comment/DM moderation | 🟡 TikTok/IG inbox |
+| W01 | Handle online customer complaint | Negative review + your reply | 🟡 Plan built, 5 captures outstanding |
+| W02 | Handle online customer compliment | Positive review + your reply | 🟡 Plan built, 7 captures outstanding |
+| W03 | Handle online community | Comment/DM moderation | 🟡 Plan built, 7 captures outstanding |
 
-**Capture:** Google Business Profile → Reviews (with replies visible) · Facebook Page reviews · TikTok/IG comment threads showing your responses
+**Document built** at `CU7-Reputation-Management/CU7-Plan-generator.js` → `CU7-Online-Reputation-Management-Plan.docx`. Charts regenerate with `CU7-charts.py`. Eight Parts covering all three WAs, mapped to the NOSS work steps and performance criteria on pp.46–47 of the standard.
 
-**Start here** — only 3 WAs and the quickest to complete.
+**All evidence is outstanding** — there is no Level 3 reputation section to draw on, so every figure must be captured fresh. The document carries 20 red `[ BUKTI DIPERLUKAN ]` markers, one per required capture.
+
+**Capture list:** `CU7-Reputation-Management/CU7-SCREENSHOT-LIST.md` — 20 items, each naming the exact screen, what the image must show, and the performance criterion it satisfies. Priority order is given at the end of that file; the six highest-value captures are listed first.
+
+⚠️ **Entity to confirm.** The document is scoped to **Superbowl Lipis (KOWILIP)**, matching the letterhead and the C04/C05 grouping. If C07 is to be evidenced against TVET Lipis instead, the subtitle and Part 1 change and the same 20 captures are taken from the TVET Lipis profiles.
+
+⚠️ The two earlier drafts in this folder (`01-Reputation-Assessment.md`, `02-Reputation-Management-Plan.md`) state ratings, review counts and sentiment percentages that were never verified — 4.3/5, 38 reviews, 72% positive and similar. **None of those figures were carried into the built document.** The drafts are superseded.
 
 ---
 
@@ -123,8 +129,8 @@ The original CU4 drafts in this folder (RM1,487 spend, 67 buyers, five ad sets, 
 | C04 | 6 | 🟡 5 | Built; 5 evidence gaps outstanding |
 | C05 | 6 | ⬜ 0 | WhatsApp Business |
 | C06 | 6 | 🟡 3 | Mailchimp partial |
-| C07 | 3 | 🟡 1 | Quickest to finish |
-| **Total** | **34** | **~12** | |
+| C07 | 3 | 🟡 3 | Document built; 20 captures outstanding |
+| **Total** | **34** | **~14** | |
 
 ## Rules for this portfolio
 1. Every figure traces to a screenshot or export
