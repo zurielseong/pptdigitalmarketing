@@ -59,7 +59,11 @@ Status key — ✅ evidence held · 🟡 partial · ⬜ needed · ❓ verify sou
 | W05 | Prepare paid advertisement proposal | Ad budget and targeting | ❓ |
 | W06 | Optimise campaign performance | Sales data, ROAS, changes | ❓ |
 
-**BLOCKED — verify first.** Existing docs describe Superbowl Lipis (SBL Co) with RM1,487 spend, Meta Pixel on superbowllipis.my, 67 buyers, 5 ad sets. Confirm whether the store traded and screenshots exist. Do not use undocumented figures.
+**VERIFIED — the shop was real and traded.** Level 3 portfolio images 52–69 show the TikTok Shop Seller Centre account, the SBL T-Shirt listing, 10.10 Super Sale registration (Oct 2025), customer service at 100% 12-hour response rate, and 18 orders of which 9 completed. Document built at `CU4-Ecommerce/CU4-Plan-generator.js`.
+
+Outstanding gaps: content calendar artifact (W02) · redacted fulfilment record (W04) · TikTok Ads data for shop campaigns (W05) · Seller Centre analytics over time (W06) · a documented optimisation decision (W06).
+
+The original CU4 drafts in this folder (RM1,487 spend, 67 buyers, five ad sets, superbowllipis.my Pixel) remain unverified and are superseded.
 
 ---
 
@@ -116,7 +120,7 @@ Status key — ✅ evidence held · 🟡 partial · ⬜ needed · ❓ verify sou
 | C01 | 6 | ✅ 6 | LPKT complete |
 | C02 | 4 | 🟡 1 | Search Console exists |
 | C03 | 3 | 🟡 1 | Google Ads live |
-| C04 | 6 | ❓ 0 | Verify before proceeding |
+| C04 | 6 | 🟡 5 | Built; 5 evidence gaps outstanding |
 | C05 | 6 | ⬜ 0 | WhatsApp Business |
 | C06 | 6 | 🟡 3 | Mailchimp partial |
 | C07 | 3 | 🟡 1 | Quickest to finish |
