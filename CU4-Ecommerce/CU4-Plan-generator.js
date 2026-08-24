@@ -45,8 +45,14 @@ const table = (head, rows, w) => new Table({
 });
 
 const img = (f, w, h) => new Paragraph({
-  children: [new ImageRun({ type: 'png', data: fs.readFileSync(`${SP}/${f}`), transformation: { width: w, height: h } })],
+  children: [new ImageRun({ type: f.endsWith('.jpeg') || f.endsWith('.jpg') ? 'jpg' : 'png',
+    data: fs.readFileSync(`${SP}/${f}`), transformation: { width: w, height: h } })],
   alignment: AlignmentType.CENTER, spacing: { before: 100, after: 60 },
+});
+
+const gap = (t) => new Paragraph({
+  children: [new TextRun({ text: '[ BUKTI DIPERLUKAN — ' + t + ' ]', font: F, size: 20, bold: true, color: 'C00000' })],
+  alignment: AlignmentType.CENTER, spacing: { before: 240, after: 240 },
 });
 
 const cap = (t) => new Paragraph({
@@ -83,13 +89,13 @@ const doc = new Document({
       letterhead, rule,
 
       new Paragraph({ children: [new TextRun({ text: 'E-COMMERCE CHANNEL SELECTION PROPOSAL', font: F, size: 30, bold: true, color: NAVY })], alignment: AlignmentType.CENTER, spacing: { after: 60 } }),
-      new Paragraph({ children: [new TextRun({ text: 'Channel selection, content plan, campaign plan, implementation and performance framework', font: F, size: 20, color: '555555' })], alignment: AlignmentType.CENTER, spacing: { after: 220 } }),
+      new Paragraph({ children: [new TextRun({ text: 'Planning, execution and performance evidence — TikTok Shop, 2025', font: F, size: 20, color: '555555' })], alignment: AlignmentType.CENTER, spacing: { after: 220 } }),
 
       new Table({ width: { size: 9360, type: WidthType.DXA }, columnWidths: [1560, 3120, 1560, 3120],
         rows: [
-          new TableRow({ children: [cell('Reference', { w:1560, bold:true, fill:'EDF1F7' }), cell('ECOM/PLAN/2025-01', { w:3120 }), cell('Prepared by', { w:1560, bold:true, fill:'EDF1F7' }), cell('Zuriel Seong Ming Ee', { w:3120 })] }),
+          new TableRow({ children: [cell('Reference', { w:1560, bold:true, fill:'EDF1F7' }), cell('ECOM/CU4/2025', { w:3120 }), cell('Prepared by', { w:1560, bold:true, fill:'EDF1F7' }), cell('Zuriel Seong Ming Ee', { w:3120 })] }),
           new TableRow({ children: [cell('Date', { w:1560, bold:true, fill:'EDF1F7' }), cell('[ TARIKH ]', { w:3120 }), cell('Position', { w:1560, bold:true, fill:'EDF1F7' }), cell('Marketing Manager', { w:3120 })] }),
-          new TableRow({ children: [cell('Submitted to', { w:1560, bold:true, fill:'EDF1F7' }), cell('[ NAMA PENGURUSAN ]', { w:3120 }), cell('Status', { w:1560, bold:true, fill:'EDF1F7' }), cell('For approval', { w:3120 })] }),
+          new TableRow({ children: [cell('Submitted to', { w:1560, bold:true, fill:'EDF1F7' }), cell('[ NAMA PENGURUSAN ]', { w:3120 }), cell('Status', { w:1560, bold:true, fill:'EDF1F7' }), cell('Implemented', { w:3120 })] }),
         ] }),
 
       h1('PART 1  ·  PURPOSE AND BACKGROUND'),
@@ -118,6 +124,12 @@ const doc = new Document({
 
       p('3.4   A standalone store is disproportionate for one product', { bold: true, before: 120, after: 90 }),
       p('Building a Shopify or WooCommerce store would involve monthly subscription, domain registration, payment gateway setup, theme configuration and ongoing maintenance — before a single shirt is sold. For a single-product range with no immediate plan to expand the catalogue, that cost and effort is not justified.'),
+
+      p('Evidence of implementation', { bold: true, before: 160, after: 90 }),
+      img('ev52.png', 460, 213),
+      cap('Figure 2 — TikTok Shop Seller Centre account established and linked to the Superbowl Kuala Lipis TikTok account'),
+      img('ev53.png', 440, 170),
+      cap('Figure 3 — Seller account registration details'),
 
       h1('PART 3.5  ·  OPTIONS CONSIDERED'),
       table(['Option', 'Assessment'], [
@@ -154,6 +166,13 @@ const doc = new Document({
       ], [1400, 3980, 3980]),
       p('Two posts per week, published on a fixed schedule. Every post carries the product link so that any video can convert regardless of its pillar.', { before: 100 }),
 
+      p('4.3   Evidence of content produced', { bold: true, before: 160, after: 90 }),
+      img('ev63.jpeg', 230, 230),
+      cap('Figure 4 — Product content produced for the shop listing'),
+      img('ev66.png', 440, 216),
+      cap('Figure 5 — Product listing content published in Seller Centre'),
+      gap('kalendar kandungan sebenar — jadual penerbitan bertarikh (Google Sheets / Notion / dokumen perancangan)'),
+
       h1('PART 5  ·  CAMPAIGN PLAN  (W03)'),
       p('5.1   Objectives', { bold: true, after: 90 }),
       table(['Objective', 'Measure', 'Target'], [
@@ -173,6 +192,11 @@ const doc = new Document({
       p('5.3   Positioning and message', { bold: true, before: 160, after: 90 }),
       p('The shirt is positioned as local identity apparel rather than generic streetwear. The message centres on wearing where you are from. This differentiates it from mass-market streetwear and gives the local audience a reason to buy beyond the garment itself.'),
 
+      p('5.4   Evidence of campaign participation', { bold: true, before: 160, after: 90 }),
+      img('ev62.png', 400, 249),
+      cap('Figure 6 — Registration for the TikTok Shop 10.10 Super Sale campaign, October 2025'),
+      p('Participation in the platform campaign was a planned decision. Platform-wide sale events carry additional traffic and visibility at no additional media cost, and registration was submitted ahead of the 6 October deadline.', { before: 90 }),
+
       h1('PART 6  ·  IMPLEMENTATION COORDINATION  (W04)'),
       p('The following sets out task ownership and sequence from approval to first paid campaign.'),
       img('cu4_gantt.png', 470, 176),
@@ -188,6 +212,14 @@ const doc = new Document({
       ], [3600, 2600, 3160]),
       p('Paid activity begins only after the soft launch confirms the checkout and fulfilment process works end to end. Spending on traffic before that is avoided.', { before: 100 }),
 
+      p('6.1   Evidence of implementation', { bold: true, before: 160, after: 90 }),
+      img('ev54.png', 460, 203),
+      cap('Figure 7 — Product listed in Seller Centre with images, description and specification completed'),
+      img('ev67.png', 460, 199),
+      cap('Figure 8 — Customer service operation: 100% 12-hour response rate, 4h 21m average response time, automated greeting and FAQ replies configured'),
+      p('Customer enquiries were handled through the Seller Centre messaging system with automated first-response and FAQ replies configured to reduce response time. The 12-hour response rate of 100% indicates the process operated as intended.', { before: 90 }),
+      gap('label penghantaran / rekod pemenuhan pesanan — sila tutup nama, alamat dan nombor telefon pelanggan sebelum disertakan'),
+
       h1('PART 7  ·  PAID ADVERTISEMENT PROPOSAL  (W05)'),
       p('7.1   Approach', { bold: true, after: 90 }),
       p('Paid activity runs through TikTok Ads, which is already in use by the organisation. Because the product link sits on organic video, the same creative can be promoted rather than produced separately.'),
@@ -202,7 +234,10 @@ const doc = new Document({
       ], [2400, 1400, 5560]),
       p('[ ISI: jumlah belanjawan bulanan yang dicadangkan ]', { bold: true, color: RED, before: 110, after: 90 }),
 
-      p('7.3   Success criteria', { bold: true, before: 140, after: 90 }),
+      p('7.3   Evidence of paid activity', { bold: true, before: 140, after: 90 }),
+      gap('TikTok Ads Manager ditapis kepada kempen produk kedai — perbelanjaan, GMV, ROAS dan kos setiap pesanan'),
+
+      p('7.4   Success criteria', { bold: true, before: 140, after: 90 }),
       table(['Metric', 'Threshold'], [
         ['Cost per order', 'Below [ ISI ] — the point at which an order remains profitable after commission and fulfilment'],
         ['Return on ad spend', 'Above [ ISI ]'],
@@ -214,7 +249,14 @@ const doc = new Document({
       img('cu4_loop.png', 430, 181),
       cap('Figure 5 — Weekly optimisation cycle'),
 
-      p('8.1   Metrics monitored', { bold: true, before: 130, after: 90 }),
+      p('8.1   Evidence of performance', { bold: true, before: 130, after: 90 }),
+      img('ev68.png', 460, 264),
+      cap('Figure 9 — Order management: 18 orders received, 9 completed, 8 shipped, 1 awaiting shipment'),
+      p('Eighteen orders were received through the channel during the period. Nine were completed and delivered, eight were dispatched and one was awaiting shipment at the point of capture. No cancellations, logistics issues or refund requests were recorded.', { before: 90 }),
+      gap('Seller Centre → Data Compass / Analytics — prestasi mengikut tempoh (paparan produk, kadar penukaran, jualan) bagi menunjukkan trend'),
+      gap('rekod keputusan pengoptimuman — perubahan yang dibuat, tarikh, dan data yang mendorong perubahan tersebut'),
+
+      p('8.2   Metrics monitored', { bold: true, before: 130, after: 90 }),
       table(['Metric', 'Source', 'Frequency'], [
         ['Product page views', 'TikTok Shop Seller Centre', 'Weekly'],
         ['Orders and units sold', 'TikTok Shop Seller Centre', 'Weekly'],
@@ -223,7 +265,7 @@ const doc = new Document({
         ['Video views on shoppable content', 'TikTok Analytics', 'Weekly'],
       ], [2900, 3400, 3060]),
 
-      p('8.2   Decision rules', { bold: true, before: 160, after: 90 }),
+      p('8.3   Decision rules', { bold: true, before: 160, after: 90 }),
       table(['Condition', 'Action'], [
         ['Cost per order below threshold for two consecutive weeks', 'Increase budget on the performing ad group'],
         ['Cost per order above threshold for two consecutive weeks', 'Pause the ad group and review creative and targeting'],
