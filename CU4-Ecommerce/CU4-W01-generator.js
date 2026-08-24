@@ -93,52 +93,42 @@ const doc = new Document({
         ] }),
 
       h1('1.  PURPOSE AND BACKGROUND'),
-      p('Superbowl Lipis currently has no online sales channel. Sales are transacted through walk-in and informal messaging. This prevents sales from being measured, gives paid advertising no trackable conversion destination, and leaves no customer or order records.'),
-      p('This proposal evaluates five e-commerce platforms and recommends one for adoption. Approval is sought to proceed with account registration and catalogue preparation.'),
+      p('Superbowl Lipis currently sells its streetwear jersey through walk-in and informal messaging enquiries. There is no online sales channel, which means sales cannot be measured, paid advertising has no trackable purchase destination, and no customer or order record is kept.'),
+      p('This proposal recommends adopting TikTok Shop as the sales channel, and sets out the reasoning and the requirements to establish it. Approval is sought to proceed with account registration and product listing.'),
 
-      h1('2.  OPTIONS AND EVALUATION CRITERIA'),
-      table(['Option', 'Platform'], [
-        ['A', 'TikTok Shop — in-app marketplace integrated with TikTok content and ads'],
-        ['B', 'Shopee — established Malaysian marketplace'],
-        ['C', 'Lazada — regional marketplace with logistics infrastructure'],
-        ['D', 'Own website store — self-hosted on WooCommerce or Shopify'],
-        ['E', 'Meta Shop — catalogue storefront on Facebook and Instagram'],
-      ], [900, 8460]),
+      h1('2.  BUSINESS CONTEXT'),
+      p('Two facts shape the recommendation:'),
+      bullet('Superbowl Lipis sells a single product — the Superbowl jersey streetwear shirt. The channel does not need to support a large catalogue, inventory variants or complex merchandising.'),
+      bullet('The brand already maintains an active TikTok account with an established local following, and a promotional video for the shirt has already been produced and posted.'),
+      p('The requirement is therefore narrow: a way to sell one product to an audience that is already watching the brand\'s content, without building new infrastructure.'),
+
+      h1('3.  RECOMMENDATION'),
+      p('TikTok Shop is recommended as the sales channel for the following reasons.'),
+
+      p('3.1   Native integration with content already published', { bold: true, before: 120, after: 90 }),
+      p('A product link can be attached directly to the existing promotional video. The yellow basket icon appears on the video, and viewers move from watching to purchasing without leaving the application. No new content production is required to begin selling.'),
+      img('cu4_flow.png', 490, 126),
+      cap('Figure 1 — From existing content to completed order'),
+
+      p('3.2   The audience is already on the platform', { bold: true, before: 120, after: 90 }),
+      p('The brand\'s followers are local and already engaged with its TikTok content. Selling within the same platform reaches that audience directly. Any other channel would require redirecting them elsewhere, or building a new audience from zero.'),
+
+      p('3.3   No setup cost or technical build', { bold: true, before: 120, after: 90 }),
+      p('TikTok Shop requires account registration and a product listing. There is no development work, no hosting, no domain and no separate payment gateway to arrange. Checkout and payment are handled within the platform.'),
+
+      p('3.4   A standalone store is disproportionate for one product', { bold: true, before: 120, after: 90 }),
+      p('Building a Shopify or WooCommerce store would involve monthly subscription, domain registration, payment gateway setup, theme configuration and ongoing maintenance — before a single shirt is sold. For a single-product range with no immediate plan to expand the catalogue, that cost and effort is not justified.'),
+
+      h1('4.  OPTIONS CONSIDERED'),
+      table(['Option', 'Assessment'], [
+        ['TikTok Shop', 'RECOMMENDED — native to existing content and audience; no setup cost; in-app checkout.'],
+        ['Own website (Shopify / WooCommerce)', 'Rejected — highest setup cost and effort; requires building traffic from zero; disproportionate for a single product.'],
+        ['Shopee', 'Not pursued — seller registration was not approved.'],
+        ['Lazada', 'Not pursued — no existing audience on the platform; would require paid traffic to generate visibility.'],
+        ['Meta Shop', 'Held in reserve — brand has a Meta presence, but no native in-app checkout in this market.'],
+      ], [2900, 6460]),
       p(''),
-      p('Seven criteria were applied. Weightings favour speed of launch and low fixed cost, reflecting current budget and staffing constraints.'),
-      table(['Criteria', 'Weight', 'Criteria', 'Weight'], [
-        ['Audience alignment', '25%', 'Operational effort', '10%'],
-        ['Paid advertising integration', '20%', 'Payment & logistics support', '10%'],
-        ['Setup cost', '15%', 'Data & reporting access', '5%'],
-        ['Commission & transaction fees', '15%', '', ''],
-      ], [2900, 1200, 2900, 1200]),
-
-      h1('3.  EVALUATION RESULTS'),
-      img('cu4_chart1.png', 470, 206),
-      cap('Figure 1 — Weighted scores across five platform options'),
-      img('cu4_chart2.png', 340, 298),
-      cap('Figure 2 — Criteria-level comparison of the three highest-scoring options'),
-
-      new Paragraph({ children: [new PageBreak()] }),
-
-      table(['Criteria', 'Wt', 'TikTok Shop', 'Meta Shop', 'Shopee', 'Own site', 'Lazada'], [
-        ['Audience alignment', '25%', '5', '4', '3', '2', '2'],
-        ['Paid ad integration', '20%', '5', '5', '2', '4', '2'],
-        ['Setup cost', '15%', '5', '5', '4', '2', '4'],
-        ['Commission & fees', '15%', '3', '5', '3', '5', '3'],
-        ['Operational effort', '10%', '4', '4', '3', '2', '3'],
-        ['Payment & logistics', '10%', '4', '2', '5', '2', '5'],
-        ['Data & reporting', '5%', '4', '4', '3', '5', '3'],
-        ['WEIGHTED TOTAL', '100%', '4.50', '4.35', '3.10', '3.00', '2.85'],
-      ], [2260, 800, 1400, 1300, 1200, 1200, 1200]),
-
-      h1('4.  RECOMMENDATION'),
-      p('TikTok Shop is recommended as the primary e-commerce channel, on four grounds:', { after: 110 }),
-      bullet('Superbowl Lipis already holds an active TikTok audience. Selling in the same platform avoids redirecting customers and avoids building a new audience.'),
-      bullet('TikTok Ads is already in use. TikTok Shop connects to it natively, giving purchases campaign-level attribution.'),
-      bullet('No development, hosting or payment-gateway cost is required before the first sale.'),
-      bullet('Product listings attach directly to organic video, so existing content contributes to sales without separate production.'),
-      p('Meta Shop scored closely at 4.35 and is proposed as a secondary channel for later consideration, not for immediate implementation.', { before: 110 }),
+      p('Note on platform fees: marketplace commission rates vary by category and change periodically. TikTok Shop is not necessarily the lowest-commission option, and a self-hosted store carries no commission at all. The recommendation rests on integration, audience and setup cost rather than on commission being lowest.', { italics: true, size: 19, color: '555555' }),
 
       h1('5.  IMPLEMENTATION REQUIREMENTS'),
       table(['Item', 'Requirement', 'Responsibility'], [
