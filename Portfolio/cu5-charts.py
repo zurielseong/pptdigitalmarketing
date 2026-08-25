@@ -35,14 +35,14 @@ def chain(steps, cols, path, figw=8.2):
     fig.tight_layout(); fig.savefig(path, dpi=200, bbox_inches='tight'); plt.close(fig)
 
 
-# ── W01. Why the enquiry already lands in WhatsApp ───────────────────────────
+# ── W01. Lead generation to enrolment — where the mobile channel sits ────────
 chain([
-    ('PAID AD',      'Meta or TikTok ad\nwith a click-to-\nWhatsApp button'),
-    ('ENQUIRY',      'Prospect opens a\nWhatsApp chat with\nTVET Lipis'),
-    ('COUNSELLING',  'Programme, fees and\nintake answered in\nthe same thread'),
-    ('CRM',          'Lead recorded and\nassigned to a\ncounsellor'),
+    ('LEAD AD',      'Meta and TikTok\nlead generation\ncampaign'),
+    ('LEAD FORM',    'Prospect completes\nthe instant form\nin-platform'),
+    ('CRM',          'Lead lands in the\nCRM and is assigned\nto a counsellor'),
+    ('WHATSAPP',     'Counsellor contacts\nthe prospect one by\none via WABA'),
     ('REGISTRATION', 'Offer letter issued\nand enrolment\ncompleted'),
-], [BLUE, BLUE, BLUE, AMBER, BLUE], 'cu5_flow.png')
+], [BLUE, BLUE, AMBER, BLUE, BLUE], 'cu5_flow.png')
 
 # ── W02. Broadcast calendar against the recruitment cycle ────────────────────
 months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']

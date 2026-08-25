@@ -4,6 +4,7 @@ const {
   Document, Packer, Paragraph, TextRun, AlignmentType, PageBreak,
   Table, TableRow, TableCell, WidthType, ShadingType, ImageRun,
   convertInchesToTwip, Footer, PageNumber, BorderStyle,
+  HorizontalPositionRelativeFrom, VerticalPositionRelativeFrom, TextWrappingType,
 } = require('docx');
 const fs = require('fs');
 const SP = '/tmp/claude-0/-home-user/c222c7c5-1fc9-5ff7-858d-b12df17563bc/scratchpad';
@@ -101,12 +102,29 @@ const letterheadTVET = new Table({
       children: [new ImageRun({ type:'png', data: fs.readFileSync(`${SP}/lh_tvet.png`), transformation: { width: 84, height: 84 } })] })],
   })] })],
 });
+// Black bar down the right page edge, behind the text — as in the source
+// letterhead, where it is a drawing shape rather than part of the logo image.
+// A4 is 8.268" wide (7561263 EMU); the bar is 0.265" x 2.64", flush right.
+const tvetEdgeBar = new Paragraph({
+  spacing: { after: 0, line: 20 },
+  children: [new ImageRun({
+    type: 'png', data: fs.readFileSync(`${SP}/lh_tvet_bar.png`),
+    transformation: { width: 25, height: 253 },
+    floating: {
+      horizontalPosition: { relative: HorizontalPositionRelativeFrom.PAGE, offset: 7318362 },
+      verticalPosition: { relative: VerticalPositionRelativeFrom.PAGE, offset: 0 },
+      behindDocument: true, allowOverlap: true,
+      wrap: { type: TextWrappingType.NONE },
+    },
+  })],
+});
 const LETTERHEADS = { sbl: letterhead, tvet: letterheadTVET };
 const ruleOf = (color) => new Paragraph({ text: '', border: { bottom: { style: BorderStyle.SINGLE, size: 12, color } }, spacing: { before: 60, after: 200 } });
 const rule = ruleOf(RED);
 const RULES = { sbl: rule, tvet: ruleOf('000000') };
 
 const head = (title, subtitle, ref, date, status, lh) => ([
+  ...(lh === 'tvet' ? [tvetEdgeBar] : []),
   LETTERHEADS[lh || 'sbl'], RULES[lh || 'sbl'],
   new Paragraph({ children: [new TextRun({ text: title, font: F, size: 30, bold: true, color: NAVY })], alignment: AlignmentType.CENTER, spacing: { after: 60 } }),
   new Paragraph({ children: [new TextRun({ text: subtitle, font: F, size: 20, color: '555555' })], alignment: AlignmentType.CENTER, spacing: { after: 220 } }),
@@ -635,22 +653,40 @@ DOCS['cu5-wa1'] = M({
   status: 'For approval', signoff: approval,
   content: [
     h1('1.  PURPOSE'),
-    p('This document records the selection of WhatsApp Business as the mobile marketing channel for student recruitment, and the reasoning behind it.'),
-    h1('2.  WHY THE CHANNEL SELECTS ITSELF'),
-    p('Paid advertising for TVET Lipis runs click-to-WhatsApp placements. A prospect who taps the advertisement does not land on a form — a WhatsApp conversation opens. The enquiry is therefore already in WhatsApp before any channel decision is made; the question is whether to answer it there or move the prospect somewhere else.'),
+    p('This document records the selection of WhatsApp as the mobile marketing channel for student recruitment, and the reasoning behind it.'),
+
+    h1('2.  WHERE THE MOBILE CHANNEL SITS'),
+    p('All prospects originate from lead generation campaigns on Meta and TikTok. The prospect completes an instant form inside the platform, and that form feeds directly into the CRM. From there the sales team works the list — each prospect is assigned to a counsellor and contacted individually.'),
     img('cu5_flow.png', 460, 105),
-    cap('Figure 1 — From advertisement to enrolment'),
-    h1('3.  OPTIONS CONSIDERED'),
+    cap('Figure 1 — From lead generation campaign to enrolment'),
+    p('The mobile channel is the fourth step. The requirement is therefore specific: a way to reach a named prospect one at a time, hold a two-way conversation about programmes, fees and intake dates, and keep a record of it.', { before: 100 }),
+
+    h1('3.  WHY WHATSAPP'),
+    sub('3.1   Reach'),
+    p('WhatsApp is the most widely used messaging application among the target audience. A prospect who submits a lead form is contactable there without installing anything, creating an account, or being asked to move to another service. Any channel that requires the prospect to adopt something new loses part of the list at the first step.'),
+    sub('3.2   Business-grade sending through WABA'),
+    p('Contact is made through a WhatsApp Business API account held under a LuluChat subscription, not through a personal handset. This is what makes the channel operable at the volume the lead campaigns produce: several counsellors work the same number, message templates are approved for first contact, conversations are retained, and broadcasts can be sent to a segment rather than forwarded by hand.'),
+    table(['Requirement','How WABA meets it'], [
+      ['Several counsellors, one number','Shared inbox with conversations assigned per agent'],
+      ['First contact to a prospect who has not written first','Approved message templates'],
+      ['A record of what was said','Conversation history retained against the contact'],
+      ['Reaching a segment at once','Broadcast to tagged contacts'],
+    ], [3200,6160]),
+
+    h1('4.  OPTIONS CONSIDERED'),
     table(['Option','Assessment'], [
-      ['WhatsApp Business','SELECTED — enquiries already arrive here; free to operate; two-way conversation suits counselling on fees, intakes and programmes'],
-      ['SMS','Rejected — one-way, per-message cost, no media, and read rates unverifiable'],
+      ['WhatsApp via WABA','SELECTED — highest reach among the target audience; two-way; supports multiple counsellors on one number with a retained record'],
+      ['Telephone call','Retained as a secondary step — low answer rate on unknown numbers, and nothing is recorded unless the counsellor writes it up'],
+      ['SMS','Rejected — one-way, per-message cost, no media, and no way to confirm it was read'],
+      ['Personal WhatsApp handset','Rejected — cannot be shared across counsellors, no templates, and the record leaves with the staff member'],
       ['Mobile application','Not viable — no application exists; see MOB/CU5/W05/2025'],
-      ['Telegram','Not pursued — low adoption among the target audience in Pahang'],
-    ], [2400,6960]),
-    h1('4.  CHANNEL ESTABLISHED'),
-    p('A WhatsApp Business profile was set up under the institution’s name with its address, contact number and website, so that a prospect arriving from an advertisement sees a verified business rather than a personal number.'),
+    ], [2600,6760]),
+
+    h1('5.  CHANNEL ESTABLISHED'),
+    p('A WhatsApp Business profile was set up under the institution’s name with its address, contact number and website, so that a prospect receiving a first message sees a verified business rather than an unknown number.'),
     img('ev70.jpeg', 155, 336),
     cap('Figure 2 — TVET Lipis WhatsApp Business profile'),
+    fill('[ LAMPIRKAN: tangkap layar akaun LuluChat / WABA yang menunjukkan nombor perniagaan dan agen yang ditugaskan ]'),
   ],
 });
 
@@ -689,25 +725,26 @@ DOCS['cu5-wa3'] = M({
   content: [
     h1('1.  OBJECTIVES'),
     table(['Objective','Measure','Target'], [
-      ['Answer every enquiry','Enquiries responded to','100%'],
-      ['Respond while intent is live','Time to first reply','[ ISI SASARAN ]'],
-      ['Convert enquiry to application','Enquiries reaching application','[ ISI SASARAN ]'],
-      ['Protect the number','Blocks and reports','Nil'],
+      ['Contact every lead received','Leads contacted from the CRM','100%'],
+      ['Reach the prospect while intent is live','Time from form submission to first message','[ ISI SASARAN ]'],
+      ['Convert lead to application','Leads reaching application','[ ISI SASARAN ]'],
+      ['Protect the business number','Blocks and reports','Nil'],
     ], [2900,3300,3160]),
+    p('Time to first contact is the metric that matters most. A prospect who submits a form has just made a decision to enquire; the value of that decision decays quickly, and a lead contacted days later is a different, colder lead.', { before: 100 }),
     h1('2.  SEGMENTS'),
     table(['Segment','Message emphasis'], [
       ['Students, 17 – 28','Programme content, career outcome, intake date'],
       ['Parents, 40 – 60','Fees, PTPTN, accreditation, campus safety'],
-      ['Enquired but not applied','Application deadline and what is still outstanding'],
+      ['Contacted but not applied','Application deadline and what is still outstanding'],
       ['Applied but not enrolled','Offer letter status and next step'],
     ], [2700,6660]),
     h1('3.  HANDLING STANDARD'),
-    p('Each enquiry is assigned to a counsellor, answered within the working day, and recorded in the CRM against the prospect record with stage, follow-up date and call log. An enquiry that is answered but not recorded is treated as unhandled, because it cannot be followed up by anyone else.'),
+    p('Every lead arriving in the CRM is assigned to a counsellor, contacted on WhatsApp within the working day, and updated on the prospect record with stage, follow-up date and call log. A conversation that happens but is not recorded is treated as not having happened, because no one else can pick it up.'),
     h1('4.  MEASUREMENT'),
     table(['Metric','Source','Frequency'], [
+      ['Leads received','CRM','Weekly'],
+      ['Leads contacted and time to first contact','CRM','Weekly'],
       ['Broadcasts sent and delivered','Broadcast platform report','Monthly'],
-      ['Enquiries received','WhatsApp Business','Weekly'],
-      ['Enquiries converted to leads','CRM','Weekly'],
       ['Leads converted to registration','CRM','Monthly'],
     ], [2900,3400,3060]),
   ],
@@ -721,7 +758,7 @@ DOCS['cu5-wa4'] = M({
   status: 'Report on completed work', signoff: verification,
   content: [
     h1('1.  SCOPE'),
-    p('This report records how the mobile channel was operated: broadcasts scheduled and sent, enquiries answered, and prospects recorded in the CRM.'),
+    p('This report records how the mobile channel was operated: leads worked from the CRM and contacted individually on WhatsApp, broadcasts scheduled and sent, and outcomes recorded against each prospect.'),
     h1('2.  BROADCASTS SENT'),
     p('Broadcasts were composed against a tagged contact segment, previewed before sending, and delivered on a scheduled date. Delivery was confirmed from the platform report rather than assumed.'),
     img('ev74.jpg', 430, 229),
@@ -732,15 +769,16 @@ DOCS['cu5-wa4'] = M({
       ['Completion rate','100%'],
       ['Period','1 – 30 September 2025'],
     ], [3400,5960]),
-    h1('3.  ENQUIRY HANDLING'),
-    p('Enquiries arriving from advertisements were answered in the same thread, with programme, fee and intake questions resolved in conversation rather than by referral to a form. Each prospect was then recorded in the CRM with an assigned counsellor, stage and follow-up date.'),
-    fill('[ LAMPIRKAN: tangkap layar WhatsApp Business TVET Lipis — senarai perbualan dengan label, dan satu contoh perbualan pertanyaan (nombor pelanggan ditutup) ]'),
+    h1('3.  LEAD CONTACT'),
+    p('Leads generated by the Meta and TikTok lead form campaigns arrived in the CRM and were worked one by one. Each was assigned to a counsellor, contacted on WhatsApp through the business account, and taken through programme, fee and intake questions in conversation. The outcome was written back to the prospect record with stage, follow-up date and call log.'),
+    fill('[ LAMPIRKAN: tangkap layar WhatsApp Business TVET Lipis — senarai perbualan dengan label, dan satu contoh perbualan dengan prospek (nombor ditutup) ]'),
     fill('[ LAMPIRKAN: tangkap layar CRM — rekod prospek dengan staf ditugaskan, peringkat dan log panggilan ]'),
     h1('4.  COORDINATION CONTROLS'),
     table(['What was controlled','How'], [
-      ['Delivery of every broadcast','Platform delivery report checked after each send'],
-      ['Ownership of every enquiry','Counsellor assigned in the CRM'],
+      ['Every lead is contacted','Counsellor assigned on the CRM record'],
+      ['Contact happens while intent is live','Lead worked on the day it arrives'],
       ['Follow-up not lost','Follow-up date set on the prospect record'],
+      ['Delivery of every broadcast','Platform delivery report checked after each send'],
       ['Message frequency','One broadcast per contact per week'],
     ], [3400,5960]),
   ],
@@ -816,7 +854,7 @@ DOCS['cu5-full'] = {
   file: 'CU5-Mobile-Marketing-Plan-and-Implementation.docx',
   compiled: true, footer: 'TVET Lipis',
   body: [
-    LETTERHEADS.tvet, RULES.tvet,
+    tvetEdgeBar, LETTERHEADS.tvet, RULES.tvet,
     new Paragraph({ children: [new TextRun({ text: 'MOBILE MARKETING PLAN', font: F, size: 40, bold: true, color: NAVY })],
       alignment: AlignmentType.CENTER, spacing: { before: 700, after: 40 } }),
     new Paragraph({ children: [new TextRun({ text: 'AND IMPLEMENTATION', font: F, size: 40, bold: true, color: NAVY })],
