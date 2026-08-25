@@ -123,15 +123,15 @@ const ruleOf = (color) => new Paragraph({ text: '', border: { bottom: { style: B
 const rule = ruleOf(RED);
 const RULES = { sbl: rule, tvet: ruleOf('000000') };
 
-const head = (title, subtitle, ref, date, status, lh) => ([
-  ...(lh === 'tvet' ? [tvetEdgeBar] : []),
-  LETTERHEADS[lh || 'sbl'], RULES[lh || 'sbl'],
-  new Paragraph({ children: [new TextRun({ text: title, font: F, size: 30, bold: true, color: NAVY })], alignment: AlignmentType.CENTER, spacing: { after: 60 } }),
-  new Paragraph({ children: [new TextRun({ text: subtitle, font: F, size: 20, color: '555555' })], alignment: AlignmentType.CENTER, spacing: { after: 220 } }),
+const head = (d) => ([
+  ...(d.lh === 'tvet' ? [tvetEdgeBar] : []),
+  LETTERHEADS[d.lh || 'sbl'], RULES[d.lh || 'sbl'],
+  new Paragraph({ children: [new TextRun({ text: d.title, font: F, size: 30, bold: true, color: NAVY })], alignment: AlignmentType.CENTER, spacing: { after: 60 } }),
+  new Paragraph({ children: [new TextRun({ text: d.subtitle, font: F, size: 20, color: '555555' })], alignment: AlignmentType.CENTER, spacing: { after: 220 } }),
   new Table({ width: { size: 9360, type: WidthType.DXA }, columnWidths: [1560, 3120, 1560, 3120], rows: [
-    new TableRow({ children: [cell('Reference',{w:1560,bold:true,fill:'EDF1F7'}), cell(ref,{w:3120}), cell('Prepared by',{w:1560,bold:true,fill:'EDF1F7'}), cell('Zuriel Seong',{w:3120})] }),
-    new TableRow({ children: [cell('Date',{w:1560,bold:true,fill:'EDF1F7'}), cell(date,{w:3120}), cell('Position',{w:1560,bold:true,fill:'EDF1F7'}), cell('Marketing Manager',{w:3120})] }),
-    new TableRow({ children: [cell('Submitted to',{w:1560,bold:true,fill:'EDF1F7'}), cell('Puan Wan Norizan',{w:3120}), cell('Status',{w:1560,bold:true,fill:'EDF1F7'}), cell(status || 'For approval',{w:3120})] }),
+    new TableRow({ children: [cell('Reference',{w:1560,bold:true,fill:'EDF1F7'}), cell(d.ref,{w:3120}), cell('Prepared by',{w:1560,bold:true,fill:'EDF1F7'}), cell('Zuriel Seong',{w:3120})] }),
+    new TableRow({ children: [cell('Date',{w:1560,bold:true,fill:'EDF1F7'}), cell(d.date || '[ TARIKH ]',{w:3120}), cell('Position',{w:1560,bold:true,fill:'EDF1F7'}), cell('Marketing Manager',{w:3120})] }),
+    new TableRow({ children: [cell('Submitted to',{w:1560,bold:true,fill:'EDF1F7'}), cell(d.submitted || 'Puan Wan Norizan',{w:3120}), cell('Status',{w:1560,bold:true,fill:'EDF1F7'}), cell(d.status || 'For approval',{w:3120})] }),
   ]}),
 ]);
 
@@ -587,7 +587,7 @@ const pageBreak = () => new Paragraph({ children: [new PageBreak()] });
 // so any page can be screenshotted straight into the portfolio.
 const part = (d) => ([
   pageBreak(),
-  ...head(d.title, d.subtitle, d.ref, d.date, d.status, d.lh),
+  ...head(d),
   ...d.content,
   ...(d.signoff ? d.signoff() : []),
 ]);
@@ -643,108 +643,146 @@ DOCS['cu4-full'] = {
 };
 
 // ═════════════════════════════ CU5 — MOBILE MARKETING ════════════════════════
-const M = (o) => Object.assign({ lh: 'tvet' }, o);
+// TVET Lipis. Figures throughout are read from the CRM and LuluChat screenshots
+// supplied by the candidate; nothing here is estimated.
+const M = (o) => Object.assign({ lh: 'tvet', ref: '2025 INTAKES' }, o);
 
 DOCS['cu5-wa1'] = M({
   file: 'CU5-WA1-Mobile-Channel-Selection.docx',
-  title: 'MOBILE MARKETING CHANNEL SELECTION',
-  subtitle: 'Selection of a mobile channel for student recruitment — TVET Lipis',
-  ref: 'MOB/CU5/W01/2025', date: '[ TARIKH ]',
-  status: 'For approval', signoff: approval,
+  title: 'MOBILE MARKETING CHANNEL — SELECTION AND IMPLEMENTATION REPORT',
+  subtitle: 'WhatsApp Business API via LuluChat — TVET Lipis',
+  date: '3-3-2025', submitted: 'General Manager',
+  status: 'Report on work done', signoff: approval,
   content: [
     h1('1.  PURPOSE'),
-    p('This document records the selection of WhatsApp as the mobile marketing channel for student recruitment, and the reasoning behind it.'),
+    p('This report records the selection of WhatsApp as the mobile marketing channel for student recruitment, the reasoning behind it, and the account through which it was put into operation.'),
 
     h1('2.  WHERE THE MOBILE CHANNEL SITS'),
-    p('All prospects originate from lead generation campaigns on Meta and TikTok. The prospect completes an instant form inside the platform, and that form feeds directly into the CRM. From there the sales team works the list — each prospect is assigned to a counsellor and contacted individually.'),
+    p('Every prospect originates from a lead generation campaign on Meta or TikTok. The prospect completes an instant form inside the platform, and that form feeds directly into the TVET Lipis CRM at crm.tvetlipis.my. From there the sales team works the list — each prospect is assigned to a counsellor and contacted individually.'),
     img('cu5_flow.png', 460, 105),
     cap('Figure 1 — From lead generation campaign to enrolment'),
-    p('The mobile channel is the fourth step. The requirement is therefore specific: a way to reach a named prospect one at a time, hold a two-way conversation about programmes, fees and intake dates, and keep a record of it.', { before: 100 }),
+    p('The mobile channel is the fourth step. The requirement is therefore specific: reach a named prospect one at a time, hold a two-way conversation about programmes, fees and intake dates, and keep a record of it against the prospect’s CRM entry.', { before: 100 }),
 
     h1('3.  WHY WHATSAPP'),
     sub('3.1   Reach'),
-    p('WhatsApp is the most widely used messaging application among the target audience. A prospect who submits a lead form is contactable there without installing anything, creating an account, or being asked to move to another service. Any channel that requires the prospect to adopt something new loses part of the list at the first step.'),
+    p('WhatsApp is the most widely used messaging application among the target audience. A prospect who submits a lead form is contactable there without installing anything or creating an account. Any channel requiring the prospect to adopt something new loses part of the list at the first step.'),
     sub('3.2   Business-grade sending through WABA'),
-    p('Contact is made through a WhatsApp Business API account held under a LuluChat subscription, not through a personal handset. This is what makes the channel operable at the volume the lead campaigns produce: several counsellors work the same number, message templates are approved for first contact, conversations are retained, and broadcasts can be sent to a segment rather than forwarded by hand.'),
-    table(['Requirement','How WABA meets it'], [
-      ['Several counsellors, one number','Shared inbox with conversations assigned per agent'],
-      ['First contact to a prospect who has not written first','Approved message templates'],
-      ['A record of what was said','Conversation history retained against the contact'],
+    p('Contact is made through a WhatsApp Business API account on business number 60108086630, operated under a LuluChat subscription rather than a personal handset. This is what makes the channel workable at the volume the lead campaigns produce.'),
+    table(['Requirement','How the WABA account meets it'], [
+      ['Several counsellors, one number','Shared inbox; each conversation shows the sending agent — messages are stamped “Sent by Nadiah via luluchat”'],
+      ['First contact to a prospect who has not written first','Approved message templates carrying the intake creative'],
+      ['A record of what was said','Full conversation history retained against the contact'],
+      ['Sorting by interest and stage','Working tabs — New Lead, Hot Lead, Payment — and per-course tags'],
       ['Reaching a segment at once','Broadcast to tagged contacts'],
-    ], [3200,6160]),
+    ], [3000,6360]),
 
     h1('4.  OPTIONS CONSIDERED'),
     table(['Option','Assessment'], [
-      ['WhatsApp via WABA','SELECTED — highest reach among the target audience; two-way; supports multiple counsellors on one number with a retained record'],
+      ['WhatsApp via WABA (LuluChat)','SELECTED — highest reach among the target audience; two-way; multiple counsellors on one number with a retained record'],
       ['Telephone call','Retained as a secondary step — low answer rate on unknown numbers, and nothing is recorded unless the counsellor writes it up'],
-      ['SMS','Rejected — one-way, per-message cost, no media, and no way to confirm it was read'],
+      ['SMS','Rejected — one-way, per-message cost, no media, no confirmation of reading'],
       ['Personal WhatsApp handset','Rejected — cannot be shared across counsellors, no templates, and the record leaves with the staff member'],
-      ['Mobile application','Not viable — no application exists; see MOB/CU5/W05/2025'],
     ], [2600,6760]),
 
-    h1('5.  CHANNEL ESTABLISHED'),
-    p('A WhatsApp Business profile was set up under the institution’s name with its address, contact number and website, so that a prospect receiving a first message sees a verified business rather than an unknown number.'),
-    img('ev70.jpeg', 155, 336),
+    h1('5.  CHANNEL AS ESTABLISHED'),
+    p('A WhatsApp Business profile was set up under the institution’s name with its address at Level 4 Lipis Centrepoint and the website tvetlipis.my, so a prospect receiving a first message sees a verified business rather than an unknown number.'),
+    img('ev70.jpeg', 150, 325),
     cap('Figure 2 — TVET Lipis WhatsApp Business profile'),
-    fill('[ LAMPIRKAN: tangkap layar akaun LuluChat / WABA yang menunjukkan nombor perniagaan dan agen yang ditugaskan ]'),
+    p('The LuluChat console is where the account is worked. At the point of record it held 167 conversations tagged New Lead, 43 Hot Lead and 27 at Payment stage, with each conversation carrying its course tag and its originating channel.', { before: 100 }),
+    img('u5.png', 460, 236),
+    cap('Figure 3 — LuluChat inbox on business number 60108086630, showing working tabs, course tags and channel of origin'),
   ],
 });
 
 DOCS['cu5-wa2'] = M({
   file: 'CU5-WA2-Mobile-Content-Calendar.docx',
-  title: 'MOBILE MARKETING CONTENT CALENDAR',
-  subtitle: 'Broadcast themes and schedule — WhatsApp Business, TVET Lipis',
-  ref: 'MOB/CU5/W02/2025', date: '[ TARIKH ]',
-  status: 'For approval', signoff: approval,
+  title: 'MOBILE MARKETING CONTENT CALENDAR — IMPLEMENTATION REPORT',
+  subtitle: 'Message themes and creatives published — WhatsApp, TVET Lipis',
+  date: '3-3-2025', submitted: 'General Manager',
+  status: 'Report on work done', signoff: approval,
   content: [
     h1('1.  PRINCIPLE'),
-    p('Broadcast timing follows the student recruitment cycle rather than a fixed weekly slot. Messages are concentrated where a decision is actually being made — around SPM results, intake openings and the open day — because a broadcast sent outside those windows costs the same attention but converts less.'),
-    img('cu5_calendar.png', 440, 135),
-    cap('Figure 1 — Broadcast frequency across the recruitment year'),
-    h1('2.  CONTENT THEMES'),
+    p('Message timing follows the student recruitment cycle rather than a fixed weekly slot. Content is concentrated where a decision is actually being made — around SPM results, intake openings and the application deadline — because a message sent outside those windows costs the same goodwill and converts less.'),
+
+    h1('2.  MESSAGE THEMES IN USE'),
     table(['Theme','Purpose','Audience'], [
-      ['Intake announcement','State the intake date and closing date','Students and parents'],
+      ['Intake announcement','State the courses open and the entry requirements','Students and parents'],
       ['SPM results follow-up','Reach school leavers at the decision point','Students'],
       ['Programme highlight','Explain one SKM programme and its career path','Students'],
-      ['Fees and PTPTN','Answer the cost question directly','Parents'],
-      ['Open day invitation','Convert interest into a campus visit','Both'],
-      ['Application reminder','Recover prospects who enquired but did not apply','Students'],
+      ['Government funding (PTPK)','Answer the cost question directly','Parents'],
+      ['Re-contact','Recover prospects contacted but not yet converted','Students'],
     ], [2400,4200,2760]),
-    h1('3.  FREQUENCY RULE'),
-    p('No more than one broadcast per contact per week, and no broadcast to a contact already in an active conversation with a counsellor. Over-messaging on WhatsApp produces blocks and reports, which damage the number permanently.'),
-    fill('[ LAMPIRKAN: senarai siaran (broadcast list) TVET Lipis yang menunjukkan tema dan tarikh sebenar ]'),
+
+    h1('3.  CREATIVES PUBLISHED'),
+    sub('3.1   Intake announcement'),
+    p('The intake creative lists the courses open, the entry requirements and the contact number, and is the template attached to first contact with a new lead.'),
+    img('u7.jpeg', 150, 212),
+    cap('Figure 1 — “Jom Sertai Kemasukan TVET Lipis” — courses and entry requirements'),
+    sub('3.2   SPM results follow-up'),
+    p('This creative addresses the prospect who did not obtain enough credits, which is the single most common reason a school leaver assumes they cannot continue studying.'),
+    img('u8.png', 155, 259),
+    cap('Figure 2 — “SPM: Anda Tak Cukup Kredit?” — intake messaging for school leavers'),
+    sub('3.3   Programme highlight'),
+    p('One programme is explained at a time — the qualification code, what the student learns, the careers it leads to and the articulation route to university.'),
+    img('u9.png', 175, 240),
+    cap('Figure 3 — Diploma Kandungan Kreatif Multimedia programme sheet'),
+    sub('3.4   Government funding'),
+    p('Cost is the question that decides most enrolments, so PTPK funding is addressed in its own message rather than buried in a programme sheet.'),
+    img('u10.png', 290, 227),
+    cap('Figure 4 — PTPK funding: tuition, monthly allowance, transport and laptop allowance'),
+    fill('[ SAHKAN: elaun bulanan PTPK — risalah menyatakan RM400/RM600, perbualan menyatakan RM600/RM800 ]'),
+
+    h1('4.  FREQUENCY RULE'),
+    p('No more than one broadcast per contact per week, no broadcast to a contact already in an active conversation with a counsellor, and every broadcast carries an opt-out instruction. Over-messaging on WhatsApp produces blocks and reports, which damage the business number permanently.'),
   ],
 });
 
 DOCS['cu5-wa3'] = M({
   file: 'CU5-WA3-Mobile-Campaign-Plan.docx',
-  title: 'MOBILE MARKETING CAMPAIGN PLAN',
-  subtitle: 'Objectives, segments and measurement — TVET Lipis',
-  ref: 'MOB/CU5/W03/2025', date: '[ TARIKH ]',
-  status: 'For approval — pre-launch', signoff: approval,
+  title: 'MOBILE MARKETING CAMPAIGN PLAN AND PIPELINE CONTROL',
+  subtitle: 'Objectives, segments and stage control — TVET Lipis CRM',
+  date: '3-3-2025', submitted: 'Operations Manager',
+  status: 'Report on work done', signoff: approval,
   content: [
     h1('1.  OBJECTIVES'),
     table(['Objective','Measure','Target'], [
-      ['Contact every lead received','Leads contacted from the CRM','100%'],
+      ['Contact every lead received','Leads moved from Lead to Contacted','100%'],
       ['Reach the prospect while intent is live','Time from form submission to first message','[ ISI SASARAN ]'],
-      ['Convert lead to application','Leads reaching application','[ ISI SASARAN ]'],
+      ['Convert lead to enrolment','Leads reaching Customer stage','[ ISI SASARAN ]'],
       ['Protect the business number','Blocks and reports','Nil'],
     ], [2900,3300,3160]),
-    p('Time to first contact is the metric that matters most. A prospect who submits a form has just made a decision to enquire; the value of that decision decays quickly, and a lead contacted days later is a different, colder lead.', { before: 100 }),
+    p('Time to first contact is the metric that matters most. A prospect who submits a form has just made a decision to enquire; the value of that decision decays quickly, and a lead contacted days later is a colder, different lead.', { before: 100 }),
+
     h1('2.  SEGMENTS'),
     table(['Segment','Message emphasis'], [
       ['Students, 17 – 28','Programme content, career outcome, intake date'],
-      ['Parents, 40 – 60','Fees, PTPTN, accreditation, campus safety'],
-      ['Contacted but not applied','Application deadline and what is still outstanding'],
-      ['Applied but not enrolled','Offer letter status and next step'],
+      ['Parents, 40 – 60','Fees, PTPK funding, accreditation'],
+      ['Contacted but not converted','Application deadline and what is still outstanding'],
+      ['Not yet eligible','Held until results are released'],
     ], [2700,6660]),
-    h1('3.  HANDLING STANDARD'),
-    p('Every lead arriving in the CRM is assigned to a counsellor, contacted on WhatsApp within the working day, and updated on the prospect record with stage, follow-up date and call log. A conversation that happens but is not recorded is treated as not having happened, because no one else can pick it up.'),
+
+    h1('3.  PIPELINE CONTROL'),
+    p('Every prospect sits at exactly one stage in the CRM, and the stage is what determines the next action. Stages are changed by dragging the prospect card, so the pipeline is worked rather than reported.'),
+    table(['Stage','Meaning','Next action'], [
+      ['Lead','Form submitted, not yet contacted','First WhatsApp message'],
+      ['Contacted','Message sent, awaiting reply','Retargeting batch if no reply in 7 days'],
+      ['Potential','Replied and interested','Counselling on programme and fees'],
+      ['Customer','Registered','Enrolment and documentation'],
+      ['Cold','Declined or unreachable','No further contact'],
+      ['Email Pool','Exhausted on WhatsApp','Transferred to email marketing'],
+      ['KIV','Interested but not yet eligible','Held until results are released'],
+    ], [1800,4000,3560]),
+    img('cu5_pipeline.png', 420, 159),
+    cap('Figure 1 — Prospect pipeline by stage as recorded in the CRM'),
+    img('u11.png', 460, 226),
+    cap('Figure 2 — TVET Lipis CRM pipeline board; each card carries course, lead source and assigned counsellor'),
+    p('Each card records the course applied for, the source that produced the lead — Meta Ads, TikTok Ads, walk-in or word of mouth — and the counsellor who owns it. Source is held on the prospect so that channel performance can be read from the same board that the team works.', { before: 100 }),
+
     h1('4.  MEASUREMENT'),
     table(['Metric','Source','Frequency'], [
-      ['Leads received','CRM','Weekly'],
-      ['Leads contacted and time to first contact','CRM','Weekly'],
-      ['Broadcasts sent and delivered','Broadcast platform report','Monthly'],
+      ['Leads received and contacted','CRM pipeline','Weekly'],
+      ['Stage movement','CRM pipeline','Weekly'],
+      ['Broadcasts sent and delivered','LuluChat broadcast report','Monthly'],
       ['Leads converted to registration','CRM','Monthly'],
     ], [2900,3400,3060]),
   ],
@@ -753,98 +791,132 @@ DOCS['cu5-wa3'] = M({
 DOCS['cu5-wa4'] = M({
   file: 'CU5-WA4-Mobile-Implementation-Coordination.docx',
   title: 'MOBILE CAMPAIGN IMPLEMENTATION COORDINATION REPORT',
-  subtitle: 'Broadcasts, enquiry handling and CRM recording — TVET Lipis, 2025',
-  ref: 'MOB/CU5/W04/2025', date: '[ TARIKH ]',
-  status: 'Report on completed work', signoff: verification,
+  subtitle: 'Lead contact, broadcasts and counselling — TVET Lipis',
+  date: '21 April 2025', submitted: 'Operations Manager',
+  status: 'Report on work done', signoff: verification,
   content: [
     h1('1.  SCOPE'),
-    p('This report records how the mobile channel was operated: leads worked from the CRM and contacted individually on WhatsApp, broadcasts scheduled and sent, and outcomes recorded against each prospect.'),
-    h1('2.  BROADCASTS SENT'),
-    p('Broadcasts were composed against a tagged contact segment, previewed before sending, and delivered on a scheduled date. Delivery was confirmed from the platform report rather than assumed.'),
-    img('ev74.jpg', 430, 229),
-    cap('Figure 1 — Broadcast delivery report, September 2025: 3 broadcasts completed, 0 failed'),
-    table(['Measure','Result'], [
-      ['Broadcasts completed','3'],
-      ['Broadcasts failed','0'],
-      ['Completion rate','100%'],
-      ['Period','1 – 30 September 2025'],
-    ], [3400,5960]),
-    h1('3.  LEAD CONTACT'),
-    p('Leads generated by the Meta and TikTok lead form campaigns arrived in the CRM and were worked one by one. Each was assigned to a counsellor, contacted on WhatsApp through the business account, and taken through programme, fee and intake questions in conversation. The outcome was written back to the prospect record with stage, follow-up date and call log.'),
-    fill('[ LAMPIRKAN: tangkap layar WhatsApp Business TVET Lipis — senarai perbualan dengan label, dan satu contoh perbualan dengan prospek (nombor ditutup) ]'),
-    fill('[ LAMPIRKAN: tangkap layar CRM — rekod prospek dengan staf ditugaskan, peringkat dan log panggilan ]'),
-    h1('4.  COORDINATION CONTROLS'),
-    table(['What was controlled','How'], [
-      ['Every lead is contacted','Counsellor assigned on the CRM record'],
-      ['Contact happens while intent is live','Lead worked on the day it arrives'],
-      ['Follow-up not lost','Follow-up date set on the prospect record'],
-      ['Delivery of every broadcast','Platform delivery report checked after each send'],
-      ['Message frequency','One broadcast per contact per week'],
-    ], [3400,5960]),
+    p('This report records how the mobile channel was operated: leads worked from the CRM and contacted individually on WhatsApp, broadcasts scheduled and sent, counselling delivered in conversation, and outcomes written back to the prospect record.'),
+
+    h1('2.  TIMELINE OF ACTIVITY'),
+    table(['Period','Activity','Record'], [
+      ['March 2025','Channel and campaign plan approved; first weekly lead batches recorded','CRM retargeting batches from 2 March 2025'],
+      ['April 2025','Campaign in operation; lead contact worked from the pipeline','[ ISI: bilangan siaran dan lead dihubungi bagi April ]'],
+      ['May 2025','Weekly lead batches continue to accumulate','Batch dated 18 – 23 May 2025'],
+      ['September 2025','Three broadcasts sent, none failed','LuluChat broadcast report'],
+      ['November 2025','One-to-one counselling on programme, fees and PTPK','LuluChat conversation, 6 November 2025'],
+    ], [1900,4100,3360]),
+    fill('[ ISI: lengkapkan baris April 2025 daripada laporan siaran LuluChat bagi bulan tersebut ]'),
+
+    h1('3.  BROADCASTS SENT'),
+    p('Broadcasts were composed against a tagged contact segment, previewed, and delivered on a scheduled date. Delivery was confirmed from the platform report rather than assumed.'),
+    img('ev74.jpg', 420, 223),
+    cap('Figure 1 — Broadcast delivery report: 3 broadcasts completed, 0 failed, 1 – 30 September 2025'),
+
+    h1('4.  LEAD CONTACT AND COUNSELLING'),
+    p('Leads arriving from the Meta and TikTok lead form campaigns were worked one by one. Each was assigned to a counsellor, contacted through the business number, and taken through the questions that decide an enrolment — programme content, duration, fees, funding and entry requirements.'),
+    p('The record below shows a counselling exchange in which the prospect is identified as interested in Pendidikan Awal Kanak-Kanak and is given the programme duration, the fee of approximately RM20,150, the PTPK allowances available, the entry requirements and the career outcomes — in conversation, without being referred to a form or a brochure.'),
+    img('u14.png', 460, 233),
+    cap('Figure 2 — Counselling conversation, 6 November 2025: programme, fees, funding and entry requirements answered in thread'),
+
+    h1('5.  COORDINATION CONTROLS'),
+    table(['What was controlled','How','Evidence'], [
+      ['Every lead is contacted','Counsellor assigned on the CRM card','W03 Figure 2'],
+      ['Contact while intent is live','Lead worked from the Lead stage on arrival','W03 Figure 2'],
+      ['Nothing is lost after first contact','Stage moved to Contacted; retargeting picks up non-repliers','W06'],
+      ['Delivery of every broadcast','Platform delivery report checked after each send','Figure 1'],
+      ['Consistency of counselling','Course-specific message templates per programme','Figure 2'],
+    ], [2700,3800,2860]),
   ],
 });
 
 DOCS['cu5-wa5'] = M({
-  file: 'CU5-WA5-Mobile-App-Proposal.docx',
-  title: 'MOBILE APPLICATION MARKETING CAMPAIGN PROPOSAL',
-  subtitle: 'Proposed student application for TVET Lipis',
-  ref: 'MOB/CU5/W05/2025', date: '[ TARIKH ]',
-  status: 'Proposal — not implemented', signoff: approval,
+  file: 'CU5-WA5-Mobile-App-Campaign.docx',
+  title: 'MOBILE APPLICATION MARKETING CAMPAIGN REPORT',
+  subtitle: 'Recruitment campaign operated through the LuluChat application — TVET Lipis',
+  date: '21 April 2025', submitted: 'Operations Manager',
+  status: 'Report on work done', signoff: verification,
   content: [
-    h1('1.  STATUS OF THIS PROPOSAL'),
-    p('TVET Lipis does not operate a mobile application. This document is a proposal for one and for the campaign that would market it. Nothing in it describes work carried out.', { bold: true }),
-    h1('2.  CASE FOR AN APPLICATION'),
-    p('WhatsApp handles the enquiry well but ends at enrolment. Once a prospect becomes a student, the institution has no owned mobile channel — timetables, results, fee statements and announcements are distributed through group chats, which are unsearchable and cannot be addressed to an individual.'),
-    h1('3.  PROPOSED SCOPE'),
-    table(['Function','Purpose'], [
-      ['Programme information','Course structure, duration, career pathway'],
-      ['Application and status','Apply, upload documents, track offer letter'],
-      ['Fees and payment','Statement, payment record, PTPTN guidance'],
-      ['Timetable and announcements','Addressed to the individual student'],
-      ['Push notifications','Intake deadlines, fee reminders, results'],
-    ], [2900,6460]),
-    h1('4.  MARKETING APPROACH'),
-    table(['Stage','Activity'], [
-      ['Launch to existing students','Install drive at registration and orientation'],
-      ['Prospect acquisition','Application link in WhatsApp replies and advertisement copy'],
-      ['Retention','Notifications tied to the academic calendar'],
-      ['Measurement','Installs, active users, applications submitted in-app'],
-    ], [2400,6960]),
-    h1('5.  COST AND DECISION REQUIRED'),
-    fill('[ ISI: anggaran kos pembangunan, kos penyelenggaraan tahunan dan tempoh pelaksanaan ]'),
-    p('Approval is sought in principle only. A costed development proposal would follow before any commitment is made.'),
+    h1('1.  THE APPLICATION IN USE'),
+    p('The mobile marketing campaign is operated through LuluChat, a subscribed messaging application that connects to the institution’s WhatsApp Business API account on number 60108086630. LuluChat is the application through which every prospect message is sent, received, tagged and recorded; it is not an application developed by the institution.'),
+    img('u5.png', 460, 236),
+    cap('Figure 1 — The LuluChat console operating the TVET Lipis WhatsApp account'),
+
+    h1('2.  WHAT THE APPLICATION IS USED FOR'),
+    table(['Function','Use in the campaign'], [
+      ['Connected channels','One inbox covering WhatsApp, Instagram and Facebook enquiries'],
+      ['Working tabs','New Lead, Hot Lead, Payment — prospects sorted by how close they are to enrolling'],
+      ['Course tags','Each conversation tagged by programme, e.g. PAKK, Pra-Sekolah, Multimedia'],
+      ['Message templates','Approved first-contact templates carrying the intake creative'],
+      ['Quick replies','Saved answers to recurring questions on fees, duration and requirements'],
+      ['Agent attribution','Each outgoing message records the counsellor who sent it'],
+      ['Broadcast','Scheduled sends to a tagged segment, with a delivery report'],
+    ], [2600,6760]),
+
+    h1('3.  CAMPAIGN OPERATED THROUGH THE APPLICATION'),
+    table(['Measure','Recorded'], [
+      ['Business number','60108086630'],
+      ['Conversations at New Lead','167'],
+      ['Conversations at Hot Lead','43'],
+      ['Conversations at Payment','27'],
+      ['Broadcasts completed, September 2025','3 of 3'],
+    ], [3400,5960]),
+    p('The counts above are the position at the point of record and move continuously as prospects are worked.', { before: 100 }),
+
+    h1('4.  LIMITATION AND NEXT STEP'),
+    p('The application covers recruitment up to enrolment. Once a prospect becomes a student there is no owned mobile channel — timetables, results and fee statements are distributed through group chats, which are unsearchable and cannot be addressed to an individual. A student-facing application is proposed as the next step.'),
+    fill('[ ISI: anggaran kos pembangunan aplikasi pelajar dan tempoh pelaksanaan, jika ingin diteruskan ]'),
   ],
 });
 
 DOCS['cu5-wa6'] = M({
   file: 'CU5-WA6-Mobile-Performance-Optimisation.docx',
   title: 'MOBILE CAMPAIGN PERFORMANCE OPTIMISATION REPORT',
-  subtitle: 'Monitoring and corrective action — WhatsApp Business, TVET Lipis',
-  ref: 'MOB/CU5/W06/2025', date: '[ TARIKH ]',
-  status: 'Report on completed work', signoff: verification,
+  subtitle: 'Retargeting, contact limits and channel escalation — TVET Lipis',
+  date: '[ TARIKH ]', submitted: 'Operations Manager',
+  status: 'Report on work done', signoff: verification,
   content: [
     h1('1.  WHAT WAS MONITORED'),
     table(['Metric','Standard','Source'], [
-      ['Broadcast delivery','100% completed','Broadcast platform report'],
+      ['Broadcast delivery','100% completed','LuluChat broadcast report'],
       ['Recipients per broadcast','Segment resolves to a non-zero audience','Broadcast composer'],
-      ['Enquiry response','Answered within the working day','WhatsApp Business'],
-      ['Conversion to registration','Tracked per intake','CRM'],
+      ['Leads without a reply','Escalated after 7 days','CRM retargeting'],
+      ['Contacts per prospect','Three WhatsApp attempts maximum','CRM retargeting'],
     ], [2700,3400,3260]),
-    h1('2.  PERFORMANCE OBSERVED'),
-    p('Delivery held at 100% across the September period, with three broadcasts completed and none failed. Delivery was therefore not the constraint.'),
-    h1('3.  FINDING — AUDIENCE RESOLVED TO ZERO'),
-    p('A broadcast composed against the segment “Contacts with tags” showed a target audience of zero recipients at the point of sending. A broadcast that delivers successfully to nobody still reports as completed, so delivery rate alone does not confirm that a campaign reached anyone.'),
-    img('ev71.png', 430, 211),
-    cap('Figure 1 — Broadcast composer showing the segment resolving to zero recipients'),
-    fill('[ SAHKAN: sama ada siaran ini kemudiannya dihantar selepas segmen dibetulkan, dan bilangan penerima sebenar ]'),
-    h1('4.  CORRECTIVE ACTION'),
-    table(['Finding','Action taken'], [
-      ['Segment resolved to zero recipients','Recipient count checked in the composer before every send, not after'],
-      ['Delivery rate alone is not proof of reach','Recipients reached recorded alongside delivery status'],
-      ['Contacts not consistently tagged','Tags applied at the point the enquiry is received'],
-    ], [3400,5960]),
-    h1('5.  CONCLUSION'),
-    p('The monitoring identified a failure that the headline metric concealed: three broadcasts reported as fully delivered, while at least one had no audience to deliver to. The control was moved upstream — the audience is now verified before sending rather than delivery confirmed after it.'),
+
+    h1('2.  FINDING — CONTACTED LEADS WERE NOT BEING WORKED AGAIN'),
+    p('The pipeline showed 1,816 prospects at Contacted against 89 at Potential. A prospect who was messaged once and did not reply stayed at Contacted indefinitely — the stage recorded that contact had happened, but nothing caused it to happen again. At the point of record 1,751 leads across 41 weeks were sitting in that condition, the oldest more than 500 days old.'),
+
+    h1('3.  ACTION — A RETARGETING CYCLE WITH A HARD LIMIT'),
+    p('A retargeting module was built into the CRM. Leads at Contacted with no reply for seven or more days are grouped into weekly batches and re-contacted in a fixed sequence. Each prospect receives at most three WhatsApp attempts; after the third they leave WhatsApp entirely and move to the Email Pool for email marketing.'),
+    img('cu5_retarget.png', 420, 113),
+    cap('Figure 1 — Retargeting escalation: three WhatsApp attempts, then email'),
+    p('The limit is the point of the design. Continuing to message a prospect who has not answered three times produces blocks and spam reports, and a blocked business number cannot be replaced — every future prospect is lost with it. Moving the contact to email preserves the relationship without spending the number.', { before: 100 }),
+
+    h1('4.  CONTROLS BUILT INTO THE MODULE'),
+    table(['Control','Rule'], [
+      ['Send size','Maximum 50 leads per broadcast'],
+      ['Send spacing','Batches over 50 split into sends at least 2 hours apart'],
+      ['Opt-out','Every message carries “Taip STOP untuk berhenti”'],
+      ['Batch independence','Each weekly batch downloaded, sent and marked separately'],
+      ['Message relevance','Course-specific template per programme rather than one generic message'],
+    ], [2400,6960]),
+    img('u12.png', 460, 216),
+    cap('Figure 2 — CRM retargeting module: Batch A holding 1,751 leads across 41 weeks, with the send limit and opt-out rule enforced on screen'),
+
+    h1('5.  SECOND FINDING — A BROADCAST WITH NO AUDIENCE'),
+    p('A broadcast composed against the segment “Contacts with tags” showed a target audience of zero recipients at the point of sending. A broadcast that delivers successfully to nobody still reports as completed, so delivery rate alone does not confirm that a campaign reached anyone. The recipient count is now checked in the composer before every send rather than delivery confirmed after it.'),
+    img('ev71.png', 420, 206),
+    cap('Figure 3 — Broadcast composer showing the segment resolving to zero recipients'),
+
+    h1('6.  CONCLUSION'),
+    p('Two failures were found that the headline metrics concealed: broadcasts reporting full delivery to an empty audience, and 1,751 contacted leads that no process would ever touch again. Both were corrected by moving the control upstream — verifying the audience before sending, and building the follow-up cycle into the CRM so that re-contact happens by rule rather than by memory.'),
+    table(['Finding','Action','Status'], [
+      ['Contacted leads never re-worked','Weekly retargeting batches, three attempts','Built into the CRM'],
+      ['Risk of over-messaging','50 per send, 2-hour spacing, opt-out on every message','Enforced in the module'],
+      ['Prospects exhausted on WhatsApp','Escalation to Email Pool for email marketing','Stage active in the pipeline'],
+      ['Broadcast delivered to nobody','Recipient count verified before sending','In force'],
+    ], [3000,4300,2060]),
   ],
 });
 
@@ -883,7 +955,7 @@ DOCS['cu5-full'] = {
 };
 
 const buildBody = (d) => d.compiled ? d.body
-  : [...head(d.title, d.subtitle, d.ref, d.date, d.status, d.lh), ...d.content, ...(d.signoff ? d.signoff() : [])];
+  : [...head(d), ...d.content, ...(d.signoff ? d.signoff() : [])];
 
 const key = process.argv[2];
 const out = process.argv[3];
