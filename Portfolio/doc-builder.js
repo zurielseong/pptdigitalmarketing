@@ -103,21 +103,60 @@ const DOCS = {};
 DOCS['cu4-wa2'] = {
   file: 'CU4-WA2-Content-Calendar.docx',
   body: [
-    ...head('E-COMMERCE CONTENT CALENDAR','Content planning for TikTok Shop — Superbowl Lipis','ECOM/CU4/W02/2025','[ TARIKH ]'),
+    ...head('E-COMMERCE CONTENT CALENDAR','Content planning and production record — TikTok Shop, 2025','ECOM/CU4/W02/2025','[ TARIKH ]'),
     h1('1.  PURPOSE'),
-    p('This calendar sets the content themes, formats and publishing schedule for the TikTok Shop channel. Because a product link can be attached to any video, every piece of content published is also a potential point of sale. The calendar therefore governs both marketing reach and sales opportunity.'),
+    p('This document sets the content themes, formats and publishing schedule for the TikTok Shop channel, and records the content produced against that plan. Because a product link can be attached to any video, every piece of content published is also a potential point of sale.'),
+
     h1('2.  CONTENT PILLARS'),
     p('Five pillars are used. The mix weights product-led content most heavily while retaining variety, so the account does not read as purely promotional and lose organic reach.'),
     img('cu4_pillars.png', 420, 194),
     cap('Figure 1 — Monthly content mix by pillar'),
-    table(['Pillar','Share','Purpose','Example'], [
-      ['Product showcase','30%','Show the shirt — fabric, fit, print detail','Close-up detail reel'],
-      ['Styling & fit','25%','Show how the shirt is worn','Outfit pairing, sizing'],
-      ['Local identity','20%','Connect the brand to Kuala Lipis','Local landmarks, hometown content'],
-      ['Customer & UGC','15%','Build trust through real buyers','Customer wearing the shirt, unboxing'],
-      ['Promotional','10%','Drive immediate action','Restock, limited offer, sale event'],
-    ], [1800,900,3200,3460]),
-    h1('3.  PUBLISHING SCHEDULE'),
+    table(['Pillar','Share','Purpose'], [
+      ['Product showcase','30%','Show the shirt — fabric, fit, print detail'],
+      ['Styling & fit','25%','Show how the shirt is worn'],
+      ['Local identity','20%','Connect the brand to Kuala Lipis'],
+      ['Customer & UGC','15%','Build trust through real buyers'],
+      ['Promotional','10%','Drive immediate action'],
+    ], [2200,1100,6060]),
+
+    h1('3.  PRODUCTION SCHEDULE'),
+    table(['Month','Activity','Output'], [
+      ['September 2025','Product photoshoot — two locations, two models','Product photography for listing and social content'],
+      ['September 2025','Video production — aerial and lifestyle footage','New Collection launch video'],
+      ['October 2025','Content published, product listing completed','Shoppable video and live listing'],
+      ['October 2025','Promotional campaign activated','New Product Launching promotion'],
+    ], [2000,4200,3160]),
+    fill('[ SAHKAN: tarikh sebenar sesi fotografi dan penerbitan kandungan ]'),
+
+    h1('4.  PRODUCTION RECORD'),
+    sub('4.1   Product photoshoot — September 2025'),
+    p('A product photoshoot was conducted for the #Kaki strike shirt using two models across two locations, producing images for both the marketplace listing and social content. Shooting in a bowling alley connected the product directly to the Superbowl Lipis brand.'),
+    img('ev63.jpeg', 250, 250),
+    cap('Figure 2 — Product photography from the September photoshoot'),
+
+    sub('4.2   Video content produced'),
+    p('A launch video was produced using aerial footage of Kuala Lipis, published under the local identity pillar. Filming the town from the air ties the brand to its location, which is the basis of the positioning.'),
+    img('ev64.jpeg', 175, 380),
+    cap('Figure 3 — "SBL New Collection 2025" launch video published to TikTok'),
+    img('ev65.jpeg', 175, 380),
+    cap('Figure 4 — Additional video content produced for the campaign'),
+
+    sub('4.3   Listing content'),
+    p('Photography from the shoot was applied to the marketplace listing, giving the product page and the social content a consistent look.'),
+    img('ev66.png', 430, 211),
+    cap('Figure 5 — Product listing content published in Seller Centre'),
+
+    h1('5.  PROMOTIONAL CALENDAR'),
+    p('Promotional content was scheduled around platform sale events, which carry additional traffic at no extra media cost.'),
+    img('ev61.png', 430, 258),
+    cap('Figure 6 — New Product Launching promotion: RM55 deal price against RM60–65 original, live from October 2025'),
+    table(['Period','Promotional activity','Status'], [
+      ['October 2025','New Product Launching — deal price RM55','Live'],
+      ['October 2025','TikTok Shop 10.10 Super Sale','Registered'],
+      ['October 2025','Flash sale and discount code campaigns','Executed'],
+    ], [2000,4900,2460]),
+
+    h1('6.  PUBLISHING SCHEDULE'),
     p('Two posts per week on a fixed schedule. Every post carries the product link so any video can convert regardless of pillar.'),
     table(['Week','Post 1','Post 2'], [
       ['Week 1','Product showcase','Local identity'],
@@ -125,16 +164,6 @@ DOCS['cu4-wa2'] = {
       ['Week 3','Product showcase','Promotional'],
       ['Week 4','Styling & fit','Local identity'],
     ], [1400,3980,3980]),
-    h1('4.  MONTHLY PLAN'),
-    p('The calendar runs alongside platform sale events, which carry additional traffic at no extra media cost.'),
-    table(['Month','Focus','Platform event'], [
-      ['August','Channel launch — product showcase weighted','—'],
-      ['September','Styling and local identity content','9.9 Sale'],
-      ['October','Promotional weighting increased','10.10 Super Sale'],
-      ['November','Customer and UGC content','11.11 Sale'],
-      ['December','Year-end promotional','12.12 Sale'],
-    ], [1600,4760,3000]),
-    fill('[ ISI: sahkan bulan sebenar kempen dijalankan dan acara platform yang disertai ]'),
     ...approval(),
   ],
 };
