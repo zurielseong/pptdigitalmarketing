@@ -920,6 +920,79 @@ DOCS['cu5-wa6'] = M({
   ],
 });
 
+
+// ═════════════════════════════ CU6 — EMAIL MARKETING ═════════════════════════
+DOCS['cu6-wa2'] = M({
+  file: 'CU6-WA2-Email-Content-Calendar.docx',
+  title: 'EMAIL MARKETING CONTENT CALENDAR 2025',
+  subtitle: 'Send schedule, segments and campaigns — Mailchimp, TVET Lipis',
+  date: '[ TARIKH ]', submitted: 'General Manager',
+  status: 'Report on work done', signoff: verification,
+  content: [
+    h1('1.  PURPOSE'),
+    p('This document sets the email send schedule for 2025 — what is sent, to whom, and on what date — and records the campaigns issued against it. Email is the last channel in the recruitment sequence: it carries prospects who have been contacted on WhatsApp without converting, and it carries announcements to enrolled students and staff.'),
+
+    h1('2.  AUDIENCE'),
+    p('The Mailchimp audience is held under the name TVET Lipis and stood at 100 contacts, all of them email subscribers, at the point of record. Contacts are tagged so that a send can be addressed to one group rather than the whole list.'),
+    img('cu6_audience.png', 380, 106),
+    cap('Figure 1 — Audience composition by tag'),
+    table(['Tag','Contacts','Used for'], [
+      ['Student','73','Programme announcements, intake and event notices'],
+      ['Student Program','16','Programme-specific communication'],
+      ['Staff','10','Internal notice and pre-send verification'],
+      ['Total audience','100',''],
+    ], [2400,1400,5560]),
+    img('em76.png', 440, 211),
+    cap('Figure 2 — Mailchimp audience dashboard, TVET Lipis'),
+    img('em77.png', 200, 206),
+    cap('Figure 3 — Contacts organised by tag'),
+
+    h1('3.  SEND CALENDAR 2025'),
+    p('One send per month, on a Saturday, timed to the recruitment cycle. Saturday was chosen because the audience includes parents, who are more reachable at the weekend than during the working week.'),
+    img('cu6_calendar.png', 460, 92),
+    cap('Figure 4 — Email send calendar 2025'),
+    table(['Month','Send date','Campaign','Segment','Status'], [
+      ['January','11 Jan 2025','Intake open — courses and entry requirements','Student','Scheduled'],
+      ['February','8 Feb 2025','Programme highlight — Pendidikan Awal Kanak-Kanak','Student','Scheduled'],
+      ['March','8 Mar 2025','Government funding (PTPK) — allowances explained','All contacts','Scheduled'],
+      ['April','12 Apr 2025','SPM results — options without full credits','Student','Scheduled'],
+      ['May','10 May 2025','Programme highlight — Kandungan Kreatif Multimedia','Student','Scheduled'],
+      ['June','14 Jun 2025','Mid-year intake reminder','All contacts','Scheduled'],
+      ['July','12 Jul 2025','Alumni outcome — where graduates are working','Student','Scheduled'],
+      ['August','9 Aug 2025','Funding and fee instalment reminder','All contacts','Scheduled'],
+      ['September','13 Sep 2025','Open day — save the date','Student','Scheduled'],
+      ['October','4 Oct 2025','Hari Terbuka TVET Lipis — invitation','All contacts (101)','SENT'],
+      ['November','8 Nov 2025','Open day — final reminder before 15 Nov','Student','Scheduled'],
+      ['December','6 Dec 2025','Final intake call for the year','All contacts','Scheduled'],
+    ], [1200,1600,3600,1700,1260]),
+    p('Rows marked SENT are evidenced in Section 4. The remainder are the scheduled positions on the calendar.', { before: 100 }),
+
+    h1('4.  CAMPAIGNS ISSUED'),
+    p('Two campaigns were issued on Saturday 4 October 2025, both promoting the open day of 15 November 2025. The staff segment was sent first, at 03:45, as a live check on rendering and links; the full audience followed at 04:06 once the staff send had gone through.'),
+    table(['Time','Campaign','Segment','Recipients','Opens','Clicks'], [
+      ['03:45','Hari Terbuka TVET Lipis 2025','Staff','10','40.0%','30.0%'],
+      ['04:06','Hari Terbuka TVET Lipis','Full audience','101','0.0%','0.0%'],
+    ], [900,3300,1600,1400,1080,1080]),
+    img('em78.png', 440, 230),
+    cap('Figure 5 — Campaign record: both sends, 4 October 2025'),
+    fill('[ SAHKAN: kempen 101 penerima menunjukkan 0.0% dibuka — sahkan sama ada laporan belum dikemas kini atau penghantaran gagal ]'),
+
+    h1('5.  CAMPAIGN CONTENT'),
+    p('The October campaign carried the open day creative and the event detail — 15 November 2025, 10 a.m. to 12 noon, delivered by Zoom webinar — followed by what the session would cover and two call-to-action buttons.'),
+    img('em79.png', 440, 224),
+    cap('Figure 6 — “Hari Terbuka TVET Lipis” campaign as sent'),
+
+    h1('6.  SENDING RULES'),
+    table(['Rule','Reason'], [
+      ['One send per contact per month','The list is small; over-sending produces unsubscribes it cannot afford'],
+      ['Staff segment first','Rendering and links verified on a live send before the full audience'],
+      ['Saturday send','Parents are reachable at the weekend'],
+      ['Segment before sending','A send addressed to everyone is relevant to no one'],
+      ['Event mail lands 6 weeks ahead','Enough notice to reserve the date, with a reminder closer in'],
+    ], [3000,6360]),
+  ],
+});
+
 const CU5_ORDER = ['cu5-wa1','cu5-wa2','cu5-wa3','cu5-wa4','cu5-wa5','cu5-wa6'];
 
 DOCS['cu5-full'] = {
