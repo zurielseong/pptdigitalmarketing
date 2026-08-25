@@ -993,6 +993,67 @@ DOCS['cu6-wa2'] = M({
   ],
 });
 
+
+DOCS['cu6-wa4'] = M({
+  file: 'CU6-WA4-Email-Implementation-Coordination.docx',
+  title: 'EMAIL MARKETING IMPLEMENTATION COORDINATION REPORT',
+  subtitle: 'Campaign build, segmentation, verification and release — Mailchimp, TVET Lipis',
+  date: '[ TARIKH ]', submitted: 'Operations Manager',
+  status: 'Report on work done', signoff: verification,
+  content: [
+    h1('1.  SCOPE'),
+    p('This report records how email campaigns were put out: the account they were sent from, the sequence followed on send day, the segments addressed, and how delivery was confirmed. It covers the campaigns issued on 4 October 2025 promoting the open day of 15 November 2025.'),
+
+    h1('2.  SENDING ACCOUNT'),
+    p('Sends are made from a Mailchimp account held in the institution’s name, so that campaigns carry the TVET Lipis identity and the audience, tags and campaign history remain with the institution rather than with an individual.'),
+    img('em75_redacted.png', 430, 206),
+    cap('Figure 1 — Mailchimp account, TVET Lipis (account username redacted)'),
+
+    h1('3.  SEND SEQUENCE'),
+    p('Every campaign follows the same five steps. The verification step is the one that matters: the campaign is released to the Staff segment first and only goes to the full audience once that send has gone through cleanly.'),
+    img('cu6_sendflow.png', 460, 105),
+    cap('Figure 2 — Send-day sequence'),
+    table(['Step','What is done','Why'], [
+      ['Build','Campaign assembled from the calendar entry','Content is decided in advance, not on send day'],
+      ['Segment','Recipient list selected by tag','A send addressed to everyone is relevant to no one'],
+      ['Verify','Released to the Staff segment','Rendering, links and sender name checked on a live send'],
+      ['Send','Released to the full audience','Only after the verification send has landed'],
+      ['Confirm','Delivery and engagement read from the campaign report','Sending is not the same as arriving'],
+    ], [1500,4200,3660]),
+
+    h1('4.  CAMPAIGNS COORDINATED — 4 OCTOBER 2025'),
+    p('Two campaigns were released 21 minutes apart on Saturday 4 October 2025. The Staff segment received the campaign at 03:45 as the verification send; the full audience followed at 04:06.'),
+    table(['Time','Campaign','Segment','Recipients','Opens','Clicks'], [
+      ['03:45','Hari Terbuka TVET Lipis 2025','Staff','10','40.0%','30.0%'],
+      ['04:06','Hari Terbuka TVET Lipis','Full audience','101','0.0%','0.0%'],
+    ], [900,3300,1600,1400,1080,1080]),
+    img('em78.png', 440, 230),
+    cap('Figure 3 — Campaign record showing both sends, their segments and delivery status'),
+    fill('[ SAHKAN: audiens direkodkan 100 kenalan tetapi kempen dihantar kepada 101 penerima — jelaskan perbezaan ]'),
+    fill('[ SAHKAN: kempen 101 penerima menunjukkan 0.0% dibuka — sahkan sama ada laporan belum dikemas kini atau penghantaran gagal ]'),
+
+    h1('5.  CONTENT COORDINATED ACROSS CHANNELS'),
+    p('The campaign carried the open day creative and the event detail — 15 November 2025, 10 a.m. to 12 noon, by Zoom webinar — followed by what the session would cover and two call-to-action buttons directing the reader to contact the college or open the website.'),
+    p('The same event was promoted on WhatsApp and on social media in the same period. Date, time, platform and contact number were taken from a single source so that a prospect meeting the announcement twice on different channels reads the same details, and the college is not contradicting itself.'),
+    img('em79.png', 440, 224),
+    cap('Figure 4 — Campaign as issued, carrying the open day date, time and platform'),
+
+    h1('6.  COORDINATION CONTROLS'),
+    table(['What was controlled','How','Evidence'], [
+      ['Campaign identity','Sent from the institution’s own account','Figure 1'],
+      ['Right list receives the right message','Segment selected by tag before sending','Figure 3'],
+      ['Errors caught before the full send','Staff verification send released first','Figure 3'],
+      ['Delivery confirmed, not assumed','Status and engagement read from the campaign report','Figure 3'],
+      ['Consistency with other channels','Event detail taken from one source for email, WhatsApp and social','Figure 4'],
+      ['Notice period','Invitation issued six weeks before the event','Figures 3, 4'],
+    ], [2700,3800,1860]),
+
+    h1('7.  OUTCOME'),
+    p('Both campaigns were built, segmented, verified and released on the scheduled date, and the open day they promoted took place on 15 November 2025 as announced. The verification send performed as intended, returning 40% opens and 30% clicks from the Staff segment before the full audience send was released.'),
+    p('One item is carried forward for the performance review: the full-audience campaign records no opens against a staff segment that recorded 40%. That is addressed under reference EML/CU6/W06/2025.'),
+  ],
+});
+
 const CU5_ORDER = ['cu5-wa1','cu5-wa2','cu5-wa3','cu5-wa4','cu5-wa5','cu5-wa6'];
 
 DOCS['cu5-full'] = {
