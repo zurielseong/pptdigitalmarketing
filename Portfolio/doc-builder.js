@@ -89,22 +89,25 @@ const letterhead = new Table({
         children: [new ImageRun({ type:'jpg', data: fs.readFileSync(`${SP}/lh_image2.jpg`), transformation: { width: 118, height: 55 } })] })] }),
   ] })],
 });
-// TVET Lipis letterhead — single full-width band (tvet lipis · KIAK · IIUM).
+// TVET Lipis letterhead — the tvet lipis mark alone, set top right, matching
+// the source letterhead where the logo is cropped out of the partner band.
 const letterheadTVET = new Table({
   width: { size: 9360, type: WidthType.DXA }, columnWidths: [9360],
   borders: { top:{style:'none'},bottom:{style:'none'},left:{style:'none'},right:{style:'none'},insideHorizontal:{style:'none'},insideVertical:{style:'none'} },
   rows: [new TableRow({ children: [new TableCell({
     width: { size: 9360, type: WidthType.DXA },
     borders:{top:{style:'none'},bottom:{style:'none'},left:{style:'none'},right:{style:'none'}},
-    children: [new Paragraph({ alignment: AlignmentType.CENTER,
-      children: [new ImageRun({ type:'png', data: fs.readFileSync(`${SP}/lh_tvet.png`), transformation: { width: 468, height: 69 } })] })],
+    children: [new Paragraph({ alignment: AlignmentType.RIGHT,
+      children: [new ImageRun({ type:'png', data: fs.readFileSync(`${SP}/lh_tvet.png`), transformation: { width: 84, height: 84 } })] })],
   })] })],
 });
 const LETTERHEADS = { sbl: letterhead, tvet: letterheadTVET };
-const rule = new Paragraph({ text: '', border: { bottom: { style: BorderStyle.SINGLE, size: 12, color: RED } }, spacing: { before: 60, after: 200 } });
+const ruleOf = (color) => new Paragraph({ text: '', border: { bottom: { style: BorderStyle.SINGLE, size: 12, color } }, spacing: { before: 60, after: 200 } });
+const rule = ruleOf(RED);
+const RULES = { sbl: rule, tvet: ruleOf('000000') };
 
 const head = (title, subtitle, ref, date, status, lh) => ([
-  LETTERHEADS[lh || 'sbl'], rule,
+  LETTERHEADS[lh || 'sbl'], RULES[lh || 'sbl'],
   new Paragraph({ children: [new TextRun({ text: title, font: F, size: 30, bold: true, color: NAVY })], alignment: AlignmentType.CENTER, spacing: { after: 60 } }),
   new Paragraph({ children: [new TextRun({ text: subtitle, font: F, size: 20, color: '555555' })], alignment: AlignmentType.CENTER, spacing: { after: 220 } }),
   new Table({ width: { size: 9360, type: WidthType.DXA }, columnWidths: [1560, 3120, 1560, 3120], rows: [
@@ -813,7 +816,7 @@ DOCS['cu5-full'] = {
   file: 'CU5-Mobile-Marketing-Plan-and-Implementation.docx',
   compiled: true, footer: 'TVET Lipis',
   body: [
-    LETTERHEADS.tvet, rule,
+    LETTERHEADS.tvet, RULES.tvet,
     new Paragraph({ children: [new TextRun({ text: 'MOBILE MARKETING PLAN', font: F, size: 40, bold: true, color: NAVY })],
       alignment: AlignmentType.CENTER, spacing: { before: 700, after: 40 } }),
     new Paragraph({ children: [new TextRun({ text: 'AND IMPLEMENTATION', font: F, size: 40, bold: true, color: NAVY })],
