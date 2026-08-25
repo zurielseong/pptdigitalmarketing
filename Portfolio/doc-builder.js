@@ -550,21 +550,13 @@ const CU4_ORDER = ['cu4-wa1','cu4-wa2','cu4-wa3','cu4-wa4','cu4-wa5','cu4-wa6'];
 
 const pageBreak = () => new Paragraph({ children: [new PageBreak()] });
 
-const partDivider = (d, n) => ([
+// Each part opens with the same full letterhead a standalone document carries,
+// so any page can be screenshotted straight into the portfolio.
+const part = (d) => ([
   pageBreak(),
-  new Paragraph({ children: [new TextRun({ text: `PART ${n}`, font: F, size: 20, bold: true, color: RED })],
-    alignment: AlignmentType.CENTER, spacing: { before: 260, after: 60 } }),
-  new Paragraph({ children: [new TextRun({ text: d.partTitle, font: F, size: 30, bold: true, color: NAVY })],
-    alignment: AlignmentType.CENTER, spacing: { after: 60 } }),
-  new Paragraph({ children: [new TextRun({ text: d.subtitle, font: F, size: 19, color: '555555' })],
-    alignment: AlignmentType.CENTER, spacing: { after: 200 } }),
-  new Table({ width: { size: 9360, type: WidthType.DXA }, columnWidths: [1700, 2980, 1700, 2980], rows: [
-    new TableRow({ children: [cell('Work activity',{w:1700,bold:true,fill:'EDF1F7'}), cell(d.wa,{w:2980}),
-                              cell('Reference',{w:1700,bold:true,fill:'EDF1F7'}), cell(d.ref,{w:2980})] }),
-    new TableRow({ children: [cell('Document type',{w:1700,bold:true,fill:'EDF1F7'}), cell(d.status,{w:2980}),
-                              cell('Date',{w:1700,bold:true,fill:'EDF1F7'}), cell(d.date,{w:2980})] }),
-  ]}),
-  new Paragraph({ text: '', spacing: { after: 120 } }),
+  ...head(d.title, d.subtitle, d.ref, d.date, d.status),
+  ...d.content,
+  ...(d.signoff ? d.signoff() : []),
 ]);
 
 DOCS['cu4-full'] = {
@@ -613,21 +605,7 @@ DOCS['cu4-full'] = {
       ['Channel decision','Paid advertising discontinued'],
     ], [3200,6160]),
 
-    ...CU4_ORDER.flatMap((k, i) => [...partDivider(DOCS[k], i + 1), ...DOCS[k].content]),
-
-    pageBreak(),
-    h1('APPROVAL AND VERIFICATION'),
-    p('The proposals and plan in Parts 1 and 3 were submitted for approval before the work they describe was carried out. The reports in Parts 2, 4, 5 and 6 are submitted as records of work completed. Signature below covers this volume as a whole.'),
-    table(['','Prepared and Reported By','Reviewed By','Approved and Verified By'], [
-      ['Name','Zuriel Seong Ming Ee','',''], ['Position','Marketing Manager','',''],
-      ['Signature','','',''], ['Date','','',''],
-    ], [1500,2820,2520,2520]),
-    p(''),
-    p('Decision:      ☐  Approved and verified            ☐  Verified with comments            ☐  Further evidence required', { bold: true, after: 140 }),
-    p('Comments:', { bold: true, after: 100 }),
-    p('______________________________________________________________________________', { after: 120 }),
-    p('______________________________________________________________________________', { after: 120 }),
-    p('______________________________________________________________________________', { after: 120 }),
+    ...CU4_ORDER.flatMap(k => part(DOCS[k])),
   ],
 };
 
