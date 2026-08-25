@@ -55,17 +55,25 @@ Status key — ✅ evidence held · 🟡 partial · ⬜ needed · ❓ verify sou
 | W01 | Determine e-commerce channel | Platform selection rationale | ✅ Doc built |
 | W02 | Plan e-commerce content calendar | Content schedule | ✅ Implementation report + production record |
 | W03 | Prepare e-commerce campaign plan | Objectives, budget, targets | 🟡 Doc built; targets need filling |
-| W04 | Coordinate implementation | Live store, listings, orders | ⬜ Needs Seller Centre orders + fulfilment |
+| W04 | Coordinate implementation | Live store, listings, orders | ✅ Orders, dispatch, customer service |
 | W05 | Prepare paid advertisement proposal | Ad budget and targeting | ✅ Proposal + implementation record |
-| W06 | Optimise campaign performance | Sales data, ROAS, changes | 🟡 Full cycle documented; after-figures outstanding |
+| W06 | Optimise campaign performance | Sales data, ROAS, changes | ✅ Full cycle to channel decision |
 
 **Verified paid campaign — TikTok Ads GMV Max, 15 Sept – 14 Oct 2025.** Product GMV Max (Gross revenue) on the SBL Co. Oversized T-Shirt. Daily budget RM30.00, Target ROI 2.00. Delivered: cost RM50.00, 1 order, gross revenue RM50.00, cost per order RM50.00, achieved ROI 1.00 — half of target. Correctly dated before the March 2026 application window.
 
-**W06 optimisation loop (candidate-confirmed as reactive):** monitoring showed ROI 1.00 vs 2.00 target → diagnosed as conversion rate, not traffic cost (cost per order RM50 consumed the whole RM50 order value) → Seller Flash Sale at 8% activated, budget and target held constant → result to be captured.
+**W06 optimisation loop (candidate-confirmed as reactive):** ROI 1.00 vs 2.00 target → first diagnosis, conversion rate not traffic cost (RM50 cost per order consumed the whole RM50 order value) → **FLASH SALE SBL**, promotion ID 7556958011420854037, created 3 Oct 2025 7:38 PM, ran 3–5 Oct 2025, deal price RM55.00 against RM60.00–65.00 (**9% off**), 78 units, all channels → no move to target → second diagnosis, brand recognition not price → **paid advertising discontinued**, reallocated to organic and walk-in.
 
-Documents: `Portfolio/doc-builder.js` keys `cu4-wa2`, `cu4-wa3`, `cu4-wa5`, `cu4-wa6`.
+**W04 evidence (Level 3 images 67–69):** order console 18 orders / 9 completed / 8 shipped / 1 awaiting, all six action-needed queues at zero · platform shipping label for order 580628058928219548, BEST Express, ship-by **2025-10-03 23:56** (recipient details redacted in `ev69_redacted.png`) · customer service console 100% 12-hour response rate, average 4h 21m 34s, chat greeting + FAQ automation.
 
-Outstanding captures: Campaign details screen **showing the year 2025** · Seller Flash Sale promotion screen with activation date · Campaign details for the period **after** the flash sale · Seller Centre Orders and fulfilment record (W04) · reconcile gross revenue RM50.00 against the RM55.00 listed price.
+**Date anchors for 2025:** shipping label 2025-10-03 · flash sale promotion 10/03/2025 · 10.10 Super Sale registration 10/10/2025. The GMV Max range 09/15–10/14 cannot be 2026 (future-dated).
+
+⚠️ **10.10 Super Sale was registered, not run.** Level 3 image 62 shows the livestream session at status *Under review* with *No LIVE events*. Do not claim participation or a sales uplift from it. It evidences the promotional calendar (W02) only.
+
+⚠️ **Level 3 image 68 = the order console screenshot.** Its 18/9/8/1 totals are the shop's cumulative position, not post-10.10 growth.
+
+Documents: `Portfolio/doc-builder.js` keys `cu4-wa2`, `cu4-wa3`, `cu4-wa4`, `cu4-wa5`, `cu4-wa6`. Charts: `cu4-w56-charts.py`, `cu4-w46-charts.py`.
+
+Outstanding: split Ads Manager date range 15–30 Sept vs 3–14 Oct to isolate the flash-sale effect · reconcile gross revenue RM50.00 against the RM55.00 deal price · confirm whether the collection method was configured after the record date.
 
 **VERIFIED — the shop was real and traded.** Level 3 portfolio images 52–69 show the TikTok Shop Seller Centre account, the SBL T-Shirt listing, 10.10 Super Sale registration (Oct 2025), customer service at 100% 12-hour response rate, and 18 orders of which 9 completed. Document built at `CU4-Ecommerce/CU4-Plan-generator.js`.
 
