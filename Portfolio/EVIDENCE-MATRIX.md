@@ -52,12 +52,20 @@ Status key — ✅ evidence held · 🟡 partial · ⬜ needed · ❓ verify sou
 
 | WA | Work Activity | Evidence needed | Status |
 |----|---------------|-----------------|--------|
-| W01 | Determine e-commerce channel | Platform selection rationale | ❓ |
-| W02 | Plan e-commerce content calendar | Content schedule | ❓ |
-| W03 | Prepare e-commerce campaign plan | Objectives, budget, targets | ❓ |
-| W04 | Coordinate implementation | Live store, listings, orders | ❓ |
-| W05 | Prepare paid advertisement proposal | Ad budget and targeting | ❓ |
-| W06 | Optimise campaign performance | Sales data, ROAS, changes | ❓ |
+| W01 | Determine e-commerce channel | Platform selection rationale | ✅ Doc built |
+| W02 | Plan e-commerce content calendar | Content schedule | ✅ Implementation report + production record |
+| W03 | Prepare e-commerce campaign plan | Objectives, budget, targets | 🟡 Doc built; targets need filling |
+| W04 | Coordinate implementation | Live store, listings, orders | ⬜ Needs Seller Centre orders + fulfilment |
+| W05 | Prepare paid advertisement proposal | Ad budget and targeting | ✅ Proposal + implementation record |
+| W06 | Optimise campaign performance | Sales data, ROAS, changes | 🟡 Full cycle documented; after-figures outstanding |
+
+**Verified paid campaign — TikTok Ads GMV Max, 15 Sept – 14 Oct 2025.** Product GMV Max (Gross revenue) on the SBL Co. Oversized T-Shirt. Daily budget RM30.00, Target ROI 2.00. Delivered: cost RM50.00, 1 order, gross revenue RM50.00, cost per order RM50.00, achieved ROI 1.00 — half of target. Correctly dated before the March 2026 application window.
+
+**W06 optimisation loop (candidate-confirmed as reactive):** monitoring showed ROI 1.00 vs 2.00 target → diagnosed as conversion rate, not traffic cost (cost per order RM50 consumed the whole RM50 order value) → Seller Flash Sale at 8% activated, budget and target held constant → result to be captured.
+
+Documents: `Portfolio/doc-builder.js` keys `cu4-wa2`, `cu4-wa3`, `cu4-wa5`, `cu4-wa6`.
+
+Outstanding captures: Campaign details screen **showing the year 2025** · Seller Flash Sale promotion screen with activation date · Campaign details for the period **after** the flash sale · Seller Centre Orders and fulfilment record (W04) · reconcile gross revenue RM50.00 against the RM55.00 listed price.
 
 **VERIFIED — the shop was real and traded.** Level 3 portfolio images 52–69 show the TikTok Shop Seller Centre account, the SBL T-Shirt listing, 10.10 Super Sale registration (Oct 2025), customer service at 100% 12-hour response rate, and 18 orders of which 9 completed. Document built at `CU4-Ecommerce/CU4-Plan-generator.js`.
 

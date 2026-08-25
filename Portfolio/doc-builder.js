@@ -52,6 +52,24 @@ const cap = (t) => new Paragraph({
   children: [new TextRun({ text: t, font: F, size: 18, italics: true, color: '666666' })],
   alignment: AlignmentType.CENTER, spacing: { after: 180 },
 });
+// Bordered placeholder box — where the candidate pastes a platform screenshot.
+const shot = (t) => new Table({
+  width: { size: 9360, type: WidthType.DXA }, columnWidths: [9360],
+  borders: {
+    top:    { style: BorderStyle.DASHED, size: 6, color: RED },
+    bottom: { style: BorderStyle.DASHED, size: 6, color: RED },
+    left:   { style: BorderStyle.DASHED, size: 6, color: RED },
+    right:  { style: BorderStyle.DASHED, size: 6, color: RED },
+  },
+  rows: [new TableRow({ children: [new TableCell({
+    width: { size: 9360, type: WidthType.DXA },
+    margins: { top: 320, bottom: 320, left: 120, right: 120 },
+    children: [new Paragraph({
+      children: [new TextRun({ text: t, font: F, size: 19, bold: true, color: RED })],
+      alignment: AlignmentType.CENTER, spacing: { after: 0 },
+    })],
+  })] })],
+});
 const fill = (t) => new Paragraph({
   children: [new TextRun({ text: t, font: F, size: 20, bold: true, color: RED })],
   spacing: { before: 100, after: 150 },
@@ -240,43 +258,117 @@ DOCS['cu4-wa3'] = {
 };
 
 DOCS['cu4-wa5'] = {
-  file: 'CU4-WA5-Paid-Advertisement-Proposal.docx',
+  file: 'CU4-WA5-Paid-Advertisement-Report.docx',
   body: [
-    ...head('PAID ADVERTISEMENT CAMPAIGN PROPOSAL','TikTok Ads for TikTok Shop — Superbowl Lipis','ECOM/CU4/W05/2025','[ TARIKH ]'),
+    ...head('PAID ADVERTISEMENT PROPOSAL AND IMPLEMENTATION RECORD','TikTok Ads for TikTok Shop — Superbowl Lipis, 2025','ECOM/CU4/W05/2025','[ TARIKH ]','Report on completed work'),
     h1('1.  PURPOSE'),
-    p('This proposal seeks approval for paid advertising spend to promote the TikTok Shop product listing. Organic content has established the channel; paid activity is proposed to extend reach beyond existing followers.'),
-    h1('2.  APPROACH'),
-    p('Advertising runs through TikTok Ads, which the organisation already operates. Because the product link sits on organic video, existing content can be promoted directly rather than produced separately for advertising. This removes creative production cost from the campaign.'),
-    h1('3.  BUDGET ALLOCATION'),
-    img('cu4_budget.png', 290, 218),
-    cap('Figure 1 — Proposed allocation of paid budget'),
-    table(['Allocation','Share','Purpose'], [
-      ['Prospecting','55%','Reach new audiences beyond existing followers'],
-      ['Retargeting','30%','Re-reach viewers who watched but did not purchase'],
-      ['Creative testing','15%','Test new content against the current best performer'],
-    ], [2400,1400,5560]),
-    fill('[ ISI: jumlah belanjawan bulanan yang dicadangkan ]'),
-    h1('4.  TARGETING'),
-    table(['Parameter','Setting'], [
-      ['Age','18 – 34'],
-      ['Location','Malaysia, with priority on Pahang and surrounding states'],
-      ['Interest','Streetwear, local fashion, lifestyle content'],
-      ['Placement','TikTok in-feed, attached to shoppable video'],
-    ], [2600,6760]),
-    h1('5.  SUCCESS CRITERIA'),
-    table(['Metric','Threshold'], [
-      ['Cost per order','Below [ ISI ] — the point at which an order remains profitable after commission and fulfilment'],
-      ['Return on ad spend','Above [ ISI ]'],
-      ['Order volume','Sufficient to justify continued spend'],
-    ], [2600,6760]),
-    p('Spend is reviewed weekly against these thresholds. Ad groups exceeding the cost-per-order threshold for two consecutive weeks are paused and reviewed.', { before: 100 }),
-    h1('6.  RISK'),
-    table(['Risk','Mitigation'], [
-      ['Cost per order exceeds margin','Weekly review with a defined pause threshold'],
-      ['Creative fatigue reduces performance','Creative testing allocation maintained at 15%'],
-      ['Stock runs out during campaign','Stock level checked before budget increases'],
-    ], [3400,5960]),
-    ...approval(),
+    p('This document sets out the paid advertising proposal prepared for the TikTok Shop product listing, and records the campaign as it was implemented. Part A states the approach, budget and targets set before launch. Part B reports what was delivered against them.'),
+
+    h1('PART A — PROPOSAL'),
+    sub('2.1   Approach'),
+    p('Advertising ran through TikTok Ads, which the organisation already operates. Because the product link sits on organic video, existing content was promoted directly rather than produced separately for advertising, removing creative production cost from the campaign.'),
+    p('The GMV Max campaign type was selected. GMV Max selects creative automatically from authorised posts and manages placement and bidding against a stated return target. This suited a single-product shop with a small budget, where manual ad-group management could not be justified by the spend involved.'),
+
+    sub('2.2   Budget and targets'),
+    table(['Parameter','Setting','Basis'], [
+      ['Campaign','Product GMV Max — Gross revenue','Automated, revenue-optimised'],
+      ['Product','SBL Co. Oversized T-Shirt','Single product listed'],
+      ['Daily budget','RM30.00','Contained exposure while the channel was proven'],
+      ['Target ROI','2.00','Revenue at twice ad cost, to leave margin after commission and fulfilment'],
+      ['Placement','Automatic','Managed by the platform'],
+      ['Audience','Users under 18 excluded','Platform requirement for the product category'],
+    ], [1900,2700,4760]),
+    p('A target ROI of 2.00 was the controlling figure. Below it, an order does not cover advertising plus platform commission and fulfilment, and the sale is made at a loss.', { before: 100 }),
+
+    h1('PART B — IMPLEMENTATION RECORD'),
+    sub('3.1   Campaign delivered'),
+    p('The campaign ran from 15 September to 14 October 2025 and delivered as follows.'),
+    table(['Metric','Result','Against target'], [
+      ['Cost','RM50.00','Within the RM30.00 daily budget'],
+      ['Orders (SKU)','1','—'],
+      ['Gross revenue','RM50.00','—'],
+      ['Cost per order','RM50.00','—'],
+      ['Return on ad spend (ROI)','1.00','Target 2.00 — not met'],
+    ], [2900,2300,4160]),
+    shot('[ LAMPIRKAN TANGKAP LAYAR: TikTok Ads Manager → Campaign details, julat tarikh 15 Sept – 14 Okt 2025, menunjukkan Cost, Orders, Cost per order, Gross revenue dan Target ROI ]'),
+    cap('Figure 1 — TikTok Ads Manager campaign record'),
+    fill('[ SAHKAN: pastikan tangkap layar memaparkan TAHUN (2025) — tetapkan julat tarikh tersuai jika perlu ]'),
+
+    sub('3.2   Delivery against target'),
+    img('cu4_w05_target.png', 430, 154),
+    cap('Figure 2 — Achieved ROI against the 2.00 target'),
+    p('The campaign returned RM1.00 of revenue for every RM1.00 of advertising — half the target. Spend was contained and the channel converted, but not at a rate that covered its own cost.'),
+
+    h1('4.  CONCLUSION'),
+    p('The proposal was implemented as specified: the campaign ran on the stated budget, against the stated target, on the stated product. The target was not met. The corrective action taken in response is recorded separately in the campaign performance optimisation report (ECOM/CU4/W06/2025).'),
+    p('Paid advertising is not recommended for expansion at this cost per order until the conversion rate on the listing improves. Organic content remained the principal source of orders during the period.'),
+    fill('[ SAHKAN: hasil jualan RM50.00 berbanding harga tersenarai RM55.00 — nyatakan sama ada baucar digunakan ]'),
+    ...verification(),
+  ],
+};
+
+DOCS['cu4-wa6'] = {
+  file: 'CU4-WA6-Performance-Optimisation-Report.docx',
+  body: [
+    ...head('CAMPAIGN PERFORMANCE OPTIMISATION REPORT','TikTok Shop paid campaign — Superbowl Lipis, September–October 2025','ECOM/CU4/W06/2025','[ TARIKH ]','Report on completed work'),
+    h1('1.  PURPOSE AND SCOPE'),
+    p('This report records the monitoring of the TikTok Shop paid campaign, the underperformance identified, the corrective action taken and its result. It covers the period 15 September to 14 October 2025.'),
+
+    h1('2.  MONITORING FRAMEWORK'),
+    p('Performance was reviewed against targets set before launch, so that underperformance could be identified against a stated figure rather than by impression.'),
+    table(['Metric','Target','Source','Review'], [
+      ['Return on ad spend','2.00','TikTok Ads Manager','Weekly'],
+      ['Cost per order','Below item price','TikTok Ads Manager','Weekly'],
+      ['Daily spend','RM30.00 ceiling','TikTok Ads Manager','Weekly'],
+      ['Orders','TikTok Shop Seller Centre','Seller Centre','Weekly'],
+    ], [2500,2000,2600,2260]),
+
+    h1('3.  PERFORMANCE OBSERVED'),
+    img('cu4_w05_target.png', 430, 154),
+    cap('Figure 1 — Achieved ROI against target'),
+    p('Monitoring showed the campaign delivering ROI of 1.00 against a target of 2.00, with cost per order at RM50.00. Spend stayed inside the daily budget, so the shortfall was not a spend-control failure — it was a conversion problem.'),
+
+    h1('4.  DIAGNOSIS'),
+    img('cu4_w06_unit.png', 400, 179),
+    cap('Figure 2 — Unit economics of the acquired order'),
+    p('At RM50.00 cost per order against RM50.00 gross revenue, advertising consumed the entire value of the sale. Platform commission and fulfilment then took the order below break-even. Continuing at this rate would have increased losses in proportion to spend.'),
+    p('The cause was traced to conversion rate rather than traffic cost. Traffic was reaching the listing, but too few viewers were completing checkout for the advertising cost to spread across enough orders. Raising the budget would have bought more of the same unprofitable traffic.'),
+
+    h1('5.  CORRECTIVE ACTION'),
+    p('A Seller Flash Sale at 8% was activated on the SBL Co. Oversized T-Shirt. The reasoning was that a lower price lifts the conversion rate on traffic already being paid for, spreading the same advertising cost across more orders. A smaller margin on more units was judged preferable to unprofitable acquisition, and the action required no additional advertising spend.'),
+    table(['','Before','After'], [
+      ['Listed price','RM60.00','RM55.00'],
+      ['Discount','—','8% (Seller Flash Sale)'],
+      ['Advertising budget','RM30.00 / day','Unchanged'],
+      ['Target ROI','2.00','Unchanged'],
+    ], [2500,3400,3460]),
+    p('Budget and target were deliberately held constant so that any change in performance could be attributed to the price change alone.', { before: 100 }),
+    shot('[ LAMPIRKAN TANGKAP LAYAR: TikTok Shop Seller Centre → promosi Seller Flash Sale, menunjukkan diskaun 8% dan tarikh ia diaktifkan ]'),
+    cap('Figure 3 — Seller Flash Sale as activated'),
+
+    h1('6.  OPTIMISATION CYCLE APPLIED'),
+    img('cu4_w06_cycle.png', 460, 118),
+    cap('Figure 4 — Monitoring, diagnosis, action and measurement'),
+
+    h1('7.  RESULT'),
+    p('Performance was re-measured after the flash sale was activated, on the same metrics and the same source.'),
+    table(['Metric','Before','After','Change'], [
+      ['Return on ad spend','1.00','[ ISI ]','[ ISI ]'],
+      ['Cost per order','RM50.00','[ ISI ]','[ ISI ]'],
+      ['Orders','1','[ ISI ]','[ ISI ]'],
+    ], [2500,2000,2200,2660]),
+    shot('[ LAMPIRKAN TANGKAP LAYAR: TikTok Ads Manager → Campaign details bagi tempoh SELEPAS jualan kilat diaktifkan ]'),
+    cap('Figure 5 — Performance after the corrective action'),
+    fill('[ ISI: nyatakan keputusan sebenar selepas jualan kilat — termasuk jika prestasi tidak bertambah baik ]'),
+
+    h1('8.  CONCLUSION AND NEXT ACTION'),
+    p('The monitoring framework identified underperformance against a pre-set target, the cause was diagnosed as conversion rather than traffic cost, and a corrective action was taken that addressed the diagnosed cause without increasing spend.'),
+    table(['Finding','Next action'], [
+      ['Cost per order exceeded item value','Hold paid spend at the current ceiling until cost per order falls below item price'],
+      ['Conversion rate limits campaign viability','Improve listing content and customer reviews before further paid spend'],
+      ['Single product limits campaign options','Broaden the product range so budget can move to better-converting items'],
+    ], [3600,5760]),
+    ...verification(),
   ],
 };
 
