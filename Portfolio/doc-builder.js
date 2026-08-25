@@ -73,15 +73,30 @@ const letterhead = new Table({
 });
 const rule = new Paragraph({ text: '', border: { bottom: { style: BorderStyle.SINGLE, size: 12, color: RED } }, spacing: { before: 60, after: 200 } });
 
-const head = (title, subtitle, ref, date) => ([
+const head = (title, subtitle, ref, date, status) => ([
   letterhead, rule,
   new Paragraph({ children: [new TextRun({ text: title, font: F, size: 30, bold: true, color: NAVY })], alignment: AlignmentType.CENTER, spacing: { after: 60 } }),
   new Paragraph({ children: [new TextRun({ text: subtitle, font: F, size: 20, color: '555555' })], alignment: AlignmentType.CENTER, spacing: { after: 220 } }),
   new Table({ width: { size: 9360, type: WidthType.DXA }, columnWidths: [1560, 3120, 1560, 3120], rows: [
     new TableRow({ children: [cell('Reference',{w:1560,bold:true,fill:'EDF1F7'}), cell(ref,{w:3120}), cell('Prepared by',{w:1560,bold:true,fill:'EDF1F7'}), cell('Zuriel Seong',{w:3120})] }),
     new TableRow({ children: [cell('Date',{w:1560,bold:true,fill:'EDF1F7'}), cell(date,{w:3120}), cell('Position',{w:1560,bold:true,fill:'EDF1F7'}), cell('Marketing Manager',{w:3120})] }),
-    new TableRow({ children: [cell('Submitted to',{w:1560,bold:true,fill:'EDF1F7'}), cell('Puan Wan Norizan',{w:3120}), cell('Status',{w:1560,bold:true,fill:'EDF1F7'}), cell('For approval',{w:3120})] }),
+    new TableRow({ children: [cell('Submitted to',{w:1560,bold:true,fill:'EDF1F7'}), cell('Puan Wan Norizan',{w:3120}), cell('Status',{w:1560,bold:true,fill:'EDF1F7'}), cell(status || 'For approval',{w:3120})] }),
   ]}),
+]);
+
+// Sign-off block for a report on completed work — verification, not approval.
+const verification = () => ([
+  h1('VERIFICATION'),
+  p('This report is submitted as a record of work completed. Verification below confirms that the content calendar was implemented and the content described was produced and published.'),
+  table(['','Reported By','Verified By','Acknowledged By'], [
+    ['Name','Zuriel Seong','',''], ['Position','Marketing Manager','',''],
+    ['Signature','','',''], ['Date','','',''],
+  ], [1500,2820,2520,2520]),
+  p(''),
+  p('Verification:      ☐  Verified as implemented            ☐  Verified with comments            ☐  Further evidence required', { bold: true, after: 140 }),
+  p('Comments:', { bold: true, after: 100 }),
+  p('______________________________________________________________________________', { after: 120 }),
+  p('______________________________________________________________________________', { after: 120 }),
 ]);
 
 const approval = () => ([
@@ -103,12 +118,14 @@ const DOCS = {};
 DOCS['cu4-wa2'] = {
   file: 'CU4-WA2-Content-Calendar.docx',
   body: [
-    ...head('E-COMMERCE CONTENT CALENDAR','Content planning and production record — TikTok Shop, 2025','ECOM/CU4/W02/2025','[ TARIKH ]'),
-    h1('1.  PURPOSE'),
-    p('This document sets the content themes, formats and publishing schedule for the TikTok Shop channel, and records the content produced against that plan. Because a product link can be attached to any video, every piece of content published is also a potential point of sale.'),
+    ...head('CONTENT CALENDAR IMPLEMENTATION REPORT','E-commerce content production and publishing — TikTok Shop, 2025','ECOM/CU4/W02/2025','[ TARIKH ]','Report on completed work'),
+    h1('1.  PURPOSE AND SCOPE'),
+    p('This report records the implementation of the e-commerce content calendar for the TikTok Shop channel. It sets out the calendar that was planned, the content that was produced and published against it, and the outcome. Because a product link can be attached to any video, every piece of content published was also a point of sale.'),
+    p('Reporting period: September to October 2025.'),
 
-    h1('2.  CONTENT PILLARS'),
-    p('Five pillars are used. The mix weights product-led content most heavily while retaining variety, so the account does not read as purely promotional and lose organic reach.'),
+    h1('2.  CONTENT CALENDAR AS PLANNED'),
+    sub('2.1   Content pillars'),
+    p('Five pillars were set. The mix weighted product-led content most heavily while retaining variety, so the account would not read as purely promotional and lose organic reach.'),
     img('cu4_pillars.png', 420, 194),
     cap('Figure 1 — Monthly content mix by pillar'),
     table(['Pillar','Share','Purpose'], [
@@ -119,13 +136,22 @@ DOCS['cu4-wa2'] = {
       ['Promotional','10%','Drive immediate action'],
     ], [2200,1100,6060]),
 
-    h1('3.  PRODUCTION SCHEDULE'),
-    table(['Month','Activity','Output'], [
-      ['September 2025','Product photoshoot — two locations, two models','Product photography for listing and social content'],
-      ['September 2025','Video production — aerial and lifestyle footage','New Collection launch video'],
-      ['October 2025','Content published, product listing completed','Shoppable video and live listing'],
-      ['October 2025','Promotional campaign activated','New Product Launching promotion'],
-    ], [2000,4200,3160]),
+    sub('2.2   Publishing schedule'),
+    p('Two posts per week on a fixed rotation, so each pillar recurs on a predictable cycle. Every post carried the product link, allowing any video to convert regardless of pillar.'),
+    table(['Week','Post 1','Post 2'], [
+      ['Week 1','Product showcase','Local identity'],
+      ['Week 2','Styling & fit','Customer / UGC'],
+      ['Week 3','Product showcase','Promotional'],
+      ['Week 4','Styling & fit','Local identity'],
+    ], [1400,3980,3980]),
+
+    h1('3.  PRODUCTION SCHEDULE AND DELIVERY'),
+    table(['Month','Activity planned','Delivered'], [
+      ['September 2025','Product photoshoot — two locations, two models','Yes — see 4.1'],
+      ['September 2025','Video production — aerial and lifestyle footage','Yes — see 4.2'],
+      ['October 2025','Product listing completed and content published','Yes — see 4.3'],
+      ['October 2025','Promotional campaign activated','Yes — see 5'],
+    ], [2000,4400,2960]),
     fill('[ SAHKAN: tarikh sebenar sesi fotografi dan penerbitan kandungan ]'),
 
     h1('4.  PRODUCTION RECORD'),
@@ -146,7 +172,7 @@ DOCS['cu4-wa2'] = {
     img('ev66.png', 430, 211),
     cap('Figure 5 — Product listing content published in Seller Centre'),
 
-    h1('5.  PROMOTIONAL CALENDAR'),
+    h1('5.  PROMOTIONAL CALENDAR EXECUTED'),
     p('Promotional content was scheduled around platform sale events, which carry additional traffic at no extra media cost.'),
     img('ev61.png', 430, 258),
     cap('Figure 6 — New Product Launching promotion: RM55 deal price against RM60–65 original, live from October 2025'),
@@ -156,15 +182,20 @@ DOCS['cu4-wa2'] = {
       ['October 2025','Flash sale and discount code campaigns','Executed'],
     ], [2000,4900,2460]),
 
-    h1('6.  PUBLISHING SCHEDULE'),
-    p('Two posts per week on a fixed schedule. Every post carries the product link so any video can convert regardless of pillar.'),
-    table(['Week','Post 1','Post 2'], [
-      ['Week 1','Product showcase','Local identity'],
-      ['Week 2','Styling & fit','Customer / UGC'],
-      ['Week 3','Product showcase','Promotional'],
-      ['Week 4','Styling & fit','Local identity'],
-    ], [1400,3980,3980]),
-    ...approval(),
+    h1('6.  DELIVERY AGAINST THE CALENDAR'),
+    p('The table below summarises each element of the calendar set in Section 2 against what was produced, with the supporting evidence in this report.'),
+    table(['Calendar element','Planned','Delivered','Evidence'], [
+      ['Product showcase content','Photography of the shirt','Photoshoot completed, two locations','Figure 2'],
+      ['Local identity content','Content tying brand to Kuala Lipis','Aerial launch video published','Figure 3'],
+      ['Styling & fit content','Shirt shown worn','Model and lifestyle footage','Figures 2, 4'],
+      ['Listing content','Product page images','Listing published in Seller Centre','Figure 5'],
+      ['Promotional content','Scheduled to sale events','Launch promotion and 10.10 activated','Figure 6'],
+    ], [2400,2500,2660,1800]),
+
+    h1('7.  OUTCOME'),
+    p('The calendar was implemented as planned. Content produced in September was published in October alongside the completed product listing, and the promotional campaign ran against that content. The launch video recorded 681 views, and the channel converted through the listing during the promotional period.'),
+    fill('[ ISI: jumlah pesanan dan jualan bagi tempoh Oktober 2025 — rujuk Seller Centre ]'),
+    ...verification(),
   ],
 };
 
