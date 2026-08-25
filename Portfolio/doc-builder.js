@@ -131,12 +131,75 @@ const approval = () => ([
 ]);
 
 // ─────────────────────────────────────────────────────────────────────────────
+// Each entry holds its metadata and its content separately, so the same content
+// can be rendered standalone or bound into the compiled CU4 document.
 const DOCS = {};
 
+DOCS['cu4-wa1'] = {
+  file: 'CU4-WA1-Channel-Selection-Proposal.docx',
+  wa: 'W01', partTitle: 'E-COMMERCE CHANNEL SELECTION',
+  title: 'E-COMMERCE CHANNEL SELECTION PROPOSAL',
+  subtitle: 'Selection of a sales channel for Superbowl Lipis',
+  ref: 'ECOM/CU4/W01/2025', date: '[ TARIKH — sebelum penubuhan kedai ]',
+  status: 'For approval — pre-launch', signoff: approval,
+  content: [
+    h1('1.  PURPOSE AND BACKGROUND'),
+    p('Superbowl Lipis sells its streetwear jersey through walk-in and informal messaging enquiries. There is no online sales channel, which means sales cannot be measured, paid advertising has no trackable purchase destination, and no customer or order record is kept.'),
+    p('This proposal recommends adopting TikTok Shop as the sales channel and sets out the reasoning and the requirements to establish it. Approval is sought to proceed with account registration and product listing.'),
+
+    h1('2.  BUSINESS CONTEXT'),
+    p('Two facts shape the recommendation. Superbowl Lipis sells a single product — the Superbowl jersey streetwear shirt — so the channel does not need to support a large catalogue, inventory variants or complex merchandising. And the brand already maintains an active TikTok account with an established local following, with a promotional video for the shirt already produced and posted.'),
+    p('The requirement is therefore narrow: a way to sell one product to an audience already watching the brand’s content, without building new infrastructure.'),
+
+    h1('3.  RECOMMENDATION'),
+    sub('3.1   Native integration with content already published'),
+    p('A product link can be attached directly to the existing promotional video. The yellow basket icon appears on the video and viewers move from watching to purchasing without leaving the application. No new content production is required to begin selling.'),
+    img('cu4_flow.png', 450, 116),
+    cap('Figure 1 — From existing content to completed order'),
+    sub('3.2   The audience is already on the platform'),
+    p('The brand’s followers are local and already engaged with its TikTok content. Selling within the same platform reaches that audience directly. Any other channel would require redirecting them elsewhere, or building a new audience from zero.'),
+    sub('3.3   No setup cost or technical build'),
+    p('TikTok Shop requires account registration and a product listing. There is no development work, no hosting, no domain and no separate payment gateway to arrange. Checkout and payment are handled within the platform.'),
+    sub('3.4   A standalone store is disproportionate for one product'),
+    p('A Shopify or WooCommerce store would involve monthly subscription, domain registration, payment gateway setup and ongoing maintenance before a single shirt is sold. For a single-product range with no immediate plan to expand, that cost is not justified.'),
+
+    h1('4.  OPTIONS CONSIDERED'),
+    table(['Option','Assessment'], [
+      ['TikTok Shop','RECOMMENDED — native to existing content and audience; no setup cost; in-app checkout'],
+      ['Own website (Shopify / WooCommerce)','Rejected — highest setup cost; requires building traffic from zero'],
+      ['Shopee','Not pursued — seller registration was not approved'],
+      ['Lazada','Not pursued — no existing audience; would require paid traffic for visibility'],
+      ['Meta Shop','Held in reserve — brand has a Meta presence, but no native in-app checkout in this market'],
+    ], [3000,6360]),
+    p('Note on platform fees: marketplace commission rates vary by category and change periodically. TikTok Shop is not necessarily the lowest-commission option, and a self-hosted store carries no commission at all. The recommendation rests on integration, audience and setup cost rather than on commission being lowest.', { before: 100 }),
+
+    h1('5.  IMPLEMENTATION REQUIREMENTS'),
+    table(['Item','Requirement','Responsibility'], [
+      ['Account registration','Business verification documents, bank details','Marketing Manager'],
+      ['Product catalogue','Product list, pricing, descriptions, photography','Marketing team'],
+      ['Fulfilment','Packing, courier arrangement, dispatch procedure','Operations'],
+      ['Payment settlement','Bank linkage and settlement schedule','Finance'],
+      ['Performance tracking','Reporting format and review frequency','Marketing Manager'],
+    ], [2400,4200,2760]),
+
+    h1('6.  RISKS'),
+    table(['Risk','Mitigation'], [
+      ['Platform account suspension or policy change','Keep product and customer data independent of the platform; hold Meta Shop in reserve'],
+      ['Platform dependency limits control over reach','Continue developing owned channels alongside the marketplace'],
+      ['Commission erodes margin','Review pricing against the fee structure before listing'],
+      ['Fulfilment capacity','Start with a limited range and scale once the process is proven'],
+    ], [3400,5960]),
+  ],
+};
+
 DOCS['cu4-wa2'] = {
-  file: 'CU4-WA2-Content-Calendar.docx',
-  body: [
-    ...head('CONTENT CALENDAR IMPLEMENTATION REPORT','E-commerce content production and publishing — TikTok Shop, 2025','ECOM/CU4/W02/2025','[ TARIKH ]','Report on completed work'),
+  file: 'CU4-WA2-Content-Calendar-Report.docx',
+  wa: 'W02', partTitle: 'CONTENT CALENDAR',
+  title: 'CONTENT CALENDAR IMPLEMENTATION REPORT',
+  subtitle: 'E-commerce content production and publishing — TikTok Shop, 2025',
+  ref: 'ECOM/CU4/W02/2025', date: '[ TARIKH ]',
+  status: 'Report on completed work', signoff: verification,
+  content: [
     h1('1.  PURPOSE AND SCOPE'),
     p('This report records the implementation of the e-commerce content calendar for the TikTok Shop channel. It sets out the calendar that was planned, the content that was produced and published against it, and the outcome. Because a product link can be attached to any video, every piece of content published was also a point of sale.'),
     p('Reporting period: September to October 2025.'),
@@ -213,14 +276,17 @@ DOCS['cu4-wa2'] = {
     h1('7.  OUTCOME'),
     p('The calendar was implemented as planned. Content produced in September was published in October alongside the completed product listing, and the promotional campaign ran against that content. The launch video recorded 681 views, and the channel converted through the listing during the promotional period.'),
     fill('[ ISI: jumlah pesanan dan jualan bagi tempoh Oktober 2025 — rujuk Seller Centre ]'),
-    ...verification(),
   ],
 };
 
 DOCS['cu4-wa3'] = {
   file: 'CU4-WA3-Campaign-Plan.docx',
-  body: [
-    ...head('E-COMMERCE CAMPAIGN PLAN','Objectives, audience and measurement — TikTok Shop','ECOM/CU4/W03/2025','[ TARIKH — sebelum 15 September 2025 ]','For approval — pre-launch'),
+  wa: 'W03', partTitle: 'CAMPAIGN PLAN',
+  title: 'E-COMMERCE CAMPAIGN PLAN',
+  subtitle: 'Objectives, audience and measurement — TikTok Shop',
+  ref: 'ECOM/CU4/W03/2025', date: '[ TARIKH — sebelum 15 September 2025 ]',
+  status: 'For approval — pre-launch', signoff: approval,
+  content: [
     p('This plan was prepared before the campaign launched and sets the objectives, audience, phasing and measurement against which it was run. Delivery against it is reported separately under references W04, W05 and W06.', { italics: true, color: '555555' }),
     h1('1.  CAMPAIGN OBJECTIVES'),
     table(['Objective','Measure','Target'], [
@@ -278,14 +344,17 @@ DOCS['cu4-wa3'] = {
       ['Protect margin','Cost per order RM50.00 against a RM55.00 item — not met','ECOM/CU4/W06/2025'],
       ['Review and decide','Paid advertising discontinued; organic and walk-in prioritised','ECOM/CU4/W06/2025'],
     ], [2700,3900,2760]),
-    ...approval(),
   ],
 };
 
 DOCS['cu4-wa4'] = {
   file: 'CU4-WA4-Implementation-Coordination-Report.docx',
-  body: [
-    ...head('E-COMMERCE IMPLEMENTATION COORDINATION REPORT','Order management, fulfilment and customer service — TikTok Shop, 2025','ECOM/CU4/W04/2025','[ TARIKH ]','Report on completed work'),
+  wa: 'W04', partTitle: 'IMPLEMENTATION COORDINATION',
+  title: 'E-COMMERCE IMPLEMENTATION COORDINATION REPORT',
+  subtitle: 'Order management, fulfilment and customer service — TikTok Shop, 2025',
+  ref: 'ECOM/CU4/W04/2025', date: '[ TARIKH ]',
+  status: 'Report on completed work', signoff: verification,
+  content: [
     h1('1.  PURPOSE AND SCOPE'),
     p('This report records how the TikTok Shop channel was operated once live: how orders were received and tracked, how they were fulfilled, and how buyer enquiries were handled. It covers the trading period from the store going live to October 2025.'),
     p('Coordination here means the day-to-day running of the channel — the part that determines whether an order placed actually reaches the buyer.'),
@@ -340,14 +409,17 @@ DOCS['cu4-wa4'] = {
     p('The channel operated end to end. Orders were received, dispatched through platform logistics and completed, with no outstanding shipping exceptions, cancellations or refund requests at the point of record, and buyer enquiries answered inside the platform standard.'),
     p('One operational note is carried forward: the collection method had not been configured at the point of record, which the console flags as a prerequisite before shipping. This did not prevent dispatch during the period but was a setup item outstanding.'),
     fill('[ SAHKAN: sama ada kaedah kutipan (collection method) telah dikemas kini selepas tarikh rekod ini ]'),
-    ...verification(),
   ],
 };
 
 DOCS['cu4-wa5'] = {
   file: 'CU4-WA5-Paid-Advertisement-Report.docx',
-  body: [
-    ...head('PAID ADVERTISEMENT PROPOSAL AND IMPLEMENTATION RECORD','TikTok Ads for TikTok Shop — Superbowl Lipis, 2025','ECOM/CU4/W05/2025','[ TARIKH ]','Report on completed work'),
+  wa: 'W05', partTitle: 'PAID ADVERTISEMENT',
+  title: 'PAID ADVERTISEMENT PROPOSAL AND IMPLEMENTATION RECORD',
+  subtitle: 'TikTok Ads for TikTok Shop — Superbowl Lipis, 2025',
+  ref: 'ECOM/CU4/W05/2025', date: '[ TARIKH ]',
+  status: 'Report on completed work', signoff: verification,
+  content: [
     h1('1.  PURPOSE'),
     p('This document sets out the paid advertising proposal prepared for the TikTok Shop product listing, and records the campaign as it was implemented. Part A states the approach, budget and targets set before launch. Part B reports what was delivered against them.'),
 
@@ -390,14 +462,17 @@ DOCS['cu4-wa5'] = {
     p('The proposal was implemented as specified: the campaign ran on the stated budget, against the stated target, on the stated product. The target was not met. The corrective action taken in response is recorded separately in the campaign performance optimisation report (ECOM/CU4/W06/2025).'),
     p('Following the review recorded in that report, paid advertising on TikTok Shop was discontinued and effort was reallocated to organic content and offline sales. Organic content remained the principal source of orders throughout the period.'),
     fill('[ SAHKAN: hasil jualan RM50.00 berbanding harga tersenarai RM55.00 — nyatakan sama ada baucar digunakan ]'),
-    ...verification(),
   ],
 };
 
 DOCS['cu4-wa6'] = {
   file: 'CU4-WA6-Performance-Optimisation-Report.docx',
-  body: [
-    ...head('CAMPAIGN PERFORMANCE OPTIMISATION REPORT','TikTok Shop paid campaign — Superbowl Lipis, September–October 2025','ECOM/CU4/W06/2025','[ TARIKH ]','Report on completed work'),
+  wa: 'W06', partTitle: 'PERFORMANCE OPTIMISATION',
+  title: 'CAMPAIGN PERFORMANCE OPTIMISATION REPORT',
+  subtitle: 'TikTok Shop paid campaign — Superbowl Lipis, September–October 2025',
+  ref: 'ECOM/CU4/W06/2025', date: '[ TARIKH ]',
+  status: 'Report on completed work', signoff: verification,
+  content: [
     h1('1.  PURPOSE AND SCOPE'),
     p('This report records the monitoring of the TikTok Shop paid campaign, the underperformance identified against target, the corrective action taken, its result, and the channel decision that followed. It covers the period 15 September to 14 October 2025.'),
 
@@ -467,9 +542,97 @@ DOCS['cu4-wa6'] = {
       ['Local identity carries the product','Sales channelled through walk-in at the centre'],
       ['Single SKU limits any paid campaign','Reconsider paid advertising only if the range broadens'],
     ], [3600,5760]),
-    ...verification(),
   ],
 };
+
+// ── Compiled CU4 volume — all six work activities bound in one document ──────
+const CU4_ORDER = ['cu4-wa1','cu4-wa2','cu4-wa3','cu4-wa4','cu4-wa5','cu4-wa6'];
+
+const pageBreak = () => new Paragraph({ children: [new PageBreak()] });
+
+const partDivider = (d, n) => ([
+  pageBreak(),
+  new Paragraph({ children: [new TextRun({ text: `PART ${n}`, font: F, size: 20, bold: true, color: RED })],
+    alignment: AlignmentType.CENTER, spacing: { before: 260, after: 60 } }),
+  new Paragraph({ children: [new TextRun({ text: d.partTitle, font: F, size: 30, bold: true, color: NAVY })],
+    alignment: AlignmentType.CENTER, spacing: { after: 60 } }),
+  new Paragraph({ children: [new TextRun({ text: d.subtitle, font: F, size: 19, color: '555555' })],
+    alignment: AlignmentType.CENTER, spacing: { after: 200 } }),
+  new Table({ width: { size: 9360, type: WidthType.DXA }, columnWidths: [1700, 2980, 1700, 2980], rows: [
+    new TableRow({ children: [cell('Work activity',{w:1700,bold:true,fill:'EDF1F7'}), cell(d.wa,{w:2980}),
+                              cell('Reference',{w:1700,bold:true,fill:'EDF1F7'}), cell(d.ref,{w:2980})] }),
+    new TableRow({ children: [cell('Document type',{w:1700,bold:true,fill:'EDF1F7'}), cell(d.status,{w:2980}),
+                              cell('Date',{w:1700,bold:true,fill:'EDF1F7'}), cell(d.date,{w:2980})] }),
+  ]}),
+  new Paragraph({ text: '', spacing: { after: 120 } }),
+]);
+
+DOCS['cu4-full'] = {
+  file: 'CU4-Ecommerce-Marketing-Plan-and-Implementation.docx',
+  compiled: true,
+  body: [
+    letterhead, rule,
+    new Paragraph({ children: [new TextRun({ text: 'E-COMMERCE MARKETING PLAN', font: F, size: 40, bold: true, color: NAVY })],
+      alignment: AlignmentType.CENTER, spacing: { before: 700, after: 40 } }),
+    new Paragraph({ children: [new TextRun({ text: 'AND IMPLEMENTATION', font: F, size: 40, bold: true, color: NAVY })],
+      alignment: AlignmentType.CENTER, spacing: { after: 120 } }),
+    new Paragraph({ children: [new TextRun({ text: 'Superbowl Lipis · TikTok Shop · 2025', font: F, size: 24, color: '555555' })],
+      alignment: AlignmentType.CENTER, spacing: { after: 700 } }),
+    new Table({ width: { size: 7000, type: WidthType.DXA }, columnWidths: [2400, 4600],
+      rows: [
+        new TableRow({ children: [cell('Competency Unit',{w:2400,bold:true,fill:'EDF1F7'}), cell('C04 — Implement e-commerce marketing plan',{w:4600})] }),
+        new TableRow({ children: [cell('Standard',{w:2400,bold:true,fill:'EDF1F7'}), cell('NOSS M731-001-4:2021, Level 4',{w:4600})] }),
+        new TableRow({ children: [cell('Work activities',{w:2400,bold:true,fill:'EDF1F7'}), cell('W01 – W06 (six)',{w:4600})] }),
+        new TableRow({ children: [cell('Prepared by',{w:2400,bold:true,fill:'EDF1F7'}), cell('Zuriel Seong Ming Ee, Marketing Manager',{w:4600})] }),
+        new TableRow({ children: [cell('Submitted to',{w:2400,bold:true,fill:'EDF1F7'}), cell('Puan Wan Norizan',{w:4600})] }),
+        new TableRow({ children: [cell('Date',{w:2400,bold:true,fill:'EDF1F7'}), cell('[ TARIKH ]',{w:4600})] }),
+      ]}),
+
+    pageBreak(),
+    h1('DOCUMENT REGISTER'),
+    p('This volume binds the six documents prepared for Competency Unit C04. Each was produced at the point in the campaign its work activity describes, and each is reproduced here in full.'),
+    table(['Part','WA','Document','Type'], [
+      ['1','W01','E-Commerce Channel Selection Proposal','Proposal — pre-launch'],
+      ['2','W02','Content Calendar Implementation Report','Report'],
+      ['3','W03','E-Commerce Campaign Plan','Plan — pre-launch'],
+      ['4','W04','Implementation Coordination Report','Report'],
+      ['5','W05','Paid Advertisement Proposal and Implementation Record','Proposal and report'],
+      ['6','W06','Campaign Performance Optimisation Report','Report'],
+    ], [800,900,4700,2960]),
+
+    h1('SUMMARY OF THE CAMPAIGN'),
+    p('TikTok Shop was selected as the sales channel because the brand already held an active local audience there and a product link could be attached to content already published. The store was established, a single product listed, content produced in September 2025 and published in October alongside a launch promotion.'),
+    p('Eighteen orders were received and fulfilled through platform logistics, with no shipping exceptions, cancellations or refunds outstanding, and buyer enquiries answered at a 100% twelve-hour response rate.'),
+    p('A paid campaign ran from 15 September to 14 October 2025 on a RM30.00 daily budget against a return target of 2.00. It returned 1.00 — RM50.00 of advertising for RM50.00 of revenue. A flash sale was activated on 3 October to lift conversion; when that did not move the campaign to target, the constraint was re-diagnosed as brand recognition rather than price, and paid advertising was discontinued in favour of organic content and walk-in sales.'),
+    table(['Measure','Result'], [
+      ['Orders received','18 (9 completed, 8 shipped, 1 awaiting dispatch)'],
+      ['Advertising spend','RM50.00'],
+      ['Gross revenue from paid campaign','RM50.00'],
+      ['Return on ad spend','1.00 against a target of 2.00'],
+      ['Outstanding fulfilment exceptions','None'],
+      ['Channel decision','Paid advertising discontinued'],
+    ], [3200,6160]),
+
+    ...CU4_ORDER.flatMap((k, i) => [...partDivider(DOCS[k], i + 1), ...DOCS[k].content]),
+
+    pageBreak(),
+    h1('APPROVAL AND VERIFICATION'),
+    p('The proposals and plan in Parts 1 and 3 were submitted for approval before the work they describe was carried out. The reports in Parts 2, 4, 5 and 6 are submitted as records of work completed. Signature below covers this volume as a whole.'),
+    table(['','Prepared and Reported By','Reviewed By','Approved and Verified By'], [
+      ['Name','Zuriel Seong Ming Ee','',''], ['Position','Marketing Manager','',''],
+      ['Signature','','',''], ['Date','','',''],
+    ], [1500,2820,2520,2520]),
+    p(''),
+    p('Decision:      ☐  Approved and verified            ☐  Verified with comments            ☐  Further evidence required', { bold: true, after: 140 }),
+    p('Comments:', { bold: true, after: 100 }),
+    p('______________________________________________________________________________', { after: 120 }),
+    p('______________________________________________________________________________', { after: 120 }),
+    p('______________________________________________________________________________', { after: 120 }),
+  ],
+};
+
+const buildBody = (d) => d.compiled ? d.body
+  : [...head(d.title, d.subtitle, d.ref, d.date, d.status), ...d.content, ...(d.signoff ? d.signoff() : [])];
 
 const key = process.argv[2];
 const out = process.argv[3];
@@ -482,7 +645,7 @@ const doc = new Document({
     footers: { default: new Footer({ children: [new Paragraph({ alignment: AlignmentType.CENTER,
       children: [new TextRun({ text: 'Superbowl Lipis · Page ', font: F, size: 15, color: '999999' }),
                  new TextRun({ children: [PageNumber.CURRENT], font: F, size: 15, color: '999999' })] })] }) },
-    children: DOCS[key].body,
+    children: buildBody(DOCS[key]),
   }],
 });
 Packer.toBuffer(doc).then(b => { fs.writeFileSync(out || DOCS[key].file, b); console.log('Done:', out || DOCS[key].file); });
