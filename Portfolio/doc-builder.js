@@ -220,23 +220,37 @@ DOCS['cu4-wa2'] = {
 DOCS['cu4-wa3'] = {
   file: 'CU4-WA3-Campaign-Plan.docx',
   body: [
-    ...head('E-COMMERCE CAMPAIGN PLAN','Objectives, audience and measurement — TikTok Shop','ECOM/CU4/W03/2025','[ TARIKH ]'),
+    ...head('E-COMMERCE CAMPAIGN PLAN','Objectives, audience and measurement — TikTok Shop','ECOM/CU4/W03/2025','[ TARIKH — sebelum 15 September 2025 ]','For approval — pre-launch'),
+    p('This plan was prepared before the campaign launched and sets the objectives, audience, phasing and measurement against which it was run. Delivery against it is reported separately under references W04, W05 and W06.', { italics: true, color: '555555' }),
     h1('1.  CAMPAIGN OBJECTIVES'),
     table(['Objective','Measure','Target'], [
-      ['Establish the sales channel','Store live with product listed','Within 3 weeks of approval'],
-      ['Generate first sales','Orders received','[ ISI SASARAN ]'],
-      ['Build product visibility','Product page views','[ ISI SASARAN ]'],
-      ['Control acquisition cost','Cost per order','[ ISI SASARAN ]'],
+      ['Establish the sales channel','Store live with product listed','Before paid activation begins'],
+      ['Prove fulfilment end to end','Order received, dispatched and completed','Soft launch gate'],
+      ['Control acquisition cost','Return on ad spend','2.00'],
+      ['Protect margin','Cost per order','Below the selling price of the item'],
     ], [3000,3200,3160]),
-    h1('2.  TARGET AUDIENCE'),
+    p('The return target of 2.00 is the controlling figure. Below it an order does not cover advertising plus platform commission and fulfilment, and the sale is made at a loss.', { before: 100 }),
+
+    h1('2.  PRODUCT AND COMMERCIAL PARAMETERS'),
+    table(['Parameter','Setting'], [
+      ['Product','SBL T-Shirt Oversized / Reka Bentuk Besar Longgar'],
+      ['Price','RM60.00 – RM65.00'],
+      ['Opening stock','78 units'],
+      ['Daily advertising budget','RM30.00'],
+      ['Campaign type','GMV Max — gross revenue'],
+      ['Fulfilment','Platform shipping (BEST Express)'],
+      ['Customer service standard','Response within 12 hours'],
+    ], [2600,6760]),
+
+    h1('3.  TARGET AUDIENCE'),
     table(['Segment','Description','Rationale'], [
       ['Existing followers','Current TikTok audience of the brand','Already engaged; lowest cost to reach'],
       ['Local — Kuala Lipis & Pahang','Residents and those with local ties','Brand identity is rooted in the town'],
       ['Streetwear interest — nationwide','Younger buyers following streetwear content','Expansion audience once local base is proven'],
     ], [2400,3400,3560]),
-    h1('3.  POSITIONING AND MESSAGE'),
+    h1('4.  POSITIONING AND MESSAGE'),
     p('The shirt is positioned as local identity apparel rather than generic streetwear. The message centres on wearing where you are from. This differentiates it from mass-market streetwear and gives the local audience a reason to buy beyond the garment itself.'),
-    h1('4.  CAMPAIGN PHASES'),
+    h1('5.  CAMPAIGN PHASES'),
     img('cu4_gantt.png', 460, 172),
     cap('Figure 1 — Campaign phases from approval'),
     table(['Phase','Activity','Gate'], [
@@ -246,13 +260,24 @@ DOCS['cu4-wa3'] = {
       ['Review','Performance assessed against objectives','Decision to continue, adjust or pause'],
     ], [1700,4600,3060]),
     p('Paid activity begins only after soft launch confirms checkout and fulfilment work. Spending on traffic before the process is proven is avoided.', { before: 100 }),
-    h1('5.  MEASUREMENT'),
+    h1('6.  MEASUREMENT'),
     table(['Metric','Source','Frequency'], [
-      ['Product page views','TikTok Shop Seller Centre','Weekly'],
       ['Orders and units sold','TikTok Shop Seller Centre','Weekly'],
-      ['Conversion rate','Views to orders','Weekly'],
+      ['Return on ad spend','TikTok Ads Manager','Weekly'],
       ['Ad spend and cost per order','TikTok Ads Manager','Weekly'],
+      ['Order fulfilment and exceptions','TikTok Shop Seller Centre','Weekly'],
     ], [2900,3400,3060]),
+    p('Where a metric breaches its target for two consecutive reviews, the cause is diagnosed and a corrective action taken before further budget is committed.', { before: 100 }),
+
+    h1('7.  PLAN STATUS'),
+    p('Recorded after the campaign closed, for completeness of the file.'),
+    table(['Objective','Outcome','Evidenced in'], [
+      ['Establish the sales channel','Store live, product listed and published','ECOM/CU4/W02/2025'],
+      ['Prove fulfilment end to end','18 orders received, 9 completed, no exceptions outstanding','ECOM/CU4/W04/2025'],
+      ['Control acquisition cost','ROI 1.00 against the 2.00 target — not met','ECOM/CU4/W05/2025'],
+      ['Protect margin','Cost per order RM50.00 against a RM55.00 item — not met','ECOM/CU4/W06/2025'],
+      ['Review and decide','Paid advertising discontinued; organic and walk-in prioritised','ECOM/CU4/W06/2025'],
+    ], [2700,3900,2760]),
     ...approval(),
   ],
 };
