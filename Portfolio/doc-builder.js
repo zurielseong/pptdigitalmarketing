@@ -89,10 +89,22 @@ const letterhead = new Table({
         children: [new ImageRun({ type:'jpg', data: fs.readFileSync(`${SP}/lh_image2.jpg`), transformation: { width: 118, height: 55 } })] })] }),
   ] })],
 });
+// TVET Lipis letterhead — single full-width band (tvet lipis · KIAK · IIUM).
+const letterheadTVET = new Table({
+  width: { size: 9360, type: WidthType.DXA }, columnWidths: [9360],
+  borders: { top:{style:'none'},bottom:{style:'none'},left:{style:'none'},right:{style:'none'},insideHorizontal:{style:'none'},insideVertical:{style:'none'} },
+  rows: [new TableRow({ children: [new TableCell({
+    width: { size: 9360, type: WidthType.DXA },
+    borders:{top:{style:'none'},bottom:{style:'none'},left:{style:'none'},right:{style:'none'}},
+    children: [new Paragraph({ alignment: AlignmentType.CENTER,
+      children: [new ImageRun({ type:'png', data: fs.readFileSync(`${SP}/lh_tvet.png`), transformation: { width: 468, height: 69 } })] })],
+  })] })],
+});
+const LETTERHEADS = { sbl: letterhead, tvet: letterheadTVET };
 const rule = new Paragraph({ text: '', border: { bottom: { style: BorderStyle.SINGLE, size: 12, color: RED } }, spacing: { before: 60, after: 200 } });
 
-const head = (title, subtitle, ref, date, status) => ([
-  letterhead, rule,
+const head = (title, subtitle, ref, date, status, lh) => ([
+  LETTERHEADS[lh || 'sbl'], rule,
   new Paragraph({ children: [new TextRun({ text: title, font: F, size: 30, bold: true, color: NAVY })], alignment: AlignmentType.CENTER, spacing: { after: 60 } }),
   new Paragraph({ children: [new TextRun({ text: subtitle, font: F, size: 20, color: '555555' })], alignment: AlignmentType.CENTER, spacing: { after: 220 } }),
   new Table({ width: { size: 9360, type: WidthType.DXA }, columnWidths: [1560, 3120, 1560, 3120], rows: [
@@ -554,7 +566,7 @@ const pageBreak = () => new Paragraph({ children: [new PageBreak()] });
 // so any page can be screenshotted straight into the portfolio.
 const part = (d) => ([
   pageBreak(),
-  ...head(d.title, d.subtitle, d.ref, d.date, d.status),
+  ...head(d.title, d.subtitle, d.ref, d.date, d.status, d.lh),
   ...d.content,
   ...(d.signoff ? d.signoff() : []),
 ]);
@@ -609,8 +621,228 @@ DOCS['cu4-full'] = {
   ],
 };
 
+// ═════════════════════════════ CU5 — MOBILE MARKETING ════════════════════════
+const M = (o) => Object.assign({ lh: 'tvet' }, o);
+
+DOCS['cu5-wa1'] = M({
+  file: 'CU5-WA1-Mobile-Channel-Selection.docx',
+  title: 'MOBILE MARKETING CHANNEL SELECTION',
+  subtitle: 'Selection of a mobile channel for student recruitment — TVET Lipis',
+  ref: 'MOB/CU5/W01/2025', date: '[ TARIKH ]',
+  status: 'For approval', signoff: approval,
+  content: [
+    h1('1.  PURPOSE'),
+    p('This document records the selection of WhatsApp Business as the mobile marketing channel for student recruitment, and the reasoning behind it.'),
+    h1('2.  WHY THE CHANNEL SELECTS ITSELF'),
+    p('Paid advertising for TVET Lipis runs click-to-WhatsApp placements. A prospect who taps the advertisement does not land on a form — a WhatsApp conversation opens. The enquiry is therefore already in WhatsApp before any channel decision is made; the question is whether to answer it there or move the prospect somewhere else.'),
+    img('cu5_flow.png', 460, 105),
+    cap('Figure 1 — From advertisement to enrolment'),
+    h1('3.  OPTIONS CONSIDERED'),
+    table(['Option','Assessment'], [
+      ['WhatsApp Business','SELECTED — enquiries already arrive here; free to operate; two-way conversation suits counselling on fees, intakes and programmes'],
+      ['SMS','Rejected — one-way, per-message cost, no media, and read rates unverifiable'],
+      ['Mobile application','Not viable — no application exists; see MOB/CU5/W05/2025'],
+      ['Telegram','Not pursued — low adoption among the target audience in Pahang'],
+    ], [2400,6960]),
+    h1('4.  CHANNEL ESTABLISHED'),
+    p('A WhatsApp Business profile was set up under the institution’s name with its address, contact number and website, so that a prospect arriving from an advertisement sees a verified business rather than a personal number.'),
+    img('ev70.jpeg', 155, 336),
+    cap('Figure 2 — TVET Lipis WhatsApp Business profile'),
+  ],
+});
+
+DOCS['cu5-wa2'] = M({
+  file: 'CU5-WA2-Mobile-Content-Calendar.docx',
+  title: 'MOBILE MARKETING CONTENT CALENDAR',
+  subtitle: 'Broadcast themes and schedule — WhatsApp Business, TVET Lipis',
+  ref: 'MOB/CU5/W02/2025', date: '[ TARIKH ]',
+  status: 'For approval', signoff: approval,
+  content: [
+    h1('1.  PRINCIPLE'),
+    p('Broadcast timing follows the student recruitment cycle rather than a fixed weekly slot. Messages are concentrated where a decision is actually being made — around SPM results, intake openings and the open day — because a broadcast sent outside those windows costs the same attention but converts less.'),
+    img('cu5_calendar.png', 440, 135),
+    cap('Figure 1 — Broadcast frequency across the recruitment year'),
+    h1('2.  CONTENT THEMES'),
+    table(['Theme','Purpose','Audience'], [
+      ['Intake announcement','State the intake date and closing date','Students and parents'],
+      ['SPM results follow-up','Reach school leavers at the decision point','Students'],
+      ['Programme highlight','Explain one SKM programme and its career path','Students'],
+      ['Fees and PTPTN','Answer the cost question directly','Parents'],
+      ['Open day invitation','Convert interest into a campus visit','Both'],
+      ['Application reminder','Recover prospects who enquired but did not apply','Students'],
+    ], [2400,4200,2760]),
+    h1('3.  FREQUENCY RULE'),
+    p('No more than one broadcast per contact per week, and no broadcast to a contact already in an active conversation with a counsellor. Over-messaging on WhatsApp produces blocks and reports, which damage the number permanently.'),
+    fill('[ LAMPIRKAN: senarai siaran (broadcast list) TVET Lipis yang menunjukkan tema dan tarikh sebenar ]'),
+  ],
+});
+
+DOCS['cu5-wa3'] = M({
+  file: 'CU5-WA3-Mobile-Campaign-Plan.docx',
+  title: 'MOBILE MARKETING CAMPAIGN PLAN',
+  subtitle: 'Objectives, segments and measurement — TVET Lipis',
+  ref: 'MOB/CU5/W03/2025', date: '[ TARIKH ]',
+  status: 'For approval — pre-launch', signoff: approval,
+  content: [
+    h1('1.  OBJECTIVES'),
+    table(['Objective','Measure','Target'], [
+      ['Answer every enquiry','Enquiries responded to','100%'],
+      ['Respond while intent is live','Time to first reply','[ ISI SASARAN ]'],
+      ['Convert enquiry to application','Enquiries reaching application','[ ISI SASARAN ]'],
+      ['Protect the number','Blocks and reports','Nil'],
+    ], [2900,3300,3160]),
+    h1('2.  SEGMENTS'),
+    table(['Segment','Message emphasis'], [
+      ['Students, 17 – 28','Programme content, career outcome, intake date'],
+      ['Parents, 40 – 60','Fees, PTPTN, accreditation, campus safety'],
+      ['Enquired but not applied','Application deadline and what is still outstanding'],
+      ['Applied but not enrolled','Offer letter status and next step'],
+    ], [2700,6660]),
+    h1('3.  HANDLING STANDARD'),
+    p('Each enquiry is assigned to a counsellor, answered within the working day, and recorded in the CRM against the prospect record with stage, follow-up date and call log. An enquiry that is answered but not recorded is treated as unhandled, because it cannot be followed up by anyone else.'),
+    h1('4.  MEASUREMENT'),
+    table(['Metric','Source','Frequency'], [
+      ['Broadcasts sent and delivered','Broadcast platform report','Monthly'],
+      ['Enquiries received','WhatsApp Business','Weekly'],
+      ['Enquiries converted to leads','CRM','Weekly'],
+      ['Leads converted to registration','CRM','Monthly'],
+    ], [2900,3400,3060]),
+  ],
+});
+
+DOCS['cu5-wa4'] = M({
+  file: 'CU5-WA4-Mobile-Implementation-Coordination.docx',
+  title: 'MOBILE CAMPAIGN IMPLEMENTATION COORDINATION REPORT',
+  subtitle: 'Broadcasts, enquiry handling and CRM recording — TVET Lipis, 2025',
+  ref: 'MOB/CU5/W04/2025', date: '[ TARIKH ]',
+  status: 'Report on completed work', signoff: verification,
+  content: [
+    h1('1.  SCOPE'),
+    p('This report records how the mobile channel was operated: broadcasts scheduled and sent, enquiries answered, and prospects recorded in the CRM.'),
+    h1('2.  BROADCASTS SENT'),
+    p('Broadcasts were composed against a tagged contact segment, previewed before sending, and delivered on a scheduled date. Delivery was confirmed from the platform report rather than assumed.'),
+    img('ev74.jpg', 430, 229),
+    cap('Figure 1 — Broadcast delivery report, September 2025: 3 broadcasts completed, 0 failed'),
+    table(['Measure','Result'], [
+      ['Broadcasts completed','3'],
+      ['Broadcasts failed','0'],
+      ['Completion rate','100%'],
+      ['Period','1 – 30 September 2025'],
+    ], [3400,5960]),
+    h1('3.  ENQUIRY HANDLING'),
+    p('Enquiries arriving from advertisements were answered in the same thread, with programme, fee and intake questions resolved in conversation rather than by referral to a form. Each prospect was then recorded in the CRM with an assigned counsellor, stage and follow-up date.'),
+    fill('[ LAMPIRKAN: tangkap layar WhatsApp Business TVET Lipis — senarai perbualan dengan label, dan satu contoh perbualan pertanyaan (nombor pelanggan ditutup) ]'),
+    fill('[ LAMPIRKAN: tangkap layar CRM — rekod prospek dengan staf ditugaskan, peringkat dan log panggilan ]'),
+    h1('4.  COORDINATION CONTROLS'),
+    table(['What was controlled','How'], [
+      ['Delivery of every broadcast','Platform delivery report checked after each send'],
+      ['Ownership of every enquiry','Counsellor assigned in the CRM'],
+      ['Follow-up not lost','Follow-up date set on the prospect record'],
+      ['Message frequency','One broadcast per contact per week'],
+    ], [3400,5960]),
+  ],
+});
+
+DOCS['cu5-wa5'] = M({
+  file: 'CU5-WA5-Mobile-App-Proposal.docx',
+  title: 'MOBILE APPLICATION MARKETING CAMPAIGN PROPOSAL',
+  subtitle: 'Proposed student application for TVET Lipis',
+  ref: 'MOB/CU5/W05/2025', date: '[ TARIKH ]',
+  status: 'Proposal — not implemented', signoff: approval,
+  content: [
+    h1('1.  STATUS OF THIS PROPOSAL'),
+    p('TVET Lipis does not operate a mobile application. This document is a proposal for one and for the campaign that would market it. Nothing in it describes work carried out.', { bold: true }),
+    h1('2.  CASE FOR AN APPLICATION'),
+    p('WhatsApp handles the enquiry well but ends at enrolment. Once a prospect becomes a student, the institution has no owned mobile channel — timetables, results, fee statements and announcements are distributed through group chats, which are unsearchable and cannot be addressed to an individual.'),
+    h1('3.  PROPOSED SCOPE'),
+    table(['Function','Purpose'], [
+      ['Programme information','Course structure, duration, career pathway'],
+      ['Application and status','Apply, upload documents, track offer letter'],
+      ['Fees and payment','Statement, payment record, PTPTN guidance'],
+      ['Timetable and announcements','Addressed to the individual student'],
+      ['Push notifications','Intake deadlines, fee reminders, results'],
+    ], [2900,6460]),
+    h1('4.  MARKETING APPROACH'),
+    table(['Stage','Activity'], [
+      ['Launch to existing students','Install drive at registration and orientation'],
+      ['Prospect acquisition','Application link in WhatsApp replies and advertisement copy'],
+      ['Retention','Notifications tied to the academic calendar'],
+      ['Measurement','Installs, active users, applications submitted in-app'],
+    ], [2400,6960]),
+    h1('5.  COST AND DECISION REQUIRED'),
+    fill('[ ISI: anggaran kos pembangunan, kos penyelenggaraan tahunan dan tempoh pelaksanaan ]'),
+    p('Approval is sought in principle only. A costed development proposal would follow before any commitment is made.'),
+  ],
+});
+
+DOCS['cu5-wa6'] = M({
+  file: 'CU5-WA6-Mobile-Performance-Optimisation.docx',
+  title: 'MOBILE CAMPAIGN PERFORMANCE OPTIMISATION REPORT',
+  subtitle: 'Monitoring and corrective action — WhatsApp Business, TVET Lipis',
+  ref: 'MOB/CU5/W06/2025', date: '[ TARIKH ]',
+  status: 'Report on completed work', signoff: verification,
+  content: [
+    h1('1.  WHAT WAS MONITORED'),
+    table(['Metric','Standard','Source'], [
+      ['Broadcast delivery','100% completed','Broadcast platform report'],
+      ['Recipients per broadcast','Segment resolves to a non-zero audience','Broadcast composer'],
+      ['Enquiry response','Answered within the working day','WhatsApp Business'],
+      ['Conversion to registration','Tracked per intake','CRM'],
+    ], [2700,3400,3260]),
+    h1('2.  PERFORMANCE OBSERVED'),
+    p('Delivery held at 100% across the September period, with three broadcasts completed and none failed. Delivery was therefore not the constraint.'),
+    h1('3.  FINDING — AUDIENCE RESOLVED TO ZERO'),
+    p('A broadcast composed against the segment “Contacts with tags” showed a target audience of zero recipients at the point of sending. A broadcast that delivers successfully to nobody still reports as completed, so delivery rate alone does not confirm that a campaign reached anyone.'),
+    img('ev71.png', 430, 211),
+    cap('Figure 1 — Broadcast composer showing the segment resolving to zero recipients'),
+    fill('[ SAHKAN: sama ada siaran ini kemudiannya dihantar selepas segmen dibetulkan, dan bilangan penerima sebenar ]'),
+    h1('4.  CORRECTIVE ACTION'),
+    table(['Finding','Action taken'], [
+      ['Segment resolved to zero recipients','Recipient count checked in the composer before every send, not after'],
+      ['Delivery rate alone is not proof of reach','Recipients reached recorded alongside delivery status'],
+      ['Contacts not consistently tagged','Tags applied at the point the enquiry is received'],
+    ], [3400,5960]),
+    h1('5.  CONCLUSION'),
+    p('The monitoring identified a failure that the headline metric concealed: three broadcasts reported as fully delivered, while at least one had no audience to deliver to. The control was moved upstream — the audience is now verified before sending rather than delivery confirmed after it.'),
+  ],
+});
+
+const CU5_ORDER = ['cu5-wa1','cu5-wa2','cu5-wa3','cu5-wa4','cu5-wa5','cu5-wa6'];
+
+DOCS['cu5-full'] = {
+  file: 'CU5-Mobile-Marketing-Plan-and-Implementation.docx',
+  compiled: true, footer: 'TVET Lipis',
+  body: [
+    LETTERHEADS.tvet, rule,
+    new Paragraph({ children: [new TextRun({ text: 'MOBILE MARKETING PLAN', font: F, size: 40, bold: true, color: NAVY })],
+      alignment: AlignmentType.CENTER, spacing: { before: 700, after: 40 } }),
+    new Paragraph({ children: [new TextRun({ text: 'AND IMPLEMENTATION', font: F, size: 40, bold: true, color: NAVY })],
+      alignment: AlignmentType.CENTER, spacing: { after: 120 } }),
+    new Paragraph({ children: [new TextRun({ text: 'TVET Lipis · WhatsApp Business · 2025', font: F, size: 24, color: '555555' })],
+      alignment: AlignmentType.CENTER, spacing: { after: 700 } }),
+    new Table({ width: { size: 7000, type: WidthType.DXA }, columnWidths: [2400, 4600], rows: [
+      new TableRow({ children: [cell('Competency Unit',{w:2400,bold:true,fill:'EDF1F7'}), cell('C05 — Implement mobile marketing plan',{w:4600})] }),
+      new TableRow({ children: [cell('Standard',{w:2400,bold:true,fill:'EDF1F7'}), cell('NOSS M731-001-4:2021, Level 4',{w:4600})] }),
+      new TableRow({ children: [cell('Work activities',{w:2400,bold:true,fill:'EDF1F7'}), cell('W01 – W06 (six)',{w:4600})] }),
+      new TableRow({ children: [cell('Prepared by',{w:2400,bold:true,fill:'EDF1F7'}), cell('Zuriel Seong Ming Ee, Marketing Manager',{w:4600})] }),
+      new TableRow({ children: [cell('Date',{w:2400,bold:true,fill:'EDF1F7'}), cell('[ TARIKH ]',{w:4600})] }),
+    ]}),
+    pageBreak(),
+    h1('DOCUMENT REGISTER'),
+    table(['Part','WA','Document','Type'], [
+      ['1','W01','Mobile Marketing Channel Selection','Proposal'],
+      ['2','W02','Mobile Marketing Content Calendar','Plan'],
+      ['3','W03','Mobile Marketing Campaign Plan','Plan — pre-launch'],
+      ['4','W04','Mobile Campaign Implementation Coordination Report','Report'],
+      ['5','W05','Mobile Application Marketing Campaign Proposal','Proposal — not implemented'],
+      ['6','W06','Mobile Campaign Performance Optimisation Report','Report'],
+    ], [800,900,4700,2960]),
+    ...CU5_ORDER.flatMap(k => part(DOCS[k])),
+  ],
+};
+
 const buildBody = (d) => d.compiled ? d.body
-  : [...head(d.title, d.subtitle, d.ref, d.date, d.status), ...d.content, ...(d.signoff ? d.signoff() : [])];
+  : [...head(d.title, d.subtitle, d.ref, d.date, d.status, d.lh), ...d.content, ...(d.signoff ? d.signoff() : [])];
 
 const key = process.argv[2];
 const out = process.argv[3];
@@ -621,7 +853,7 @@ const doc = new Document({
   sections: [{
     properties: { page: { margin: { top: convertInchesToTwip(0.7), bottom: convertInchesToTwip(0.75), left: convertInchesToTwip(0.85), right: convertInchesToTwip(0.85) } } },
     footers: { default: new Footer({ children: [new Paragraph({ alignment: AlignmentType.CENTER,
-      children: [new TextRun({ text: 'Superbowl Lipis · Page ', font: F, size: 15, color: '999999' }),
+      children: [new TextRun({ text: `${DOCS[key].footer || 'Superbowl Lipis'} · Page `, font: F, size: 15, color: '999999' }),
                  new TextRun({ children: [PageNumber.CURRENT], font: F, size: 15, color: '999999' })] })] }) },
     children: buildBody(DOCS[key]),
   }],
