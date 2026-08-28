@@ -1054,6 +1054,231 @@ DOCS['cu6-wa4'] = M({
   ],
 });
 
+
+// ═════════════════════════════ CU2 — SEO ═════════════════════════════════════
+DOCS['cu2-wa1'] = M({
+  file: 'CU2-WA1-SEO-Channel-Analysis.docx', ref: 'SEO/CU2/W01/2026',
+  title: 'SEO CHANNEL PERFORMANCE ANALYSIS',
+  subtitle: 'Organic search performance of tvetlipis.my — Google Search Console',
+  date: '[ TARIKH ]', submitted: 'General Manager',
+  status: 'Report on work done', signoff: verification,
+  content: [
+    h1('1.  SCOPE'),
+    p('This report analyses the organic search performance of tvetlipis.my using Google Search Console. It covers a sixteen-month window from 22 September 2025, with a three-month window used for current query and page detail.'),
+
+    h1('2.  PERFORMANCE RECORDED'),
+    table(['Metric','16 months','Last 3 months'], [
+      ['Total clicks','1,050','284  (down 8%)'],
+      ['Total impressions','14,100','4,100  (up 8%)'],
+      ['Average click-through rate','7.4%','—'],
+      ['Average position','3.7','—'],
+    ], [3200,3100,3060]),
+    p('Read on their own these are good numbers. An average position of 3.7 means the site typically appears near the top of the first page, and a click-through rate of 7.4% is healthy. The site is not failing to rank.', { before: 100 }),
+
+    h1('3.  WHAT THE QUERIES SHOW'),
+    p('The queries producing that traffic tell a different story. Every one of them is a brand name — the institution, its former name, or its town.'),
+    img('cu2_queries.png', 440, 162),
+    cap('Figure 1 — Queries leading to the site, last three months'),
+    table(['Query','Clicks','Change','Type'], [
+      ['tvet lipis','107','up 6%','Brand'],
+      ['tvet kuala lipis','24','up 500%','Brand + location'],
+      ['kolej islam antarabangsa kuala lipis','13','down 28%','Former name'],
+      ['plk lipis','2','up 100%','Brand'],
+      ['uia kuala lipis','1','no change','Parent institution'],
+    ], [3800,1300,1700,2560]),
+    p('No course query appears. Nobody arrives searching for a diploma in early childhood education, a multimedia course, or skills training in Pahang. The site captures demand from people who already know the name and are looking for it; it captures none from people deciding what to study.', { before: 100 }),
+
+    h1('4.  WHERE THE TRAFFIC LANDS'),
+    p('All 284 clicks in the three-month window landed on a single page — the home page, recorded in Search Console as UTAMA. Page indexing shows why: of three known pages, one is indexed and two are not.'),
+    table(['Indexing status','Pages'], [
+      ['Indexed','1'],
+      ['Not indexed','2  (two reasons given)'],
+      ['Total known pages','3'],
+    ], [3400,5960]),
+    p('The site therefore has one page competing for every possible search. A single page cannot rank for a course it does not describe, which explains the absence of non-brand queries more simply than any content or authority argument would.', { before: 100 }),
+
+    h1('5.  CONCLUSION'),
+    p('The constraint is not ranking ability. The site ranks at position 3.7 for what it has. The constraint is that there is almost nothing to rank — one indexed page, addressing a single audience: people who already know the institution by name.'),
+    p('The growth in “tvet kuala lipis” of 500% indicates that local, location-qualified search is rising. That demand is currently met by one general page. Addressing it is the subject of SEO/CU2/W02/2026 and SEO/CU2/W03/2026.'),
+    fill('[ LAMPIRKAN: tangkap layar Search Console — Performance 16 bulan, Insights Queries, dan Page indexing ]'),
+  ],
+});
+
+DOCS['cu2-wa2'] = M({
+  file: 'CU2-WA2-SEO-Campaign-Plan.docx', ref: 'SEO/CU2/W02/2026',
+  title: 'SEO CAMPAIGN PLAN',
+  subtitle: 'Target queries, page structure and measurement — tvetlipis.my',
+  date: '[ TARIKH ]', submitted: 'General Manager',
+  status: 'For approval', signoff: approval,
+  content: [
+    h1('1.  OBJECTIVE'),
+    p('To win search traffic from prospects who do not yet know TVET Lipis by name — people searching for a course, a qualification or skills training in Pahang — while holding the brand positions the site already occupies.'),
+
+    h1('2.  TARGET QUERIES'),
+    p('Two groups. Brand queries are already held and need defending. Non-brand queries are the growth, and none is currently served.'),
+    table(['Group','Example queries','Status'], [
+      ['Brand','tvet lipis · tvet kuala lipis · kolej islam antarabangsa kuala lipis','Held — position 3.7'],
+      ['Course','diploma pendidikan awal kanak-kanak · kursus multimedia · sijil pengurusan halal','Not served'],
+      ['Location + course','kolej kemahiran pahang · diploma kuala lipis · kursus tvet pahang','Not served'],
+      ['Funding','pembiayaan PTPK · kursus tanpa SPM penuh','Not served'],
+    ], [1900,5100,2360]),
+
+    h1('3.  PAGE STRUCTURE'),
+    p('A page can only rank for what it is about. One general page cannot answer four different searches, so the plan is one page per subject a prospect actually searches for.'),
+    img('cu2_structure.png', 460, 198),
+    cap('Figure 1 — Current site against the proposed structure'),
+    table(['Page','Query it is built to answer'], [
+      ['Home','Brand searches — tvet lipis'],
+      ['Diploma Pendidikan Awal Kanak-Kanak','Course name and career pathway'],
+      ['Diploma Pendidikan Pra-Sekolah','Course name and career pathway'],
+      ['Diploma Kandungan Kreatif Multimedia','Course name and career pathway'],
+      ['Sijil Pengurusan Halal','Course name and entry route'],
+      ['Yuran dan Pembiayaan PTPK','Cost and funding searches'],
+      ['Syarat dan Tarikh Kemasukan','Entry requirement and intake searches'],
+      ['Hubungi Kami','Location and contact searches'],
+    ], [3400,5960]),
+
+    h1('4.  MEASUREMENT'),
+    table(['Metric','Source','Target'], [
+      ['Indexed pages','Search Console — Page indexing','All published pages indexed'],
+      ['Non-brand queries appearing','Search Console — Queries','[ ISI SASARAN ]'],
+      ['Clicks from non-brand queries','Search Console — Performance','[ ISI SASARAN ]'],
+      ['Average position, brand queries','Search Console — Performance','Hold at or above 3.7'],
+    ], [2900,3400,3060]),
+    p('The first metric is the gate. Until a page is indexed it cannot rank, so indexing is verified before any ranking target is judged.', { before: 100 }),
+  ],
+});
+
+DOCS['cu2-wa3'] = M({
+  file: 'CU2-WA3-SEO-Improvement-Plan.docx', ref: 'SEO/CU2/W03/2026',
+  title: 'SEO IMPROVEMENT PLAN',
+  subtitle: 'Issues identified and corrective actions — tvetlipis.my',
+  date: '[ TARIKH ]', submitted: 'General Manager',
+  status: 'For approval', signoff: approval,
+  content: [
+    h1('1.  ISSUES IDENTIFIED'),
+    table(['#','Issue','Evidence','Effect'], [
+      ['1','Two of three known pages are not indexed','Search Console — Page indexing','Those pages cannot appear in search at all'],
+      ['2','Only one page exists to serve every search','All 284 clicks land on the home page','Nothing can rank for a course query'],
+      ['3','No non-brand query appears','Queries report','Prospects who do not know the name are not reached'],
+      ['4','Former name still draws traffic, and is falling','“kolej islam antarabangsa kuala lipis” down 28%','Traffic lost as the old name fades'],
+    ], [600,3000,3000,2760]),
+
+    h1('2.  CORRECTIVE ACTIONS'),
+    table(['Issue','Action','Owner'], [
+      ['1','Inspect both unindexed URLs, resolve the reason given, request indexing and confirm','Marketing Manager'],
+      ['1','Submit a sitemap so new pages are discovered without waiting','Marketing Manager'],
+      ['2','Publish one page per programme, per Section 3 of SEO/CU2/W02/2026','Marketing team'],
+      ['3','Write page titles and descriptions around the course name, not the institution name','Marketing Manager'],
+      ['4','Retain a page naming the former institution so that traffic is redirected rather than lost','Marketing Manager'],
+    ], [700,5900,2760]),
+
+    h1('3.  TECHNICAL CONSTRAINT'),
+    p('The website is built on Canva and served through Cloudflare. Canva’s site builder gives limited control over page titles, meta descriptions and URL structure compared with a conventional content management system, and this is the most likely reason pages are failing to index.'),
+    fill('[ SAHKAN: semak dua sebab “Not indexed” yang dinyatakan dalam Search Console dan catat di sini ]'),
+    p('If the platform cannot support a page per programme with editable titles, the constraint is the platform and not the content, and a move to a conventional site should be assessed. That decision is outside this plan and is noted for management.', { before: 100 }),
+
+    h1('4.  SUPPORTING CHANNEL — GOOGLE BUSINESS PROFILE'),
+    p('For an institution recruiting locally, the Google Business Profile often outranks the website for location searches and appears above it on the results page. TVET Lipis holds a profile, and it is treated here as part of the same search presence rather than a separate channel.'),
+    fill('[ LAMPIRKAN: tangkap layar Google Business Profile Insights — carian, paparan, permintaan arah dan panggilan ]'),
+
+    h1('5.  SEQUENCE'),
+    table(['Step','Action','Gate'], [
+      ['1','Resolve indexing on existing pages','All known pages indexed'],
+      ['2','Publish programme pages','Each page live and indexed'],
+      ['3','Rewrite titles and descriptions','Non-brand terms present in titles'],
+      ['4','Submit sitemap and re-inspect','Pages discovered automatically'],
+      ['5','Review after one full month','Non-brand queries appear in the report'],
+    ], [700,5000,3660]),
+  ],
+});
+
+DOCS['cu2-wa4'] = M({
+  file: 'CU2-WA4-SEO-Implementation-Coordination.docx', ref: 'SEO/CU2/W04/2026',
+  title: 'SEO IMPLEMENTATION COORDINATION REPORT',
+  subtitle: 'Actions carried out and verification — tvetlipis.my',
+  date: '[ TARIKH ]', submitted: 'General Manager',
+  status: 'Report on work done', signoff: verification,
+  content: [
+    h1('1.  SCOPE'),
+    p('This report records the implementation of the SEO improvement plan: what was changed on the site, how each change was verified, and what the search data showed afterwards.'),
+
+    h1('2.  SET-UP IN PLACE'),
+    table(['Item','Status','Evidence'], [
+      ['Domain','tvetlipis.my, live','Search Console property'],
+      ['Search Console','Property verified and reporting','Performance report, 16 months of data'],
+      ['Cloudflare','DNS and delivery in front of the site','Cloudflare dashboard'],
+      ['Google Business Profile','Live','GBP Insights'],
+    ], [2400,3000,3960]),
+    fill('[ LAMPIRKAN: tangkap layar Cloudflare — ringkasan trafik dan Core Web Vitals bagi tvetlipis.my ]'),
+
+    h1('3.  ACTIONS CARRIED OUT'),
+    table(['Action','Date','Verification'], [
+      ['URL inspection on unindexed pages','[ ISI ]','Search Console — URL inspection result'],
+      ['Indexing requested','[ ISI ]','Coverage status changed to indexed'],
+      ['Sitemap submitted','[ ISI ]','Sitemaps report shows Success'],
+      ['Page titles and descriptions revised','[ ISI ]','Live page source'],
+      ['Programme pages published','[ ISI ]','Page indexing count increases'],
+    ], [3400,1800,4160]),
+    fill('[ ISI: lengkapkan tarikh bagi setiap tindakan yang telah dilaksanakan; tandakan yang belum dilaksanakan sebagai “belum” ]'),
+
+    h1('4.  MOVEMENT OBSERVED'),
+    p('Known pages rose from two to three at the end of July 2026, recorded in the page indexing history. Indexed pages remained at one, so the additional page was discovered but not admitted to the index — which is the specific problem the improvement plan addresses.'),
+    table(['Measure','Before','After'], [
+      ['Known pages','2','3'],
+      ['Indexed pages','1','1'],
+      ['Non-brand queries','None','[ ISI ]'],
+      ['Clicks, 3 months','284','[ ISI ]'],
+    ], [3400,2980,2980]),
+
+    h1('5.  COORDINATION CONTROLS'),
+    table(['What was controlled','How'], [
+      ['A change is not assumed to have worked','Every action verified in Search Console before being closed'],
+      ['Indexing precedes ranking','No ranking target judged until the page is indexed'],
+      ['Brand positions are not damaged','Average position on brand queries monitored alongside new pages'],
+      ['Search presence is treated as one','Website and Google Business Profile reviewed together'],
+    ], [3400,5960]),
+
+    h1('6.  STATUS'),
+    p('The set-up is in place and measurable. The indexing issue identified in the improvement plan remains open at the date of this report, and is the item carried forward.'),
+  ],
+});
+
+const CU2_ORDER = ['cu2-wa1','cu2-wa2','cu2-wa3','cu2-wa4'];
+
+DOCS['cu2-full'] = {
+  file: 'CU2-SEO-Plan-and-Implementation.docx',
+  compiled: true, footer: 'TVET Lipis',
+  body: [
+    tvetEdgeBar, LETTERHEADS.tvet, RULES.tvet,
+    new Paragraph({ children: [new TextRun({ text: 'SEO PLAN', font: F, size: 40, bold: true, color: NAVY })],
+      alignment: AlignmentType.CENTER, spacing: { before: 700, after: 40 } }),
+    new Paragraph({ children: [new TextRun({ text: 'AND IMPLEMENTATION', font: F, size: 40, bold: true, color: NAVY })],
+      alignment: AlignmentType.CENTER, spacing: { after: 120 } }),
+    new Paragraph({ children: [new TextRun({ text: 'TVET Lipis · tvetlipis.my · 2025 – 2026', font: F, size: 24, color: '555555' })],
+      alignment: AlignmentType.CENTER, spacing: { after: 700 } }),
+    new Table({ width: { size: 7000, type: WidthType.DXA }, columnWidths: [2400, 4600], rows: [
+      new TableRow({ children: [cell('Competency Unit',{w:2400,bold:true,fill:'EDF1F7'}), cell('C02 — Implement SEO plan',{w:4600})] }),
+      new TableRow({ children: [cell('Standard',{w:2400,bold:true,fill:'EDF1F7'}), cell('NOSS M731-001-4:2021, Level 4',{w:4600})] }),
+      new TableRow({ children: [cell('Work activities',{w:2400,bold:true,fill:'EDF1F7'}), cell('W01 – W04 (four)',{w:4600})] }),
+      new TableRow({ children: [cell('Prepared by',{w:2400,bold:true,fill:'EDF1F7'}), cell('Zuriel Seong Ming Ee, Marketing Manager',{w:4600})] }),
+      new TableRow({ children: [cell('Date',{w:2400,bold:true,fill:'EDF1F7'}), cell('[ TARIKH ]',{w:4600})] }),
+    ]}),
+    pageBreak(),
+    h1('DOCUMENT REGISTER'),
+    table(['Part','WA','Document','Type'], [
+      ['1','W01','SEO Channel Performance Analysis','Report'],
+      ['2','W02','SEO Campaign Plan','Plan'],
+      ['3','W03','SEO Improvement Plan','Plan'],
+      ['4','W04','SEO Implementation Coordination Report','Report'],
+    ], [800,900,4700,2960]),
+    h1('SUMMARY'),
+    p('The site ranks well for what it has — average position 3.7 and a click-through rate of 7.4% across sixteen months, producing 1,050 clicks from 14,100 impressions. Every query producing that traffic is a brand name, and all 284 clicks in the most recent three months landed on a single page.'),
+    p('The cause is structural: of three known pages, one is indexed. A single general page cannot rank for a course it does not describe, so prospects searching for a diploma rather than for TVET Lipis by name never reach the site. The plan is one page per subject searched for, with indexing resolved first.'),
+    ...CU2_ORDER.flatMap(k => part(DOCS[k])),
+  ],
+};
+
 const CU5_ORDER = ['cu5-wa1','cu5-wa2','cu5-wa3','cu5-wa4','cu5-wa5','cu5-wa6'];
 
 DOCS['cu5-full'] = {
