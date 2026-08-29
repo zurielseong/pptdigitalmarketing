@@ -1342,6 +1342,231 @@ DOCS['cu2-wa4'] = M({
   ],
 });
 
+
+// ═════════════════════════════ CU3 — SEM ═════════════════════════════════════
+// TVET Lipis Google Ads, account 245-694-3044. Figures read from the Level 3
+// portfolio screenshots; nothing estimated.
+DOCS['cu3-wa1'] = M({
+  file: 'CU3-WA1-SEM-Campaign-Plan.docx', ref: 'TVET/SEM/OPS',
+  title: 'SEARCH ENGINE MARKETING CAMPAIGN PLAN',
+  subtitle: 'Google Ads campaign for student recruitment — TVET Lipis, 2025',
+  date: 'March 2026', submitted: 'General Manager',
+  status: 'Report on work done', signoff: () => verifyShort('Jery Yew', 'General Manager'),
+  content: [
+    h1('1.  WHY PAID SEARCH'),
+    p('Analysis of the organic search channel found the site holding an average position of 3.7 but appearing only for brand queries — people already looking for TVET Lipis by name. Nobody arrived searching for a course. With one indexed page there was nothing that could rank for a course term, and building that takes months.'),
+    p('Paid search buys the position that organic cannot yet earn. It places the institution in front of somebody typing “diploma pendidikan awal kanak-kanak” today, while the site is rebuilt to earn that position later. It also differs from the social campaigns in kind: social interrupts a person scrolling, search answers a person already looking.'),
+
+    h1('2.  CAMPAIGN TYPE SELECTED'),
+    p('A Google Ads Smart campaign was chosen. Smart campaigns are managed by Google — targeting, bidding and placement are automated from the business profile and a short ad — which suited a first paid-search test on a small budget without a dedicated search specialist.'),
+    table(['Consideration','Assessment'], [
+      ['Budget available','Small; a managed campaign avoids spending the budget on management time'],
+      ['Local intent','The institution recruits locally; Smart campaigns draw on the Business Profile and Maps'],
+      ['Trade-off accepted','No keyword-level control, and no way to exclude Google partner websites'],
+      ['Alternative held','A standard Search campaign, once the account has data and the site can convert'],
+    ], [2600,6760]),
+
+    h1('3.  OBJECTIVES AND TARGETS'),
+    table(['Objective','Measure','Target'], [
+      ['Appear for course searches','Impressions','[ ISI SASARAN ]'],
+      ['Draw qualified visits','Clicks and click-through rate','[ ISI SASARAN ]'],
+      ['Generate local enquiry','Local actions — directions, calls','[ ISI SASARAN ]'],
+      ['Control cost','Cost per click','[ ISI SASARAN ]'],
+    ], [2900,3300,3160]),
+    fill('[ ISI: sasaran yang ditetapkan sebelum kempen dilancarkan; jika tiada sasaran formal ditetapkan, nyatakan demikian ]'),
+
+    h1('4.  TARGETING AND MESSAGE'),
+    table(['Parameter','Setting'], [
+      ['Location','Kuala Lipis and surrounding Pahang'],
+      ['Landing page','https://tvetlipis.my/'],
+      ['Headline','Hub Pendidikan TVET Kemahiran — Diploma Pendidikan Kanak-Kanak'],
+      ['Description','Diploma Pendidikan Awal Kanak-Kanak dan Pra-Sekolah, Diploma Digital Marketing'],
+      ['Programmes named','Early childhood education, pre-school education, digital marketing'],
+    ], [2200,7160]),
+    p('The ad names the programmes rather than the institution, because the searches worth buying are course searches. The institution name is already held organically and does not need to be paid for.', { before: 100 }),
+    img('sem_ad.png', 400, 198),
+    cap('Figure 1 — The advertisement as published'),
+
+    h1('5.  MEASUREMENT'),
+    table(['Metric','Source','Frequency'], [
+      ['Impressions and clicks','Google Ads campaign summary','Monthly'],
+      ['Click-through rate and cost per click','Google Ads campaign summary','Monthly'],
+      ['Local actions','Google Ads local action report','Monthly'],
+      ['Spend against budget','Google Ads billing summary','Monthly'],
+    ], [2900,3400,3060]),
+  ],
+});
+
+DOCS['cu3-wa2'] = M({
+  file: 'CU3-WA2-SEM-Implementation.docx', ref: 'TVET/SEM/OPS',
+  title: 'SEM CAMPAIGN IMPLEMENTATION REPORT',
+  subtitle: 'Google Ads campaign as run — TVET Lipis, May to July 2025',
+  date: 'March 2026', submitted: 'General Manager',
+  status: 'Report on work done', signoff: () => verifyShort('Jery Yew', 'General Manager'),
+  content: [
+    h1('1.  SCOPE'),
+    p('This report records the campaign as implemented: the account established, the campaign published, the period it ran, the funding managed against it, and what it delivered.'),
+
+    h1('2.  ACCOUNT AND CAMPAIGN'),
+    table(['Item','Record'], [
+      ['Google Ads account','245-694-3044'],
+      ['Campaign name','Hub Pendidikan TVET Kemahiran'],
+      ['Campaign type','Smart campaign'],
+      ['Landing page','https://tvetlipis.my/'],
+      ['Period live','26 May – 28 July 2025'],
+      ['Total campaign spend','RM150.06'],
+      ['Net cost including service tax','RM161.91'],
+    ], [3000,6360]),
+
+    h1('3.  TIMELINE'),
+    table(['Period','Activity','Record'], [
+      ['26 May 2025','Campaign launched','First impressions recorded'],
+      ['June 2025','Campaign at full delivery','Spend RM99.14; peak above 1,700 impressions'],
+      ['11 June 2025','Payment made','Threshold charge RM50.00'],
+      ['1 July 2025','Payment made','Monthly charge RM56.96'],
+      ['July 2025','Delivery continues, then falls','Spend RM50.92'],
+      ['28 July 2025','Delivery ends','Impressions and clicks return to zero'],
+      ['August – September 2025','No spend','Billing shows nil'],
+    ], [1900,3600,3860]),
+    img('cu3_spend.png', 440, 163),
+    cap('Figure 1 — Campaign spend by month'),
+
+    h1('4.  DELIVERED'),
+    table(['Metric','Result','Derived'], [
+      ['Impressions','7,267',''],
+      ['Clicks','217','Click-through rate 2.99%'],
+      ['Spend','RM150.06','Cost per click RM0.69'],
+      ['Local actions','115','Cost per local action RM1.31'],
+      ['Call clicks','4',''],
+      ['Conversions','Not recorded','Tracking never configured — see W03'],
+    ], [2600,2400,4360]),
+    img('sem_perf.png', 430, 322),
+    cap('Figure 2 — Campaign performance, all time'),
+
+    sub('4.1   Where the clicks came from'),
+    img('cu3_clicks.png', 440, 107),
+    cap('Figure 3 — Click sources'),
+    img('sem_clicks.png', 340, 334),
+    cap('Figure 4 — Click source breakdown as recorded'),
+
+    sub('4.2   Local actions'),
+    p('Local actions are the measure a Smart campaign reports in place of website conversions. Of 115 recorded, 41 were people viewing directions to the campus and 3 were calls placed from the advertisement.'),
+    img('sem_local.png', 320, 344),
+    cap('Figure 5 — Local action detail'),
+
+    h1('5.  FUNDING MANAGED'),
+    p('The account was funded by card against a threshold, and each month reconciled against the campaign spend and service tax.'),
+    img('sem_billing.png', 440, 213),
+    cap('Figure 6 — Billing summary, May to October 2025 (account email redacted)'),
+    img('sem_june.png', 400, 278),
+    cap('Figure 7 — June 2025 statement: campaign RM99.14, service tax RM7.92'),
+    img('sem_july.png', 400, 295),
+    cap('Figure 8 — July 2025 statement: campaign RM50.92, service tax RM4.07'),
+
+    h1('6.  OUTCOME'),
+    p('The campaign was published, ran for nine weeks, delivered 7,267 impressions and 217 clicks at RM0.69 each, and produced 115 local actions at RM1.31 each. Spend stayed inside the funded balance throughout, and delivery stopped in July 2025 by decision rather than by exhaustion of funds — the reasoning is recorded in TVET/SEM/OPS W03.'),
+  ],
+});
+
+DOCS['cu3-wa3'] = M({
+  file: 'CU3-WA3-SEM-Optimisation.docx', ref: 'TVET/SEM/OPS',
+  title: 'SEM CAMPAIGN PERFORMANCE OPTIMISATION REPORT',
+  subtitle: 'Findings, decision and next actions — TVET Lipis Google Ads',
+  date: 'March 2026', submitted: 'General Manager',
+  status: 'Report on work done', signoff: () => verifyShort('Jery Yew', 'General Manager'),
+  content: [
+    h1('1.  WHAT WAS MONITORED'),
+    table(['Metric','Source','Result'], [
+      ['Impressions and clicks','Campaign summary','7,267 / 217'],
+      ['Click-through rate','Derived','2.99%'],
+      ['Cost per click','Derived','RM0.69'],
+      ['Local actions','Local action report','115 at RM1.31 each'],
+      ['Conversions','Conversion tracking','Not recorded'],
+    ], [2600,3000,3760]),
+    p('On cost the campaign performed. A click at RM0.69 and a local action at RM1.31 are inexpensive against a student worth several thousand ringgit in fees. The problem was not price.', { before: 100 }),
+
+    h1('2.  FINDING ONE — CONVERSIONS WERE NEVER TRACKED'),
+    p('The conversions column shows “Get Started”, meaning conversion tracking was never configured. Every click that reached the website was therefore invisible: the campaign could report that somebody arrived, but not whether they enquired, applied or enrolled.'),
+    p('This is the same measurement gap found on the TikTok Shop campaign, and it has the same effect — the campaign was judged on clicks and local actions because nothing else was available to judge it on. Cost per enquiry could not be calculated, so the campaign could not be compared against the RM500 referral benchmark used elsewhere in the recruitment budget.'),
+
+    h1('3.  FINDING TWO — A QUARTER OF SPEND WENT OFF GOOGLE'),
+    p('Of 217 clicks, 182 came from Google Search, 10 from Maps and 25 from Google partner websites — third-party sites that carry Google advertising. Partner traffic is generally lower intent than a search on Google itself, and at roughly 11.5% of clicks it represents approximately RM17 of the RM150.06 spent.'),
+    img('cu3_clicks.png', 440, 107),
+    cap('Figure 1 — Click sources'),
+    p('A Smart campaign gives no setting to exclude the partner network. That is not a configuration error but a limitation of the campaign type chosen, and it is the strongest argument for moving to a standard Search campaign.', { before: 100 }),
+
+    h1('4.  FINDING THREE — THE TRAFFIC LANDED WHERE ORGANIC ALREADY FAILS'),
+    p('All 217 clicks were sent to https://tvetlipis.my/ — the single Canva page that Google crawled and declined to index, carrying its content as graphics and with no page for any of the programmes named in the advertisement.'),
+    p('The advertisement promised “Diploma Pendidikan Awal Kanak-Kanak dan Pra-Sekolah”. The page it led to does not describe those programmes as readable content. Paid traffic was therefore being bought at RM0.69 a click and delivered to a page that could not answer the question the click was asking.'),
+
+    h1('5.  DECISION — SPEND STOPPED'),
+    p('Delivery was ended in July 2025 rather than continued. With no conversion tracking, a fixed share of spend going to partner sites, and a landing page that could not convert, further spend would have bought more clicks without producing anything measurable or persuasive at the other end.'),
+    p('Stopping was the correct optimisation. The constraint was not inside the ad account — no bid, budget or targeting change would have fixed a landing page that does not describe the courses being advertised. Money was held until the fix is available.'),
+    table(['Finding','Action taken','Status'], [
+      ['Conversions not tracked','Configure conversion tracking before any restart','Outstanding'],
+      ['Partner-network clicks cannot be excluded','Move to a standard Search campaign','Outstanding'],
+      ['Landing page cannot convert','Website rebuild with a page per programme','In progress — see TVET/SEO/OPS'],
+      ['Spend producing no measurable outcome','Campaign paused','Done, July 2025'],
+    ], [2900,3900,2560]),
+
+    h1('6.  NEXT ACTIONS BEFORE RESTARTING'),
+    table(['Step','Action','Gate'], [
+      ['1','Complete the website rebuild with a page per programme','Programme pages live and indexed'],
+      ['2','Install conversion tracking on the enquiry form','A test submission registers as a conversion'],
+      ['3','Rebuild as a standard Search campaign','Keyword-level control and partner network excluded'],
+      ['4','Point each ad group at its own programme page','Ad promise matches the page it lands on'],
+      ['5','Restart on a controlled budget and review monthly','Cost per enquiry below the RM500 referral benchmark'],
+    ], [700,5200,3460]),
+    p('Step 4 is the one that changes the economics. An advertisement for early childhood education landing on a page about early childhood education converts at a different rate from the same advertisement landing on a general home page, and none of the account-level settings can substitute for it.', { before: 100 }),
+
+    h1('7.  EVIDENCE TO BE CAPTURED'),
+    p('The following screens are to be captured from the Google Ads account and inserted below. They are listed here so the record is complete rather than because they change the findings above.'),
+    shot('[ TAMPAL DI SINI: Google Ads → Campaigns, dengan lajur Cost, Impressions, Clicks, CTR, Avg CPC dan julat tarikh 26 Mei – 28 Julai 2025 kelihatan ]'),
+    cap('Figure 2 — Campaign list with delivery columns'),
+    shot('[ TAMPAL DI SINI: Google Ads → Search terms / Keywords — istilah carian sebenar yang mencetuskan iklan ]'),
+    cap('Figure 3 — Search terms that triggered the advertisement'),
+    shot('[ TAMPAL DI SINI: Google Ads → Tools → Change history, menunjukkan tarikh kempen dijeda ]'),
+    cap('Figure 4 — Change history recording the pause'),
+    shot('[ TAMPAL DI SINI: Google Ads → Goals / Conversions, menunjukkan status penjejakan penukaran ]'),
+    cap('Figure 5 — Conversion tracking status'),
+    p('Figure 3 is the most valuable of the four. Search terms show which words people actually typed before clicking, which is the evidence needed to build the keyword list for a standard Search campaign.', { before: 100 }),
+  ],
+});
+
+const CU3_ORDER = ['cu3-wa1','cu3-wa2','cu3-wa3'];
+
+DOCS['cu3-full'] = {
+  file: 'CU3-SEM-Plan-and-Implementation.docx',
+  compiled: true, footer: 'TVET Lipis',
+  body: [
+    tvetEdgeBar, LETTERHEADS.tvet, RULES.tvet,
+    new Paragraph({ children: [new TextRun({ text: 'SEARCH ENGINE MARKETING', font: F, size: 36, bold: true, color: NAVY })],
+      alignment: AlignmentType.CENTER, spacing: { before: 700, after: 40 } }),
+    new Paragraph({ children: [new TextRun({ text: 'PLAN AND IMPLEMENTATION', font: F, size: 36, bold: true, color: NAVY })],
+      alignment: AlignmentType.CENTER, spacing: { after: 120 } }),
+    new Paragraph({ children: [new TextRun({ text: 'TVET Lipis · Google Ads · May – July 2025', font: F, size: 24, color: '555555' })],
+      alignment: AlignmentType.CENTER, spacing: { after: 700 } }),
+    new Table({ width: { size: 7000, type: WidthType.DXA }, columnWidths: [2400, 4600], rows: [
+      new TableRow({ children: [cell('Competency Unit',{w:2400,bold:true,fill:'EDF1F7'}), cell('C03 — Implement SEM plan',{w:4600})] }),
+      new TableRow({ children: [cell('Standard',{w:2400,bold:true,fill:'EDF1F7'}), cell('NOSS M731-001-4:2021, Level 4',{w:4600})] }),
+      new TableRow({ children: [cell('Work activities',{w:2400,bold:true,fill:'EDF1F7'}), cell('W01 – W03 (three)',{w:4600})] }),
+      new TableRow({ children: [cell('Prepared by',{w:2400,bold:true,fill:'EDF1F7'}), cell('Zuriel Seong Ming Ee, Marketing Manager',{w:4600})] }),
+      new TableRow({ children: [cell('Date',{w:2400,bold:true,fill:'EDF1F7'}), cell('March 2026',{w:4600})] }),
+    ]}),
+    pageBreak(),
+    h1('DOCUMENT REGISTER'),
+    table(['Part','WA','Document','Type'], [
+      ['1','W01','SEM Campaign Plan','Report'],
+      ['2','W02','SEM Campaign Implementation Report','Report'],
+      ['3','W03','SEM Campaign Performance Optimisation Report','Report'],
+    ], [800,900,4700,2960]),
+    h1('SUMMARY'),
+    p('A Google Ads Smart campaign, “Hub Pendidikan TVET Kemahiran”, ran from 26 May to 28 July 2025 on account 245-694-3044. It spent RM150.06 and delivered 7,267 impressions and 217 clicks at RM0.69 each, producing 115 local actions at RM1.31 — including 41 people viewing directions to the campus.'),
+    p('On cost it worked. It was stopped anyway. Conversion tracking had never been configured, so nothing after the click could be measured; 25 of the 217 clicks came from Google partner websites, which a Smart campaign cannot exclude; and every click landed on the single Canva page that Google itself had crawled and declined to index, which describes none of the programmes the advertisement named. Spend was held until the website rebuild makes a restart worth funding.'),
+    ...CU3_ORDER.flatMap(k => part(DOCS[k])),
+  ],
+};
+
 const CU2_ORDER = ['cu2-wa1','cu2-wa2','cu2-wa3','cu2-wa4'];
 
 DOCS['cu2-full'] = {
