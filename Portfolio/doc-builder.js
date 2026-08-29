@@ -1584,6 +1584,326 @@ DOCS['cu3-full'] = {
   ],
 };
 
+
+// ═════════════════════════════ CU1 — SOCIAL MEDIA ════════════════════════════
+// TVET Lipis, April–September 2025. Every figure is taken from the LPKT
+// (Laporan Projek DKM) and its appendices; nothing estimated.
+DOCS['cu1-wa1'] = M({
+  file: 'CU1-WA1-Channel-Selection.docx', ref: 'TVET/SOCMED/OPS',
+  title: 'SOCIAL MEDIA CHANNEL SELECTION REPORT',
+  subtitle: 'Channels determined for student recruitment — TVET Lipis',
+  date: 'March 2026', submitted: 'General Manager',
+  status: 'Report on work done', signoff: () => verifyShort('Jery Yew', 'General Manager'),
+  content: [
+    h1('1.  PURPOSE'),
+    p('This report records which social media channels were selected to carry student recruitment for the April to September 2025 intake cycle, and the reasoning behind the selection.'),
+
+    h1('2.  THE AUDIENCE IS NOT EVENLY DISTRIBUTED'),
+    p('The institution holds accounts on TikTok, Instagram and Facebook. They are not comparable assets. At the point of record the TikTok account held 13,800 followers and 118,500 likes; the Instagram account held 165 followers across 127 posts.'),
+    img('cu1_channels.png', 440, 161),
+    cap('Figure 1 — Followers by channel'),
+    p('An eighty-four fold difference is not a matter of tuning. It decides where organic content is worth producing, and it is why TikTok was determined as the primary channel rather than the one the institution might have preferred on brand grounds.', { before: 100 }),
+    img('lp7.png', 165, 359),
+    cap('Figure 2 — TikTok @tvet_lipis: 13.8K followers, 118.5K likes'),
+    img('lp8.png', 165, 359),
+    cap('Figure 3 — Instagram @tvet_lipis: 165 followers, 127 posts'),
+
+    h1('3.  CHANNELS DETERMINED'),
+    table(['Channel','Role','Basis'], [
+      ['TikTok','Primary organic channel','Established audience of 13,800; the format carries the content the campaign needs'],
+      ['TikTok Ads','Paid lead generation, from June 2025','Added once the organic channel proved the audience was present'],
+      ['Meta Ads','Paid lead generation, from April 2025','Instant lead forms feed the CRM directly'],
+      ['Instagram','Supporting organic channel','Small audience; used for reach among parents and for reposting'],
+      ['Facebook','Supporting organic channel','Used mainly for parent-facing content'],
+    ], [1900,2700,4760]),
+    p('The split is deliberate. TikTok earns attention; Meta captures it. A campaign run only on TikTok reaches people but has no proven route into the CRM, and a campaign run only on Meta captures leads from a much smaller organic base.', { before: 100 }),
+  ],
+});
+
+DOCS['cu1-wa2'] = M({
+  file: 'CU1-WA2-Content-Calendar.docx', ref: 'TVET/SOCMED/OPS',
+  title: 'SOCIAL MEDIA CONTENT CALENDAR REPORT',
+  subtitle: 'Content pillars, format and publishing schedule — April to September 2025',
+  date: 'March 2026', submitted: 'General Manager',
+  status: 'Report on work done', signoff: () => verifyShort('Jery Yew', 'General Manager'),
+  content: [
+    h1('1.  CONTENT PILLARS'),
+    p('Six pillars were set, each addressing a specific objection or question that stops a prospect enrolling. They are not topics; they are answers.'),
+    table(['Pillar','What it answers','Audience'], [
+      ['Peluang kedua','“My results are not good enough to continue studying”','Students 17 – 28'],
+      ['Maklumat ibu bapa','“What is TVET and how is it paid for?”','Parents 40 – 60'],
+      ['Miskonsepsi TVET','“TVET graduates cannot go on to a degree”','Students and parents'],
+      ['Sorotan program','“What is this course actually about?”','Students'],
+      ['Jelajah sekolah','Awareness among local school leavers','Local students'],
+      ['Kandungan tempatan','Brand familiarity without selling','General'],
+    ], [2100,4600,2660]),
+
+    h1('2.  FORMAT AND FREQUENCY'),
+    table(['Format','Frequency','Platform'], [
+      ['Short-form video','Once every two weeks','TikTok, Instagram Reels, Facebook'],
+      ['Graphic poster','Weekly','Instagram, Facebook'],
+      ['Minimum output','At least one new item each week','All platforms'],
+    ], [2600,3200,3560]),
+
+    h1('3.  THE CALENDAR AS PUBLISHED'),
+    img('cu1_kalendar.png', 460, 336),
+    cap('Figure 1 — Content calendar, April to September 2025'),
+
+    h1('4.  WHAT THE PILLARS PRODUCED'),
+    p('Three items carried a disproportionate share of the reach, and all three came from the pillars addressing an objection rather than describing a programme.'),
+    table(['Pillar','Content','Views'], [
+      ['Peluang kedua','“Ini adalah peluang kedua anda!”','3,800,000'],
+      ['Maklumat ibu bapa','“Perhatian Kepada Ibu Bapa”','502,900'],
+      ['Kandungan tempatan','“Tempat Makan Underrated Kuala Lipis”','99,400'],
+    ], [2400,4400,2560]),
+    p('A single video answering “my results are not good enough” reached 3.8 million views — more than the entire paid campaign delivered in impressions. That result is why the pillar structure was retained rather than replaced with programme-led content.', { before: 100 }),
+    img('lp6.png', 165, 359),
+    cap('Figure 2 — TikTok Analytics for the campaign period'),
+  ],
+});
+
+DOCS['cu1-wa3'] = M({
+  file: 'CU1-WA3-Campaign-Plan.docx', ref: 'TVET/SOCMED/OPS',
+  title: 'SOCIAL MEDIA CAMPAIGN PLAN',
+  subtitle: 'Objectives, audience, phasing and measurement — April to September 2025',
+  date: 'March 2026', submitted: 'General Manager',
+  status: 'Report on work done', signoff: () => verifyShort('Jery Yew', 'General Manager'),
+  content: [
+    h1('1.  OBJECTIVES'),
+    table(['#','Objective','Measure','Outcome'], [
+      ['1','Raise awareness of TVET Lipis among school leavers and parents','Impressions and views','2,370,268 impressions delivered'],
+      ['2','Generate enquiries from prospective students','Leads captured in the CRM','3,470 leads'],
+      ['3','Convert enquiries into enrolments','Students registered','76 students'],
+      ['4','Keep acquisition below the referral benchmark','Cost per registered student','RM154.36 against RM500'],
+    ], [500,3000,2600,3260]),
+    p('Objective 4 is the controlling one. The institution pays an agent RM500 for a recruited student, so any channel costing more than that is not worth running. At RM154.36 the campaign acquired a student for roughly a third of the alternative.', { before: 100 }),
+
+    h1('2.  AUDIENCE'),
+    table(['Segment','Age','Message emphasis'], [
+      ['School leavers','17 – 28','Second chance, programme content, career outcome'],
+      ['Parents','40 – 60','Accreditation, PTPK funding, career prospects'],
+    ], [2600,1600,5160]),
+    p('Two segments were targeted separately rather than as one audience, because the decision to enrol is usually made jointly and the two are persuaded by different things.', { before: 100 }),
+
+    h1('3.  CAMPAIGN PHASES'),
+    table(['Phase','Activity'], [
+      ['1  Channel determination','Audience analysed and platforms selected'],
+      ['2  Campaign plan','Objectives, segments, locations, period, budget and targets set'],
+      ['3  Content calendar','Pillars, formats, platforms and publishing dates planned'],
+      ['4  Paid advertisement proposal','Lead generation objective, budget allocation and targeting parameters prepared'],
+      ['5  Implementation','Content published to calendar; Meta Ads from April 2025, TikTok Ads from June 2025'],
+      ['6  Optimisation','Monthly performance reviewed and budget reallocated'],
+    ], [2900,6460]),
+    img('lp1.png', 200, 400),
+    cap('Figure 1 — Campaign implementation flow'),
+
+    h1('4.  MEASUREMENT'),
+    table(['Metric','Source','Frequency'], [
+      ['Impressions, clicks, click-through rate','Meta Ads Manager, TikTok Ads Manager','Monthly'],
+      ['Video views and engagement','TikTok Analytics','Monthly'],
+      ['Leads and cost per lead','CRM against platform spend','Monthly'],
+      ['Registrations and cost per registration','CRM','Per intake'],
+    ], [3200,3200,2960]),
+  ],
+});
+
+DOCS['cu1-wa4'] = M({
+  file: 'CU1-WA4-Implementation-Coordination.docx', ref: 'TVET/SOCMED/OPS',
+  title: 'SOCIAL MEDIA CAMPAIGN IMPLEMENTATION COORDINATION REPORT',
+  subtitle: 'Publishing, paid delivery and lead handling — April to September 2025',
+  date: 'March 2026', submitted: 'General Manager',
+  status: 'Report on work done', signoff: () => verifyShort('Jery Yew', 'General Manager'),
+  content: [
+    h1('1.  SCOPE'),
+    p('This report records the campaign as run: content published against the calendar, paid campaigns launched and managed on two platforms, and leads routed into the CRM for follow-up.'),
+
+    h1('2.  CHANNELS RUN'),
+    table(['Channel','Type','Period','Status'], [
+      ['TikTok','Organic content','April – September 2025','Delivered'],
+      ['Instagram','Organic content','April – September 2025','Delivered'],
+      ['Facebook','Organic content','April – September 2025','Delivered'],
+      ['Meta Ads','Paid advertising','April – September 2025  (6 months)','Delivered'],
+      ['TikTok Ads','Paid advertising','June – September 2025  (4 months)','Delivered'],
+    ], [1800,2200,3400,1960]),
+    p('Paid advertising began on Meta in April and was extended to TikTok in June, once the organic channel had established that the audience was present and responsive.', { before: 100 }),
+
+    h1('3.  PAID DELIVERY COORDINATED'),
+    img('lp9.png', 400, 566),
+    cap('Figure 1 — Meta Ads Manager, campaign period'),
+    img('lp10.png', 440, 168),
+    cap('Figure 2 — TikTok Ads Manager, June to September 2025'),
+
+    h1('4.  LEADS ROUTED TO THE CRM'),
+    p('Both platforms ran instant lead forms. A prospect completing the form is written directly into the TVET Lipis CRM, assigned to a counsellor and contacted on WhatsApp — the mobile process recorded separately under MOB/CU5/W04/2025. No lead was collected outside that route.'),
+    img('lp16.png', 440, 245),
+    cap('Figure 3 — CRM lead record'),
+    img('lp17.png', 440, 209),
+    cap('Figure 4 — CRM lead data by source'),
+
+    h1('5.  DELIVERED'),
+    table(['Measure','Result'], [
+      ['Impressions','2,370,268'],
+      ['Clicks','23,056'],
+      ['Leads captured','3,470'],
+      ['Students registered','76'],
+      ['Advertising spend','RM11,267.97'],
+    ], [3400,5960]),
+
+    h1('6.  COORDINATION CONTROLS'),
+    table(['What was controlled','How'], [
+      ['Content published to plan','Calendar with fixed formats and weekly minimum'],
+      ['Paid delivery within budget','Monthly reconciliation of platform spend against billing statements'],
+      ['No lead lost between platform and CRM','Instant lead forms writing directly to the CRM'],
+      ['Every lead owned','Counsellor assigned on the CRM record'],
+      ['Second platform added on evidence','TikTok Ads launched only after the organic audience was proven'],
+    ], [3400,5960]),
+  ],
+});
+
+DOCS['cu1-wa5'] = M({
+  file: 'CU1-WA5-Paid-Advertisement.docx', ref: 'TVET/SOCMED/OPS',
+  title: 'PAID ADVERTISEMENT PROPOSAL AND IMPLEMENTATION RECORD',
+  subtitle: 'Meta Ads and TikTok Ads — April to September 2025',
+  date: 'March 2026', submitted: 'General Manager',
+  status: 'Report on work done', signoff: () => verifyShort('Jery Yew', 'General Manager'),
+  content: [
+    h1('1.  BASIS OF THE PROPOSAL'),
+    p('Paid advertising was proposed against a single benchmark. The institution pays an agent RM500 for each student recruited, so RM500 is the most it can justify paying to acquire a student by any other means. Every budget decision in this campaign was measured against that figure.'),
+
+    h1('2.  ALLOCATION AND OBJECTIVE'),
+    table(['Parameter','Setting'], [
+      ['Campaign objective','Lead generation — instant form completion'],
+      ['Platforms','Meta Ads from April 2025; TikTok Ads added June 2025'],
+      ['Audience segments','Students 17 – 28; parents 40 – 60, targeted separately'],
+      ['Location','Pahang and surrounding states'],
+      ['Benchmark','Cost per registered student below RM500'],
+    ], [2400,6960]),
+
+    h1('3.  SPEND AS DELIVERED'),
+    table(['Platform','Spend','Share'], [
+      ['Meta Ads','RM8,936.21','79.3%'],
+      ['TikTok Ads','RM2,331.76','20.7%'],
+      ['Total','RM11,267.97','100%'],
+    ], [3000,3200,3160]),
+    img('lp12.png', 300, 424),
+    cap('Figure 1 — Platform billing statement'),
+
+    h1('4.  PERFORMANCE BY PLATFORM'),
+    table(['Metric','Meta Ads','TikTok Ads','Combined'], [
+      ['Click-through rate','0.88%','1.09%','0.97%'],
+      ['Cost per click','RM0.76','RM0.21','RM0.49'],
+      ['Leads','2,336','1,134','3,470'],
+      ['Cost per lead','RM3.83','RM2.06','RM3.25'],
+    ], [2600,2200,2200,2360]),
+    img('cu1_cpl.png', 430, 177),
+    cap('Figure 2 — Cost per lead by platform'),
+
+    h1('5.  AGAINST THE BENCHMARK'),
+    table(['Measure','Result','Benchmark'], [
+      ['Cost per lead','RM3.25','—'],
+      ['Students registered','76','—'],
+      ['Cost per registered student','RM154.36','RM500'],
+    ], [3200,3100,3060]),
+    p('The campaign acquired a student for RM154.36 against a referral alternative of RM500 — roughly a third of the cost. On that basis the paid budget was justified and was recommended for continuation.', { before: 100 }),
+  ],
+});
+
+DOCS['cu1-wa6'] = M({
+  file: 'CU1-WA6-Performance-Optimisation.docx', ref: 'TVET/SOCMED/OPS',
+  title: 'SOCIAL MEDIA CAMPAIGN PERFORMANCE OPTIMISATION REPORT',
+  subtitle: 'Monitoring, budget reallocation and outcome — April to September 2025',
+  date: 'March 2026', submitted: 'General Manager',
+  status: 'Report on work done', signoff: () => verifyShort('Jery Yew', 'General Manager'),
+  content: [
+    h1('1.  WHAT WAS MONITORED'),
+    table(['Metric','Source','Frequency'], [
+      ['Leads by platform and month','CRM','Monthly'],
+      ['Cost per lead by platform','Platform spend against CRM leads','Monthly'],
+      ['Click-through rate and cost per click','Meta and TikTok Ads Manager','Monthly'],
+      ['Cost per registered student','CRM against total spend','Per intake'],
+    ], [3200,3200,2960]),
+
+    h1('2.  FINDING — THE TWO PLATFORMS WERE NOT EQUALLY EFFICIENT'),
+    p('Monthly review showed TikTok Ads producing leads at RM2.06 against Meta at RM3.83 — a lead costing roughly half as much. TikTok also returned a higher click-through rate at 1.09% against 0.88%, and a cost per click of RM0.21 against RM0.76.'),
+    img('cu1_cpl.png', 430, 177),
+    cap('Figure 1 — Cost per lead by platform'),
+
+    h1('3.  ACTION — BUDGET REALLOCATED'),
+    p('Budget was progressively shifted from Meta to TikTok from July 2025. The reasoning was direct: every ringgit moved to TikTok bought more leads than the same ringgit on Meta, and both platforms fed the same CRM through the same instant lead form, so the reallocation carried no operational cost.'),
+    img('cu1_leads.png', 440, 160),
+    cap('Figure 2 — Leads by month and platform'),
+    table(['Month','Meta Ads','TikTok Ads','Total'], [
+      ['April 2025','345','—','345'],
+      ['May 2025','133','—','133'],
+      ['June 2025','778','5','783'],
+      ['July 2025','798','560','1,358'],
+      ['August 2025','226','315','541'],
+      ['September 2025','56','254','310'],
+      ['Total','2,336','1,134','3,470'],
+    ], [2400,2400,2400,2160]),
+    img('lp2.png', 440, 252),
+    cap('Figure 3 — Leads by month and platform, as recorded'),
+    p('July was the strongest month at 1,358 leads, with both platforms running together. From August the Meta share falls sharply as budget moves across, while TikTok holds the larger share of a smaller total as the intake cycle closes.', { before: 100 }),
+
+    h1('4.  OUTCOME'),
+    table(['Measure','Result'], [
+      ['Total leads','3,470'],
+      ['Blended cost per lead','RM3.25'],
+      ['Students registered','76'],
+      ['Cost per registered student','RM154.36'],
+      ['Benchmark','RM500 referral fee'],
+    ], [3400,5960]),
+    img('lp3.png', 400, 323),
+    cap('Figure 4 — Leads by programme'),
+
+    h1('5.  RECOMMENDATIONS CARRIED FORWARD'),
+    table(['Finding','Recommendation'], [
+      ['TikTok delivers leads at roughly half the Meta cost','Weight the paid budget toward TikTok from the start of the next cycle'],
+      ['Organic reach depends on a video performing exceptionally','Do not plan on virality; treat a 3.8 million view result as an outlier, not a target'],
+      ['Campaigns were structured by age segment, not by programme','Restructure so each programme carries its own budget and can be judged on its own cost per lead'],
+      ['Content answering an objection outperforms content describing a course','Keep the pillar structure; lead with the objection'],
+    ], [3400,5960]),
+  ],
+});
+
+const CU1_ORDER = ['cu1-wa1','cu1-wa2','cu1-wa3','cu1-wa4','cu1-wa5','cu1-wa6'];
+
+DOCS['cu1-full'] = {
+  file: 'CU1-Social-Media-Plan-and-Implementation.docx',
+  compiled: true, footer: 'TVET Lipis',
+  body: [
+    tvetEdgeBar, LETTERHEADS.tvet, RULES.tvet,
+    new Paragraph({ children: [new TextRun({ text: 'SOCIAL MEDIA MARKETING', font: F, size: 36, bold: true, color: NAVY })],
+      alignment: AlignmentType.CENTER, spacing: { before: 700, after: 40 } }),
+    new Paragraph({ children: [new TextRun({ text: 'PLAN AND IMPLEMENTATION', font: F, size: 36, bold: true, color: NAVY })],
+      alignment: AlignmentType.CENTER, spacing: { after: 120 } }),
+    new Paragraph({ children: [new TextRun({ text: 'TVET Lipis · April – September 2025', font: F, size: 24, color: '555555' })],
+      alignment: AlignmentType.CENTER, spacing: { after: 700 } }),
+    new Table({ width: { size: 7000, type: WidthType.DXA }, columnWidths: [2400, 4600], rows: [
+      new TableRow({ children: [cell('Competency Unit',{w:2400,bold:true,fill:'EDF1F7'}), cell('C01 — Implement social media marketing campaign plan',{w:4600})] }),
+      new TableRow({ children: [cell('Standard',{w:2400,bold:true,fill:'EDF1F7'}), cell('NOSS M731-001-4:2021, Level 4',{w:4600})] }),
+      new TableRow({ children: [cell('Work activities',{w:2400,bold:true,fill:'EDF1F7'}), cell('W01 – W06 (six)',{w:4600})] }),
+      new TableRow({ children: [cell('Prepared by',{w:2400,bold:true,fill:'EDF1F7'}), cell('Zuriel Seong Ming Ee, Marketing Manager',{w:4600})] }),
+      new TableRow({ children: [cell('Date',{w:2400,bold:true,fill:'EDF1F7'}), cell('March 2026',{w:4600})] }),
+    ]}),
+    pageBreak(),
+    h1('DOCUMENT REGISTER'),
+    table(['Part','WA','Document','Type'], [
+      ['1','W01','Social Media Channel Selection Report','Report'],
+      ['2','W02','Social Media Content Calendar Report','Report'],
+      ['3','W03','Social Media Campaign Plan','Report'],
+      ['4','W04','Campaign Implementation Coordination Report','Report'],
+      ['5','W05','Paid Advertisement Proposal and Implementation Record','Report'],
+      ['6','W06','Campaign Performance Optimisation Report','Report'],
+    ], [800,900,4700,2960]),
+    p('This volume summarises the work recorded in full in the project report Laporan Projek Diploma Kemahiran Malaysia — “Perancangan dan Pelaksanaan Kempen Pemasaran Media Sosial bagi Meningkatkan Pengambilan Pelajar Baharu di TVET Lipis”. Figures and appendices are drawn from that report.', { italics: true, color: '555555' }),
+    h1('SUMMARY'),
+    p('Between April and September 2025 a social media recruitment campaign was run for TVET Lipis across TikTok, Instagram and Facebook organically, with paid lead generation on Meta Ads from April and TikTok Ads from June. It delivered 2,370,268 impressions and 23,056 clicks, and captured 3,470 leads at RM3.25 each on a spend of RM11,267.97.'),
+    p('Seventy-six students registered, at RM154.36 per registration against the RM500 referral fee the institution pays an agent — roughly a third of the cost. Monthly review found TikTok producing leads at RM2.06 against Meta at RM3.83, and budget was moved across from July. The strongest single piece of content, a video answering “my results are not good enough to continue studying”, reached 3.8 million views on its own.'),
+    ...CU1_ORDER.flatMap(k => part(DOCS[k])),
+  ],
+};
+
 const CU2_ORDER = ['cu2-wa1','cu2-wa2','cu2-wa3','cu2-wa4'];
 
 DOCS['cu2-full'] = {
