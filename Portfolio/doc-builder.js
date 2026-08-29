@@ -1073,12 +1073,16 @@ DOCS['cu2-wa1'] = M({
       ['Average click-through rate','7.4%','—'],
       ['Average position','3.7','—'],
     ], [3200,3100,3060]),
+    shot('[ TAMPAL DI SINI: Search Console → Performance, julat 16 bulan, menunjukkan Total clicks, Total impressions, Average CTR dan Average position ]'),
+    cap('Figure 1 — Search Console Performance, 16 months'),
     p('Read on their own these are good numbers. An average position of 3.7 means the site typically appears near the top of the first page, and a click-through rate of 7.4% is healthy. The site is not failing to rank.', { before: 100 }),
 
     h1('3.  WHAT THE QUERIES SHOW'),
     p('The queries producing that traffic tell a different story. Every one of them is a brand name — the institution, its former name, or its town.'),
     img('cu2_queries.png', 440, 162),
-    cap('Figure 1 — Queries leading to the site, last three months'),
+    cap('Figure 2 — Queries leading to the site, last three months'),
+    shot('[ TAMPAL DI SINI: Search Console → Insights → Queries, menunjukkan lima pertanyaan teratas dan bilangan klik ]'),
+    cap('Figure 3 — Queries report as recorded'),
     table(['Query','Clicks','Change','Type'], [
       ['tvet lipis','107','up 6%','Brand'],
       ['tvet kuala lipis','24','up 500%','Brand + location'],
@@ -1097,6 +1101,10 @@ DOCS['cu2-wa1'] = M({
     ], [1500,900,2600,4360]),
     p('The distinction matters. Only one page is genuinely failing. “Crawled – currently not indexed” means Google reached the page and judged it not worth adding — usually because it carries too little readable content to be worth serving.', { before: 100 }),
     p('This is consistent with how the site is built. It was produced in Canva as a presentation-quality landing page rather than as a search asset, and where headings and body copy are rendered as part of the design rather than as selectable text, a crawler finds a page with almost nothing on it to read.'),
+    shot('[ TAMPAL DI SINI: Search Console → Pages → Page indexing, menunjukkan Indexed 1 dan Not indexed 2 ]'),
+    cap('Figure 4 — Page indexing status'),
+    shot('[ TAMPAL DI SINI: Search Console → “Why pages aren’t indexed”, menunjukkan sebab “Page with redirect” dan “Crawled – currently not indexed” ]'),
+    cap('Figure 5 — Reasons given for pages not indexed'),
     fill('[ SAHKAN: buka tvetlipis.my dan cuba sorot teks dengan kursor. Jika teks tidak boleh disorot, ia adalah grafik dan bukan teks yang boleh diindeks ]'),
 
     h1('5.  GOOGLE BUSINESS PROFILE'),
@@ -1110,12 +1118,13 @@ DOCS['cu2-wa1'] = M({
       ['Profile completeness','Incomplete — Google prompts for further information'],
     ], [2400,6960]),
     p('At 463 views a month the profile is seen more often than the website converts, and it does that on three reviews. Review volume, not the website, is the binding constraint on local search performance.', { before: 100 }),
-    fill('[ LAMPIRKAN: tangkap layar Google Business Profile — paparan pengurusan dan Performance / Insights ]'),
+    shot('[ TAMPAL DI SINI: Google Business Profile — paparan pengurusan menunjukkan nama profil, kategori, interaksi pelanggan, penilaian dan bilangan ulasan ]'),
+    cap('Figure 6 — Google Business Profile as managed'),
 
     h1('6.  CONCLUSION'),
     p('The constraint is not ranking ability. The site ranks at position 3.7 for what it has. The constraint is that there is almost nothing to rank — one indexed page, built as a brochure rather than as a set of answers, addressing only people who already know the institution by name.'),
     p('The growth in “tvet kuala lipis” of 500% indicates that local, location-qualified search is rising. That demand is currently met by one general page and a profile with three reviews. Addressing it is the subject of SEO/CU2/W02/2026 and SEO/CU2/W03/2026.'),
-    fill('[ LAMPIRKAN: tangkap layar Search Console — Performance 16 bulan, Insights Queries, Page indexing dan sebab “Why pages aren’t indexed” ]'),
+
   ],
 });
 
@@ -1242,7 +1251,8 @@ DOCS['cu2-wa4'] = M({
       ['Cloudflare','DNS and delivery in front of the site','Cloudflare dashboard'],
       ['Google Business Profile','Live','GBP Insights'],
     ], [2400,3000,3960]),
-    fill('[ LAMPIRKAN: tangkap layar Cloudflare — ringkasan trafik dan Core Web Vitals bagi tvetlipis.my ]'),
+    shot('[ TAMPAL DI SINI: Cloudflare — ringkasan trafik dan Core Web Vitals bagi tvetlipis.my ]'),
+    cap('Figure 1 — Delivery and performance layer'),
 
     h1('3.  ACTIONS CARRIED OUT'),
     table(['Action','Date','Verification'], [
