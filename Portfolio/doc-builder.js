@@ -1,0 +1,1994 @@
+// Reusable portfolio document builder — letterhead format agreed with client.
+// Usage: node doc-builder.js <docKey> <outPath>
+const {
+  Document, Packer, Paragraph, TextRun, AlignmentType, PageBreak,
+  Table, TableRow, TableCell, WidthType, ShadingType, ImageRun,
+  convertInchesToTwip, Footer, PageNumber, BorderStyle,
+  HorizontalPositionRelativeFrom, VerticalPositionRelativeFrom, TextWrappingType,
+} = require('docx');
+const fs = require('fs');
+const SP = '/tmp/claude-0/-home-user/c222c7c5-1fc9-5ff7-858d-b12df17563bc/scratchpad';
+const F = 'Calibri';
+const NAVY = '1F3864', RED = 'C1272D';
+
+const p = (t, o = {}) => new Paragraph({
+  children: [new TextRun({ text: t, font: F, size: o.size || 21, bold: o.bold, italics: o.italics, color: o.color })],
+  alignment: o.align || AlignmentType.JUSTIFIED,
+  spacing: { line: 276, before: o.before || 0, after: o.after === undefined ? 130 : o.after },
+});
+const h1 = (t) => new Paragraph({
+  children: [new TextRun({ text: t, font: F, size: 24, bold: true, color: NAVY })],
+  spacing: { before: 260, after: 130 },
+  border: { bottom: { style: BorderStyle.SINGLE, size: 6, color: NAVY } },
+});
+const sub = (t) => new Paragraph({
+  children: [new TextRun({ text: t, font: F, size: 21, bold: true })],
+  spacing: { before: 180, after: 90 },
+});
+const bullet = (t) => new Paragraph({
+  children: [new TextRun({ text: t, font: F, size: 21 })],
+  bullet: { level: 0 }, spacing: { line: 276, after: 70 },
+});
+const cell = (t, o = {}) => new TableCell({
+  width: { size: o.w || 2000, type: WidthType.DXA },
+  shading: o.fill ? { type: ShadingType.CLEAR, color: 'auto', fill: o.fill } : undefined,
+  margins: { top: 50, bottom: 50, left: 85, right: 85 },
+  children: [new Paragraph({
+    children: [new TextRun({ text: String(t), font: F, size: o.size || 19, bold: o.bold, color: o.color })],
+    alignment: o.align || AlignmentType.LEFT, spacing: { line: 252 },
+  })],
+});
+const table = (head, rows, w) => new Table({
+  width: { size: 9360, type: WidthType.DXA }, columnWidths: w,
+  rows: [
+    new TableRow({ tableHeader: true, children: head.map((h, i) => cell(h, { w: w[i], bold: true, fill: NAVY, color: 'FFFFFF' })) }),
+    ...rows.map((r, ri) => new TableRow({ children: r.map((c, i) => cell(c, { w: w[i], fill: ri % 2 ? 'F2F5F9' : undefined })) })),
+  ],
+});
+const img = (f, w, h) => new Paragraph({
+  children: [new ImageRun({ type: f.match(/\.jpe?g$/) ? 'jpg' : 'png', data: fs.readFileSync(`${SP}/${f}`), transformation: { width: w, height: h } })],
+  alignment: AlignmentType.CENTER, spacing: { before: 100, after: 60 },
+});
+const cap = (t) => new Paragraph({
+  children: [new TextRun({ text: t, font: F, size: 18, italics: true, color: '666666' })],
+  alignment: AlignmentType.CENTER, spacing: { after: 180 },
+});
+// Bordered placeholder box — where the candidate pastes a platform screenshot.
+const shot = (t) => new Table({
+  width: { size: 9360, type: WidthType.DXA }, columnWidths: [9360],
+  borders: {
+    top:    { style: BorderStyle.DASHED, size: 6, color: RED },
+    bottom: { style: BorderStyle.DASHED, size: 6, color: RED },
+    left:   { style: BorderStyle.DASHED, size: 6, color: RED },
+    right:  { style: BorderStyle.DASHED, size: 6, color: RED },
+  },
+  rows: [new TableRow({ children: [new TableCell({
+    width: { size: 9360, type: WidthType.DXA },
+    margins: { top: 320, bottom: 320, left: 120, right: 120 },
+    children: [new Paragraph({
+      children: [new TextRun({ text: t, font: F, size: 19, bold: true, color: RED })],
+      alignment: AlignmentType.CENTER, spacing: { after: 0 },
+    })],
+  })] })],
+});
+const fill = (t) => new Paragraph({
+  children: [new TextRun({ text: t, font: F, size: 20, bold: true, color: RED })],
+  spacing: { before: 100, after: 150 },
+});
+
+const letterhead = new Table({
+  width: { size: 9360, type: WidthType.DXA }, columnWidths: [4680, 4680],
+  borders: { top:{style:'none'},bottom:{style:'none'},left:{style:'none'},right:{style:'none'},insideHorizontal:{style:'none'},insideVertical:{style:'none'} },
+  rows: [new TableRow({ children: [
+    new TableCell({ width: { size: 4680, type: WidthType.DXA },
+      borders:{top:{style:'none'},bottom:{style:'none'},left:{style:'none'},right:{style:'none'}},
+      children: [new Paragraph({ alignment: AlignmentType.LEFT,
+        children: [new ImageRun({ type:'png', data: fs.readFileSync(`${SP}/lh_image1.png`), transformation: { width: 190, height: 62 } })] })] }),
+    new TableCell({ width: { size: 4680, type: WidthType.DXA },
+      borders:{top:{style:'none'},bottom:{style:'none'},left:{style:'none'},right:{style:'none'}},
+      children: [new Paragraph({ alignment: AlignmentType.RIGHT,
+        children: [new ImageRun({ type:'jpg', data: fs.readFileSync(`${SP}/lh_image2.jpg`), transformation: { width: 118, height: 55 } })] })] }),
+  ] })],
+});
+// TVET Lipis letterhead — the tvet lipis mark alone, set top right, matching
+// the source letterhead where the logo is cropped out of the partner band.
+const letterheadTVET = new Table({
+  width: { size: 9360, type: WidthType.DXA }, columnWidths: [9360],
+  borders: { top:{style:'none'},bottom:{style:'none'},left:{style:'none'},right:{style:'none'},insideHorizontal:{style:'none'},insideVertical:{style:'none'} },
+  rows: [new TableRow({ children: [new TableCell({
+    width: { size: 9360, type: WidthType.DXA },
+    borders:{top:{style:'none'},bottom:{style:'none'},left:{style:'none'},right:{style:'none'}},
+    children: [new Paragraph({ alignment: AlignmentType.RIGHT,
+      children: [new ImageRun({ type:'png', data: fs.readFileSync(`${SP}/lh_tvet.png`), transformation: { width: 84, height: 84 } })] })],
+  })] })],
+});
+// Black bar down the right page edge, behind the text — as in the source
+// letterhead, where it is a drawing shape rather than part of the logo image.
+// A4 is 8.268" wide (7561263 EMU); the bar is 0.265" x 2.64", flush right.
+const tvetEdgeBar = new Paragraph({
+  spacing: { after: 0, line: 20 },
+  children: [new ImageRun({
+    type: 'png', data: fs.readFileSync(`${SP}/lh_tvet_bar.png`),
+    transformation: { width: 25, height: 253 },
+    floating: {
+      horizontalPosition: { relative: HorizontalPositionRelativeFrom.PAGE, offset: 7318362 },
+      verticalPosition: { relative: VerticalPositionRelativeFrom.PAGE, offset: 0 },
+      behindDocument: true, allowOverlap: true,
+      wrap: { type: TextWrappingType.NONE },
+    },
+  })],
+});
+const LETTERHEADS = { sbl: letterhead, tvet: letterheadTVET };
+const ruleOf = (color) => new Paragraph({ text: '', border: { bottom: { style: BorderStyle.SINGLE, size: 12, color } }, spacing: { before: 60, after: 200 } });
+const rule = ruleOf(RED);
+const RULES = { sbl: rule, tvet: ruleOf('000000') };
+
+const head = (d) => ([
+  ...(d.lh === 'tvet' ? [tvetEdgeBar] : []),
+  LETTERHEADS[d.lh || 'sbl'], RULES[d.lh || 'sbl'],
+  new Paragraph({ children: [new TextRun({ text: d.title, font: F, size: 30, bold: true, color: NAVY })], alignment: AlignmentType.CENTER, spacing: { after: 60 } }),
+  new Paragraph({ children: [new TextRun({ text: d.subtitle, font: F, size: 20, color: '555555' })], alignment: AlignmentType.CENTER, spacing: { after: 220 } }),
+  new Table({ width: { size: 9360, type: WidthType.DXA }, columnWidths: [1560, 3120, 1560, 3120], rows: [
+    new TableRow({ children: [cell('Reference',{w:1560,bold:true,fill:'EDF1F7'}), cell(d.ref,{w:3120}), cell('Prepared by',{w:1560,bold:true,fill:'EDF1F7'}), cell('Zuriel Seong',{w:3120})] }),
+    new TableRow({ children: [cell('Date',{w:1560,bold:true,fill:'EDF1F7'}), cell(d.date || '[ TARIKH ]',{w:3120}), cell('Position',{w:1560,bold:true,fill:'EDF1F7'}), cell('Marketing Manager',{w:3120})] }),
+    new TableRow({ children: [cell('Submitted to',{w:1560,bold:true,fill:'EDF1F7'}), cell(d.submitted || 'Puan Wan Norizan',{w:3120}), cell('Status',{w:1560,bold:true,fill:'EDF1F7'}), cell(d.status || 'For approval',{w:3120})] }),
+  ]}),
+]);
+
+// Sign-off block for a report on completed work — verification, not approval.
+const verification = () => ([
+  h1('VERIFICATION'),
+  p('This report is submitted as a record of work completed. Verification below confirms that the work described was carried out as reported and that the supporting evidence is a true record.'),
+  table(['','Reported By','Verified By','Acknowledged By'], [
+    ['Name','Zuriel Seong','',''], ['Position','Marketing Manager','',''],
+    ['Signature','','',''], ['Date','','',''],
+  ], [1500,2820,2520,2520]),
+  p(''),
+  p('Verification:      ☐  Verified as implemented            ☐  Verified with comments            ☐  Further evidence required', { bold: true, after: 140 }),
+  p('Comments:', { bold: true, after: 100 }),
+  p('______________________________________________________________________________', { after: 120 }),
+  p('______________________________________________________________________________', { after: 120 }),
+]);
+
+const verifyShort = (verifier, position) => ([
+  h1('VERIFICATION'),
+  p('This report is submitted as a record of work completed. Verification below confirms that the work described was carried out as reported and that the supporting evidence is a true record.'),
+  table(['','Prepared By','Verified By'], [
+    ['Name','Zuriel Seong Ming Ee', verifier], ['Position','Marketing Manager', position],
+    ['Signature','',''], ['Date','',''],
+  ], [1600,3880,3880]),
+  p(''),
+  p('Verification:      \u2610  Verified as implemented            \u2610  Verified with comments            \u2610  Further evidence required', { bold: true, after: 140 }),
+  p('Comments:', { bold: true, after: 100 }),
+  p('______________________________________________________________________________', { after: 120 }),
+  p('______________________________________________________________________________', { after: 120 }),
+]);
+
+const approval = () => ([
+  h1('APPROVAL'),
+  table(['','Prepared By','Reviewed By','Approved By'], [
+    ['Name','Zuriel Seong','',''], ['Position','Marketing Manager','',''],
+    ['Signature','','',''], ['Date','','',''],
+  ], [1500,2820,2520,2520]),
+  p(''),
+  p('Decision:      ☐  Approved            ☐  Approved with amendment            ☐  Not approved', { bold: true, after: 140 }),
+  p('Comments:', { bold: true, after: 100 }),
+  p('______________________________________________________________________________', { after: 120 }),
+  p('______________________________________________________________________________', { after: 120 }),
+]);
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Each entry holds its metadata and its content separately, so the same content
+// can be rendered standalone or bound into the compiled CU4 document.
+const DOCS = {};
+
+DOCS['cu4-wa1'] = {
+  file: 'CU4-WA1-Channel-Selection-Proposal.docx',
+  wa: 'W01', partTitle: 'E-COMMERCE CHANNEL SELECTION',
+  title: 'E-COMMERCE CHANNEL SELECTION PROPOSAL',
+  subtitle: 'Selection of a sales channel for Superbowl Lipis',
+  ref: 'ECOM/CU4/W01/2025', date: '[ TARIKH — sebelum penubuhan kedai ]',
+  status: 'For approval — pre-launch', signoff: approval,
+  content: [
+    h1('1.  PURPOSE AND BACKGROUND'),
+    p('Superbowl Lipis sells its streetwear jersey through walk-in and informal messaging enquiries. There is no online sales channel, which means sales cannot be measured, paid advertising has no trackable purchase destination, and no customer or order record is kept.'),
+    p('This proposal recommends adopting TikTok Shop as the sales channel and sets out the reasoning and the requirements to establish it. Approval is sought to proceed with account registration and product listing.'),
+
+    h1('2.  BUSINESS CONTEXT'),
+    p('Two facts shape the recommendation. Superbowl Lipis sells a single product — the Superbowl jersey streetwear shirt — so the channel does not need to support a large catalogue, inventory variants or complex merchandising. And the brand already maintains an active TikTok account with an established local following, with a promotional video for the shirt already produced and posted.'),
+    p('The requirement is therefore narrow: a way to sell one product to an audience already watching the brand’s content, without building new infrastructure.'),
+
+    h1('3.  RECOMMENDATION'),
+    sub('3.1   Native integration with content already published'),
+    p('A product link can be attached directly to the existing promotional video. The yellow basket icon appears on the video and viewers move from watching to purchasing without leaving the application. No new content production is required to begin selling.'),
+    img('cu4_flow.png', 450, 116),
+    cap('Figure 1 — From existing content to completed order'),
+    sub('3.2   The audience is already on the platform'),
+    p('The brand’s followers are local and already engaged with its TikTok content. Selling within the same platform reaches that audience directly. Any other channel would require redirecting them elsewhere, or building a new audience from zero.'),
+    sub('3.3   No setup cost or technical build'),
+    p('TikTok Shop requires account registration and a product listing. There is no development work, no hosting, no domain and no separate payment gateway to arrange. Checkout and payment are handled within the platform.'),
+    sub('3.4   A standalone store is disproportionate for one product'),
+    p('A Shopify or WooCommerce store would involve monthly subscription, domain registration, payment gateway setup and ongoing maintenance before a single shirt is sold. For a single-product range with no immediate plan to expand, that cost is not justified.'),
+
+    h1('4.  OPTIONS CONSIDERED'),
+    table(['Option','Assessment'], [
+      ['TikTok Shop','RECOMMENDED — native to existing content and audience; no setup cost; in-app checkout'],
+      ['Own website (Shopify / WooCommerce)','Rejected — highest setup cost; requires building traffic from zero'],
+      ['Shopee','Not pursued — seller registration was not approved'],
+      ['Lazada','Not pursued — no existing audience; would require paid traffic for visibility'],
+      ['Meta Shop','Held in reserve — brand has a Meta presence, but no native in-app checkout in this market'],
+    ], [3000,6360]),
+    p('Note on platform fees: marketplace commission rates vary by category and change periodically. TikTok Shop is not necessarily the lowest-commission option, and a self-hosted store carries no commission at all. The recommendation rests on integration, audience and setup cost rather than on commission being lowest.', { before: 100 }),
+
+    h1('5.  IMPLEMENTATION REQUIREMENTS'),
+    table(['Item','Requirement','Responsibility'], [
+      ['Account registration','Business verification documents, bank details','Marketing Manager'],
+      ['Product catalogue','Product list, pricing, descriptions, photography','Marketing team'],
+      ['Fulfilment','Packing, courier arrangement, dispatch procedure','Operations'],
+      ['Payment settlement','Bank linkage and settlement schedule','Finance'],
+      ['Performance tracking','Reporting format and review frequency','Marketing Manager'],
+    ], [2400,4200,2760]),
+
+    h1('6.  RISKS'),
+    table(['Risk','Mitigation'], [
+      ['Platform account suspension or policy change','Keep product and customer data independent of the platform; hold Meta Shop in reserve'],
+      ['Platform dependency limits control over reach','Continue developing owned channels alongside the marketplace'],
+      ['Commission erodes margin','Review pricing against the fee structure before listing'],
+      ['Fulfilment capacity','Start with a limited range and scale once the process is proven'],
+    ], [3400,5960]),
+  ],
+};
+
+DOCS['cu4-wa2'] = {
+  file: 'CU4-WA2-Content-Calendar-Report.docx',
+  wa: 'W02', partTitle: 'CONTENT CALENDAR',
+  title: 'CONTENT CALENDAR IMPLEMENTATION REPORT',
+  subtitle: 'E-commerce content production and publishing — TikTok Shop, 2025',
+  ref: 'ECOM/CU4/W02/2025', date: '[ TARIKH ]',
+  status: 'Report on completed work', signoff: verification,
+  content: [
+    h1('1.  PURPOSE AND SCOPE'),
+    p('This report records the implementation of the e-commerce content calendar for the TikTok Shop channel. It sets out the calendar that was planned, the content that was produced and published against it, and the outcome. Because a product link can be attached to any video, every piece of content published was also a point of sale.'),
+    p('Reporting period: September to October 2025.'),
+
+    h1('2.  CONTENT CALENDAR AS PLANNED'),
+    sub('2.1   Content pillars'),
+    p('Five pillars were set. The mix weighted product-led content most heavily while retaining variety, so the account would not read as purely promotional and lose organic reach.'),
+    img('cu4_pillars.png', 420, 194),
+    cap('Figure 1 — Monthly content mix by pillar'),
+    table(['Pillar','Share','Purpose'], [
+      ['Product showcase','30%','Show the shirt — fabric, fit, print detail'],
+      ['Styling & fit','25%','Show how the shirt is worn'],
+      ['Local identity','20%','Connect the brand to Kuala Lipis'],
+      ['Customer & UGC','15%','Build trust through real buyers'],
+      ['Promotional','10%','Drive immediate action'],
+    ], [2200,1100,6060]),
+
+    sub('2.2   Publishing schedule'),
+    p('Two posts per week on a fixed rotation, so each pillar recurs on a predictable cycle. Every post carried the product link, allowing any video to convert regardless of pillar.'),
+    table(['Week','Post 1','Post 2'], [
+      ['Week 1','Product showcase','Local identity'],
+      ['Week 2','Styling & fit','Customer / UGC'],
+      ['Week 3','Product showcase','Promotional'],
+      ['Week 4','Styling & fit','Local identity'],
+    ], [1400,3980,3980]),
+
+    h1('3.  PRODUCTION SCHEDULE AND DELIVERY'),
+    table(['Month','Activity planned','Delivered'], [
+      ['September 2025','Product photoshoot — two locations, two models','Yes — see 4.1'],
+      ['September 2025','Video production — aerial and lifestyle footage','Yes — see 4.2'],
+      ['October 2025','Product listing completed and content published','Yes — see 4.3'],
+      ['October 2025','Promotional campaign activated','Yes — see 5'],
+    ], [2000,4400,2960]),
+    fill('[ SAHKAN: tarikh sebenar sesi fotografi dan penerbitan kandungan ]'),
+
+    h1('4.  PRODUCTION RECORD'),
+    sub('4.1   Product photoshoot — September 2025'),
+    p('A product photoshoot was conducted for the #Kaki strike shirt using two models across two locations, producing images for both the marketplace listing and social content. Shooting in a bowling alley connected the product directly to the Superbowl Lipis brand.'),
+    img('ev63.jpeg', 250, 250),
+    cap('Figure 2 — Product photography from the September photoshoot'),
+
+    sub('4.2   Video content produced'),
+    p('A launch video was produced using aerial footage of Kuala Lipis, published under the local identity pillar. Filming the town from the air ties the brand to its location, which is the basis of the positioning.'),
+    img('ev64.jpeg', 175, 380),
+    cap('Figure 3 — "SBL New Collection 2025" launch video published to TikTok'),
+    img('ev65.jpeg', 175, 380),
+    cap('Figure 4 — Additional video content produced for the campaign'),
+
+    sub('4.3   Listing content'),
+    p('Photography from the shoot was applied to the marketplace listing, giving the product page and the social content a consistent look.'),
+    img('ev66.png', 430, 211),
+    cap('Figure 5 — Product listing content published in Seller Centre'),
+
+    h1('5.  PROMOTIONAL CALENDAR EXECUTED'),
+    p('Promotional content was scheduled around platform sale events, which carry additional traffic at no extra media cost.'),
+    img('ev61.png', 430, 258),
+    cap('Figure 6 — New Product Launching promotion: RM55 deal price against RM60–65 original, live from October 2025'),
+    table(['Period','Promotional activity','Status'], [
+      ['October 2025','New Product Launching — deal price RM55','Live'],
+      ['October 2025','TikTok Shop 10.10 Super Sale','Registered'],
+      ['October 2025','Flash sale and discount code campaigns','Executed'],
+    ], [2000,4900,2460]),
+
+    h1('6.  DELIVERY AGAINST THE CALENDAR'),
+    p('The table below summarises each element of the calendar set in Section 2 against what was produced, with the supporting evidence in this report.'),
+    table(['Calendar element','Planned','Delivered','Evidence'], [
+      ['Product showcase content','Photography of the shirt','Photoshoot completed, two locations','Figure 2'],
+      ['Local identity content','Content tying brand to Kuala Lipis','Aerial launch video published','Figure 3'],
+      ['Styling & fit content','Shirt shown worn','Model and lifestyle footage','Figures 2, 4'],
+      ['Listing content','Product page images','Listing published in Seller Centre','Figure 5'],
+      ['Promotional content','Scheduled to sale events','Launch promotion and 10.10 activated','Figure 6'],
+    ], [2400,2500,2660,1800]),
+
+    h1('7.  OUTCOME'),
+    p('The calendar was implemented as planned. Content produced in September was published in October alongside the completed product listing, and the promotional campaign ran against that content. The launch video recorded 681 views, and the channel converted through the listing during the promotional period.'),
+    fill('[ ISI: jumlah pesanan dan jualan bagi tempoh Oktober 2025 — rujuk Seller Centre ]'),
+  ],
+};
+
+DOCS['cu4-wa3'] = {
+  file: 'CU4-WA3-Campaign-Plan.docx',
+  wa: 'W03', partTitle: 'CAMPAIGN PLAN',
+  title: 'E-COMMERCE CAMPAIGN PLAN',
+  subtitle: 'Objectives, audience and measurement — TikTok Shop',
+  ref: 'ECOM/CU4/W03/2025', date: '[ TARIKH — sebelum 15 September 2025 ]',
+  status: 'For approval — pre-launch', signoff: approval,
+  content: [
+    p('This plan was prepared before the campaign launched and sets the objectives, audience, phasing and measurement against which it was run. Delivery against it is reported separately under references W04, W05 and W06.', { italics: true, color: '555555' }),
+    h1('1.  CAMPAIGN OBJECTIVES'),
+    table(['Objective','Measure','Target'], [
+      ['Establish the sales channel','Store live with product listed','Before paid activation begins'],
+      ['Prove fulfilment end to end','Order received, dispatched and completed','Soft launch gate'],
+      ['Control acquisition cost','Return on ad spend','2.00'],
+      ['Protect margin','Cost per order','Below the selling price of the item'],
+    ], [3000,3200,3160]),
+    p('The return target of 2.00 is the controlling figure. Below it an order does not cover advertising plus platform commission and fulfilment, and the sale is made at a loss.', { before: 100 }),
+
+    h1('2.  PRODUCT AND COMMERCIAL PARAMETERS'),
+    table(['Parameter','Setting'], [
+      ['Product','SBL T-Shirt Oversized / Reka Bentuk Besar Longgar'],
+      ['Price','RM60.00 – RM65.00'],
+      ['Opening stock','78 units'],
+      ['Daily advertising budget','RM30.00'],
+      ['Campaign type','GMV Max — gross revenue'],
+      ['Fulfilment','Platform shipping (BEST Express)'],
+      ['Customer service standard','Response within 12 hours'],
+    ], [2600,6760]),
+
+    h1('3.  TARGET AUDIENCE'),
+    table(['Segment','Description','Rationale'], [
+      ['Existing followers','Current TikTok audience of the brand','Already engaged; lowest cost to reach'],
+      ['Local — Kuala Lipis & Pahang','Residents and those with local ties','Brand identity is rooted in the town'],
+      ['Streetwear interest — nationwide','Younger buyers following streetwear content','Expansion audience once local base is proven'],
+    ], [2400,3400,3560]),
+    h1('4.  POSITIONING AND MESSAGE'),
+    p('The shirt is positioned as local identity apparel rather than generic streetwear. The message centres on wearing where you are from. This differentiates it from mass-market streetwear and gives the local audience a reason to buy beyond the garment itself.'),
+    h1('5.  CAMPAIGN PHASES'),
+    img('cu4_gantt.png', 460, 172),
+    cap('Figure 1 — Campaign phases from approval'),
+    table(['Phase','Activity','Gate'], [
+      ['Setup','Account registration, product listing, photography','Store live and product approved'],
+      ['Soft launch','Organic content only, product link attached','Checkout and fulfilment proven end to end'],
+      ['Paid activation','TikTok Ads promoting shoppable content','Cost per order within threshold'],
+      ['Review','Performance assessed against objectives','Decision to continue, adjust or pause'],
+    ], [1700,4600,3060]),
+    p('Paid activity begins only after soft launch confirms checkout and fulfilment work. Spending on traffic before the process is proven is avoided.', { before: 100 }),
+    h1('6.  MEASUREMENT'),
+    table(['Metric','Source','Frequency'], [
+      ['Orders and units sold','TikTok Shop Seller Centre','Weekly'],
+      ['Return on ad spend','TikTok Ads Manager','Weekly'],
+      ['Ad spend and cost per order','TikTok Ads Manager','Weekly'],
+      ['Order fulfilment and exceptions','TikTok Shop Seller Centre','Weekly'],
+    ], [2900,3400,3060]),
+    p('Where a metric breaches its target for two consecutive reviews, the cause is diagnosed and a corrective action taken before further budget is committed.', { before: 100 }),
+
+    h1('7.  PLAN STATUS'),
+    p('Recorded after the campaign closed, for completeness of the file.'),
+    table(['Objective','Outcome','Evidenced in'], [
+      ['Establish the sales channel','Store live, product listed and published','ECOM/CU4/W02/2025'],
+      ['Prove fulfilment end to end','18 orders received, 9 completed, no exceptions outstanding','ECOM/CU4/W04/2025'],
+      ['Control acquisition cost','ROI 1.00 against the 2.00 target — not met','ECOM/CU4/W05/2025'],
+      ['Protect margin','Cost per order RM50.00 against a RM55.00 item — not met','ECOM/CU4/W06/2025'],
+      ['Review and decide','Paid advertising discontinued; organic and walk-in prioritised','ECOM/CU4/W06/2025'],
+    ], [2700,3900,2760]),
+  ],
+};
+
+DOCS['cu4-wa4'] = {
+  file: 'CU4-WA4-Implementation-Coordination-Report.docx',
+  wa: 'W04', partTitle: 'IMPLEMENTATION COORDINATION',
+  title: 'E-COMMERCE IMPLEMENTATION COORDINATION REPORT',
+  subtitle: 'Order management, fulfilment and customer service — TikTok Shop, 2025',
+  ref: 'ECOM/CU4/W04/2025', date: '[ TARIKH ]',
+  status: 'Report on completed work', signoff: verification,
+  content: [
+    h1('1.  PURPOSE AND SCOPE'),
+    p('This report records how the TikTok Shop channel was operated once live: how orders were received and tracked, how they were fulfilled, and how buyer enquiries were handled. It covers the trading period from the store going live to October 2025.'),
+    p('Coordination here means the day-to-day running of the channel — the part that determines whether an order placed actually reaches the buyer.'),
+
+    h1('2.  FULFILMENT PROCESS'),
+    p('Every order followed the same defined sequence. Fulfilment used platform shipping rather than a private courier arrangement, so tracking and delivery status were recorded against each order automatically.'),
+    img('cu4_w04_chain.png', 460, 105),
+    cap('Figure 1 — Order fulfilment sequence'),
+
+    h1('3.  ORDER MANAGEMENT'),
+    p('Orders were managed from the Seller Centre order console. Eighteen orders were received across the trading period.'),
+    img('cu4_w04_pipeline.png', 430, 104),
+    cap('Figure 2 — Order status composition'),
+    table(['Status','Orders','Meaning'], [
+      ['Completed','9','Delivered and closed'],
+      ['Shipped','8','Dispatched and in transit'],
+      ['Awaiting shipment','1','Received, not yet dispatched'],
+      ['Total','18',''],
+    ], [2600,1400,5360]),
+    p('The exception queues are the operational measure that matters. At the point of record, all six stood at zero — nothing overdue for shipping, no auto-cancellations pending, no cancellations, no logistics issues and no returns or refunds outstanding.', { before: 100 }),
+    img('ev68.png', 450, 258),
+    cap('Figure 3 — Seller Centre order console: order pipeline and exception queues at zero'),
+
+    h1('4.  DISPATCH RECORD'),
+    p('Dispatch was arranged through the platform, which issued the shipping label and assigned the courier. The record below is for order 580628058928219548, showing platform-issued labelling, BEST Express as carrier, cashless handling and a stated ship-by time.'),
+    img('ev69_redacted.png', 250, 342),
+    cap('Figure 4 — Platform shipping label, ship-by 3 October 2025 (recipient details redacted)'),
+    p('Buyer name, contact number and delivery address have been redacted from this record. The order reference and ship-by date are retained so the document ties to the order console in Figure 3.', { before: 100 }),
+
+    h1('5.  CUSTOMER SERVICE'),
+    p('Buyer enquiries were handled in the Seller Centre chat console. Automated greetings and saved FAQ responses covered the questions that recurred — availability, sizing, payment confirmation and collection — so that routine enquiries were answered immediately and staff time went to the rest.'),
+    table(['Service measure','Recorded','Standard'], [
+      ['12-hour response rate','100%','Platform benchmark for seller responsiveness'],
+      ['Average response time','4h 21m 34s','Within the 12-hour window'],
+      ['Assigned conversations','6',''],
+      ['Automation in use','Chat greeting and FAQ replies',''],
+    ], [2900,2900,3560]),
+    img('ev67.png', 460, 199),
+    cap('Figure 5 — Customer service console: 100% 12-hour response rate, average response 4h 21m 34s'),
+    p('The console also shows unreplied and unread conversations at the moment of capture. These sat inside the 12-hour window and are reflected in the average response time rather than being separate failures.', { before: 100 }),
+
+    h1('6.  COORDINATION CONTROLS'),
+    table(['What was monitored','Control','Evidence'], [
+      ['Orders awaiting dispatch','Ship-by time on each label','Figures 3, 4'],
+      ['Shipping exceptions','Action-needed queues reviewed','Figure 3'],
+      ['Returns and refunds','Return queue reviewed','Figure 3'],
+      ['Buyer enquiries','12-hour response standard','Figure 5'],
+      ['Recurring questions','Automated greeting and FAQ replies','Figure 5'],
+    ], [2900,3200,3260]),
+
+    h1('7.  OUTCOME'),
+    p('The channel operated end to end. Orders were received, dispatched through platform logistics and completed, with no outstanding shipping exceptions, cancellations or refund requests at the point of record, and buyer enquiries answered inside the platform standard.'),
+    p('One operational note is carried forward: the collection method had not been configured at the point of record, which the console flags as a prerequisite before shipping. This did not prevent dispatch during the period but was a setup item outstanding.'),
+    fill('[ SAHKAN: sama ada kaedah kutipan (collection method) telah dikemas kini selepas tarikh rekod ini ]'),
+  ],
+};
+
+DOCS['cu4-wa5'] = {
+  file: 'CU4-WA5-Paid-Advertisement-Report.docx',
+  wa: 'W05', partTitle: 'PAID ADVERTISEMENT',
+  title: 'PAID ADVERTISEMENT PROPOSAL AND IMPLEMENTATION RECORD',
+  subtitle: 'TikTok Ads for TikTok Shop — Superbowl Lipis, 2025',
+  ref: 'ECOM/CU4/W05/2025', date: '[ TARIKH ]',
+  status: 'Report on completed work', signoff: verification,
+  content: [
+    h1('1.  PURPOSE'),
+    p('This document sets out the paid advertising proposal prepared for the TikTok Shop product listing, and records the campaign as it was implemented. Part A states the approach, budget and targets set before launch. Part B reports what was delivered against them.'),
+
+    h1('PART A — PROPOSAL'),
+    sub('2.1   Approach'),
+    p('Advertising ran through TikTok Ads, which the organisation already operates. Because the product link sits on organic video, existing content was promoted directly rather than produced separately for advertising, removing creative production cost from the campaign.'),
+    p('The GMV Max campaign type was selected. GMV Max selects creative automatically from authorised posts and manages placement and bidding against a stated return target. This suited a single-product shop with a small budget, where manual ad-group management could not be justified by the spend involved.'),
+
+    sub('2.2   Budget and targets'),
+    table(['Parameter','Setting','Basis'], [
+      ['Campaign','Product GMV Max — Gross revenue','Automated, revenue-optimised'],
+      ['Product','SBL Co. Oversized T-Shirt','Single product listed'],
+      ['Daily budget','RM30.00','Contained exposure while the channel was proven'],
+      ['Target ROI','2.00','Revenue at twice ad cost, to leave margin after commission and fulfilment'],
+      ['Placement','Automatic','Managed by the platform'],
+      ['Audience','Users under 18 excluded','Platform requirement for the product category'],
+    ], [1900,2700,4760]),
+    p('A target ROI of 2.00 was the controlling figure. Below it, an order does not cover advertising plus platform commission and fulfilment, and the sale is made at a loss.', { before: 100 }),
+
+    h1('PART B — IMPLEMENTATION RECORD'),
+    sub('3.1   Campaign delivered'),
+    p('The campaign ran from 15 September to 14 October 2025 and delivered as follows.'),
+    table(['Metric','Result','Against target'], [
+      ['Cost','RM50.00','Within the RM30.00 daily budget'],
+      ['Orders (SKU)','1','—'],
+      ['Gross revenue','RM50.00','—'],
+      ['Cost per order','RM50.00','—'],
+      ['Return on ad spend (ROI)','1.00','Target 2.00 — not met'],
+    ], [2900,2300,4160]),
+    shot('[ LAMPIRKAN TANGKAP LAYAR: TikTok Ads Manager → Campaign details, julat tarikh 15 Sept – 14 Okt 2025, menunjukkan Cost, Orders, Cost per order, Gross revenue dan Target ROI ]'),
+    cap('Figure 1 — TikTok Ads Manager campaign record'),
+    fill('[ SAHKAN: pastikan tangkap layar memaparkan TAHUN (2025) — tetapkan julat tarikh tersuai jika perlu ]'),
+
+    sub('3.2   Delivery against target'),
+    img('cu4_w05_target.png', 430, 154),
+    cap('Figure 2 — Achieved ROI against the 2.00 target'),
+    p('The campaign returned RM1.00 of revenue for every RM1.00 of advertising — half the target. Spend was contained and the channel converted, but not at a rate that covered its own cost.'),
+
+    h1('4.  CONCLUSION'),
+    p('The proposal was implemented as specified: the campaign ran on the stated budget, against the stated target, on the stated product. The target was not met. The corrective action taken in response is recorded separately in the campaign performance optimisation report (ECOM/CU4/W06/2025).'),
+    p('Following the review recorded in that report, paid advertising on TikTok Shop was discontinued and effort was reallocated to organic content and offline sales. Organic content remained the principal source of orders throughout the period.'),
+    fill('[ SAHKAN: hasil jualan RM50.00 berbanding harga tersenarai RM55.00 — nyatakan sama ada baucar digunakan ]'),
+  ],
+};
+
+DOCS['cu4-wa6'] = {
+  file: 'CU4-WA6-Performance-Optimisation-Report.docx',
+  wa: 'W06', partTitle: 'PERFORMANCE OPTIMISATION',
+  title: 'CAMPAIGN PERFORMANCE OPTIMISATION REPORT',
+  subtitle: 'TikTok Shop paid campaign — Superbowl Lipis, September–October 2025',
+  ref: 'ECOM/CU4/W06/2025', date: '[ TARIKH ]',
+  status: 'Report on completed work', signoff: verification,
+  content: [
+    h1('1.  PURPOSE AND SCOPE'),
+    p('This report records the monitoring of the TikTok Shop paid campaign, the underperformance identified against target, the corrective action taken, its result, and the channel decision that followed. It covers the period 15 September to 14 October 2025.'),
+
+    h1('2.  MONITORING FRAMEWORK'),
+    p('Performance was reviewed weekly against targets set before launch, so underperformance could be identified against a stated figure rather than by impression.'),
+    table(['Metric','Target','Source','Review'], [
+      ['Return on ad spend','2.00','TikTok Ads Manager','Weekly'],
+      ['Cost per order','Below item price','TikTok Ads Manager','Weekly'],
+      ['Daily spend','RM30.00 ceiling','TikTok Ads Manager','Weekly'],
+      ['Orders','TikTok Shop Seller Centre','Seller Centre','Weekly'],
+    ], [2500,2000,2600,2260]),
+
+    h1('3.  PERFORMANCE OBSERVED'),
+    img('cu4_w05_target.png', 430, 154),
+    cap('Figure 1 — Achieved ROI against target'),
+    p('Monitoring showed the campaign delivering ROI of 1.00 against a target of 2.00, with cost per order at RM50.00. Spend stayed inside the daily budget, so the shortfall was not a spend-control failure — it was a conversion problem.'),
+
+    h1('4.  DIAGNOSIS'),
+    img('cu4_w06_unit.png', 400, 179),
+    cap('Figure 2 — Unit economics of the acquired order'),
+    p('At RM50.00 cost per order against RM50.00 gross revenue, advertising consumed the entire value of the sale, and platform commission and fulfilment then took the order below break-even. The cause was traced to conversion rate rather than traffic cost: traffic was reaching the listing, but too few viewers completed checkout for the advertising cost to spread across enough orders. Raising the budget would have bought more of the same unprofitable traffic.'),
+
+    h1('5.  CORRECTIVE ACTION — PRICE'),
+    p('A Seller Flash Sale was created on 3 October 2025 and ran from 10:37 PM that day to 10:37 PM on 5 October 2025, across all channels. The deal price was set at RM55.00 against an original price of RM60.00–RM65.00, a 9% reduction, on the full stock of 78 units with no purchase limit.'),
+    p('A lower price was expected to lift the conversion rate on traffic already being paid for, spreading the same advertising cost across more orders. A smaller margin on more units was preferable to unprofitable acquisition, and the action cost nothing in additional spend.'),
+    table(['','Before','After'], [
+      ['Price','RM60.00 – RM65.00','RM55.00'],
+      ['Discount','—','9% (Seller Flash Sale)'],
+      ['Promotion period','—','3 – 5 October 2025'],
+      ['Advertising budget','RM30.00 / day','Unchanged'],
+      ['Target ROI','2.00','Unchanged'],
+    ], [2500,3400,3460]),
+    p('Budget and target were deliberately held constant so that any change in performance could be attributed to the price change alone.', { before: 100 }),
+    img('ev59.png', 450, 249),
+    cap('Figure 3 — Seller Flash Sale as created, 3 October 2025, deal price RM55.00 (9% off)'),
+
+    h1('6.  RESULT OF THE PRICE ACTION'),
+    p('The price reduction did not bring the campaign to target. Over the full campaign window the return remained at 1.00 against a target of 2.00, and cost per order remained at RM50.00 — the whole value of the order.'),
+    fill('[ SAHKAN: tangkap layar Ads Manager bagi 15 – 30 Sept (sebelum) dan 3 – 14 Okt (selepas) untuk memisahkan kesan jualan kilat ]'),
+    p('This result reframed the diagnosis. If a 9% price reduction on a product already priced at the low end of its range does not move conversion, the constraint is not price. It is that the audience reached by paid distribution did not recognise the brand well enough to buy from it.', { before: 100 }),
+
+    h1('7.  SECOND DIAGNOSIS — BRAND RECOGNITION'),
+    p('Superbowl Lipis is a localised spin-off from a bowling centre in Kuala Lipis, trading a single product. Paid distribution places that product in front of users selected by interest and demographic, most of whom have no prior contact with the brand. The proposition depends on local identity, which does not survive being shown to a cold national audience.'),
+    table(['Constraint','Effect on paid advertising'], [
+      ['Single product listed','No scope to shift budget to a better-converting item'],
+      ['Brand tied to one locality','Value of the product is not legible to audiences outside it'],
+      ['No prior brand recognition','Paid impressions reach users with no basis to trust the seller'],
+      ['Small budget','Insufficient to build recognition through frequency'],
+    ], [3200,6160]),
+    p('Buyer enquiries received during the period support this reading: the questions asked were about cash on delivery and visiting the store, which are the concerns of buyers already close to the business rather than of an audience reached through advertising.', { before: 100 }),
+
+    h1('8.  DECISION — CHANNEL REALLOCATION'),
+    p('Paid advertising on TikTok Shop was discontinued. Effort was reallocated to organic content, where the existing local following already engages with the brand, and to walk-in sales at the centre itself, where the local identity that carries the product is present rather than assumed.'),
+    img('cu4_w06_decision.png', 420, 165),
+    cap('Figure 4 — Channel decision following the review'),
+    p('Stopping spend was the correct optimisation here. The diagnosed constraint could not be resolved by any setting inside the ad account, and continued spend would have scaled the loss rather than the result.', { before: 100 }),
+
+    h1('9.  OPTIMISATION CYCLE APPLIED'),
+    img('cu4_w06_cycle.png', 460, 105),
+    cap('Figure 5 — Monitoring, diagnosis, action, measurement and decision'),
+
+    h1('10.  CONCLUSION AND NEXT ACTION'),
+    p('Underperformance was identified against a target set before launch. The first diagnosis pointed to price; the action was taken and measured, and when it did not resolve the shortfall the diagnosis was revised rather than repeated.'),
+    table(['Finding','Next action'], [
+      ['Paid advertising unprofitable at this scale','Discontinued; no further budget committed'],
+      ['Organic reach converts within the local following','Content production continued at no media cost'],
+      ['Local identity carries the product','Sales channelled through walk-in at the centre'],
+      ['Single SKU limits any paid campaign','Reconsider paid advertising only if the range broadens'],
+    ], [3600,5760]),
+  ],
+};
+
+// ── Compiled CU4 volume — all six work activities bound in one document ──────
+const CU4_ORDER = ['cu4-wa1','cu4-wa2','cu4-wa3','cu4-wa4','cu4-wa5','cu4-wa6'];
+
+const pageBreak = () => new Paragraph({ children: [new PageBreak()] });
+
+// Each part opens with the same full letterhead a standalone document carries,
+// so any page can be screenshotted straight into the portfolio.
+const part = (d) => ([
+  pageBreak(),
+  ...head(d),
+  ...d.content,
+  ...(d.signoff ? d.signoff() : []),
+]);
+
+DOCS['cu4-full'] = {
+  file: 'CU4-Ecommerce-Marketing-Plan-and-Implementation.docx',
+  compiled: true,
+  body: [
+    letterhead, rule,
+    new Paragraph({ children: [new TextRun({ text: 'E-COMMERCE MARKETING PLAN', font: F, size: 40, bold: true, color: NAVY })],
+      alignment: AlignmentType.CENTER, spacing: { before: 700, after: 40 } }),
+    new Paragraph({ children: [new TextRun({ text: 'AND IMPLEMENTATION', font: F, size: 40, bold: true, color: NAVY })],
+      alignment: AlignmentType.CENTER, spacing: { after: 120 } }),
+    new Paragraph({ children: [new TextRun({ text: 'Superbowl Lipis · TikTok Shop · 2025', font: F, size: 24, color: '555555' })],
+      alignment: AlignmentType.CENTER, spacing: { after: 700 } }),
+    new Table({ width: { size: 7000, type: WidthType.DXA }, columnWidths: [2400, 4600],
+      rows: [
+        new TableRow({ children: [cell('Competency Unit',{w:2400,bold:true,fill:'EDF1F7'}), cell('C04 — Implement e-commerce marketing plan',{w:4600})] }),
+        new TableRow({ children: [cell('Standard',{w:2400,bold:true,fill:'EDF1F7'}), cell('NOSS M731-001-4:2021, Level 4',{w:4600})] }),
+        new TableRow({ children: [cell('Work activities',{w:2400,bold:true,fill:'EDF1F7'}), cell('W01 – W06 (six)',{w:4600})] }),
+        new TableRow({ children: [cell('Prepared by',{w:2400,bold:true,fill:'EDF1F7'}), cell('Zuriel Seong Ming Ee, Marketing Manager',{w:4600})] }),
+        new TableRow({ children: [cell('Submitted to',{w:2400,bold:true,fill:'EDF1F7'}), cell('Puan Wan Norizan',{w:4600})] }),
+        new TableRow({ children: [cell('Date',{w:2400,bold:true,fill:'EDF1F7'}), cell('[ TARIKH ]',{w:4600})] }),
+      ]}),
+
+    pageBreak(),
+    h1('DOCUMENT REGISTER'),
+    p('This volume binds the six documents prepared for Competency Unit C04. Each was produced at the point in the campaign its work activity describes, and each is reproduced here in full.'),
+    table(['Part','WA','Document','Type'], [
+      ['1','W01','E-Commerce Channel Selection Proposal','Proposal — pre-launch'],
+      ['2','W02','Content Calendar Implementation Report','Report'],
+      ['3','W03','E-Commerce Campaign Plan','Plan — pre-launch'],
+      ['4','W04','Implementation Coordination Report','Report'],
+      ['5','W05','Paid Advertisement Proposal and Implementation Record','Proposal and report'],
+      ['6','W06','Campaign Performance Optimisation Report','Report'],
+    ], [800,900,4700,2960]),
+
+    h1('SUMMARY OF THE CAMPAIGN'),
+    p('TikTok Shop was selected as the sales channel because the brand already held an active local audience there and a product link could be attached to content already published. The store was established, a single product listed, content produced in September 2025 and published in October alongside a launch promotion.'),
+    p('Eighteen orders were received and fulfilled through platform logistics, with no shipping exceptions, cancellations or refunds outstanding, and buyer enquiries answered at a 100% twelve-hour response rate.'),
+    p('A paid campaign ran from 15 September to 14 October 2025 on a RM30.00 daily budget against a return target of 2.00. It returned 1.00 — RM50.00 of advertising for RM50.00 of revenue. A flash sale was activated on 3 October to lift conversion; when that did not move the campaign to target, the constraint was re-diagnosed as brand recognition rather than price, and paid advertising was discontinued in favour of organic content and walk-in sales.'),
+    table(['Measure','Result'], [
+      ['Orders received','18 (9 completed, 8 shipped, 1 awaiting dispatch)'],
+      ['Advertising spend','RM50.00'],
+      ['Gross revenue from paid campaign','RM50.00'],
+      ['Return on ad spend','1.00 against a target of 2.00'],
+      ['Outstanding fulfilment exceptions','None'],
+      ['Channel decision','Paid advertising discontinued'],
+    ], [3200,6160]),
+
+    ...CU4_ORDER.flatMap(k => part(DOCS[k])),
+  ],
+};
+
+// ═════════════════════════════ CU5 — MOBILE MARKETING ════════════════════════
+// TVET Lipis. Figures throughout are read from the CRM and LuluChat screenshots
+// supplied by the candidate; nothing here is estimated.
+const M = (o) => Object.assign({ lh: 'tvet', ref: '2025 INTAKES' }, o);
+
+DOCS['cu5-wa1'] = M({
+  file: 'CU5-WA1-Mobile-Channel-Selection.docx',
+  title: 'MOBILE MARKETING CHANNEL — SELECTION AND IMPLEMENTATION REPORT',
+  subtitle: 'WhatsApp Business API via LuluChat — TVET Lipis',
+  date: '3-3-2025', submitted: 'General Manager',
+  status: 'Report on work done', signoff: approval,
+  content: [
+    h1('1.  PURPOSE'),
+    p('This report records the selection of WhatsApp as the mobile marketing channel for student recruitment, the reasoning behind it, and the account through which it was put into operation.'),
+
+    h1('2.  WHERE THE MOBILE CHANNEL SITS'),
+    p('Every prospect originates from a lead generation campaign on Meta or TikTok. The prospect completes an instant form inside the platform, and that form feeds directly into the TVET Lipis CRM at crm.tvetlipis.my. From there the sales team works the list — each prospect is assigned to a counsellor and contacted individually.'),
+    img('cu5_flow.png', 460, 105),
+    cap('Figure 1 — From lead generation campaign to enrolment'),
+    p('The mobile channel is the fourth step. The requirement is therefore specific: reach a named prospect one at a time, hold a two-way conversation about programmes, fees and intake dates, and keep a record of it against the prospect’s CRM entry.', { before: 100 }),
+
+    h1('3.  WHY WHATSAPP'),
+    sub('3.1   Reach'),
+    p('WhatsApp is the most widely used messaging application among the target audience. A prospect who submits a lead form is contactable there without installing anything or creating an account. Any channel requiring the prospect to adopt something new loses part of the list at the first step.'),
+    sub('3.2   Business-grade sending through WABA'),
+    p('Contact is made through a WhatsApp Business API account on business number 60108086630, operated under a LuluChat subscription rather than a personal handset. This is what makes the channel workable at the volume the lead campaigns produce.'),
+    table(['Requirement','How the WABA account meets it'], [
+      ['Several counsellors, one number','Shared inbox; each conversation shows the sending agent — messages are stamped “Sent by Nadiah via luluchat”'],
+      ['First contact to a prospect who has not written first','Approved message templates carrying the intake creative'],
+      ['A record of what was said','Full conversation history retained against the contact'],
+      ['Sorting by interest and stage','Working tabs — New Lead, Hot Lead, Payment — and per-course tags'],
+      ['Reaching a segment at once','Broadcast to tagged contacts'],
+    ], [3000,6360]),
+
+    h1('4.  OPTIONS CONSIDERED'),
+    table(['Option','Assessment'], [
+      ['WhatsApp via WABA (LuluChat)','SELECTED — highest reach among the target audience; two-way; multiple counsellors on one number with a retained record'],
+      ['Telephone call','Retained as a secondary step — low answer rate on unknown numbers, and nothing is recorded unless the counsellor writes it up'],
+      ['SMS','Rejected — one-way, per-message cost, no media, no confirmation of reading'],
+      ['Personal WhatsApp handset','Rejected — cannot be shared across counsellors, no templates, and the record leaves with the staff member'],
+    ], [2600,6760]),
+
+    h1('5.  CHANNEL AS ESTABLISHED'),
+    p('A WhatsApp Business profile was set up under the institution’s name with its address at Level 4 Lipis Centrepoint and the website tvetlipis.my, so a prospect receiving a first message sees a verified business rather than an unknown number.'),
+    img('ev70.jpeg', 150, 325),
+    cap('Figure 2 — TVET Lipis WhatsApp Business profile'),
+    p('The LuluChat console is where the account is worked. At the point of record it held 167 conversations tagged New Lead, 43 Hot Lead and 27 at Payment stage, with each conversation carrying its course tag and its originating channel.', { before: 100 }),
+    img('u5.png', 460, 236),
+    cap('Figure 3 — LuluChat inbox on business number 60108086630, showing working tabs, course tags and channel of origin'),
+  ],
+});
+
+DOCS['cu5-wa2'] = M({
+  file: 'CU5-WA2-Mobile-Content-Calendar.docx',
+  title: 'MOBILE MARKETING CONTENT CALENDAR — IMPLEMENTATION REPORT',
+  subtitle: 'Message themes and creatives published — WhatsApp, TVET Lipis',
+  date: '3-3-2025', submitted: 'General Manager',
+  status: 'Report on work done', signoff: approval,
+  content: [
+    h1('1.  PRINCIPLE'),
+    p('Message timing follows the student recruitment cycle rather than a fixed weekly slot. Content is concentrated where a decision is actually being made — around SPM results, intake openings and the application deadline — because a message sent outside those windows costs the same goodwill and converts less.'),
+
+    h1('2.  MESSAGE THEMES IN USE'),
+    table(['Theme','Purpose','Audience'], [
+      ['Intake announcement','State the courses open and the entry requirements','Students and parents'],
+      ['SPM results follow-up','Reach school leavers at the decision point','Students'],
+      ['Programme highlight','Explain one SKM programme and its career path','Students'],
+      ['Government funding (PTPK)','Answer the cost question directly','Parents'],
+      ['Re-contact','Recover prospects contacted but not yet converted','Students'],
+    ], [2400,4200,2760]),
+
+    h1('3.  CREATIVES PUBLISHED'),
+    sub('3.1   Intake announcement'),
+    p('The intake creative lists the courses open, the entry requirements and the contact number, and is the template attached to first contact with a new lead.'),
+    img('u7.jpeg', 150, 212),
+    cap('Figure 1 — “Jom Sertai Kemasukan TVET Lipis” — courses and entry requirements'),
+    sub('3.2   SPM results follow-up'),
+    p('This creative addresses the prospect who did not obtain enough credits, which is the single most common reason a school leaver assumes they cannot continue studying.'),
+    img('u8.png', 155, 259),
+    cap('Figure 2 — “SPM: Anda Tak Cukup Kredit?” — intake messaging for school leavers'),
+    sub('3.3   Programme highlight'),
+    p('One programme is explained at a time — the qualification code, what the student learns, the careers it leads to and the articulation route to university.'),
+    img('u9.png', 175, 240),
+    cap('Figure 3 — Diploma Kandungan Kreatif Multimedia programme sheet'),
+    sub('3.4   Government funding'),
+    p('Cost is the question that decides most enrolments, so PTPK funding is addressed in its own message rather than buried in a programme sheet.'),
+    img('u10.png', 290, 227),
+    cap('Figure 4 — PTPK funding: tuition, monthly allowance, transport and laptop allowance'),
+    fill('[ SAHKAN: elaun bulanan PTPK — risalah menyatakan RM400/RM600, perbualan menyatakan RM600/RM800 ]'),
+
+    h1('4.  FREQUENCY RULE'),
+    p('No more than one broadcast per contact per week, no broadcast to a contact already in an active conversation with a counsellor, and every broadcast carries an opt-out instruction. Over-messaging on WhatsApp produces blocks and reports, which damage the business number permanently.'),
+  ],
+});
+
+DOCS['cu5-wa3'] = M({
+  file: 'CU5-WA3-Mobile-Campaign-Plan.docx',
+  title: 'MOBILE MARKETING CAMPAIGN PLAN AND PIPELINE CONTROL',
+  subtitle: 'Objectives, segments and stage control — TVET Lipis CRM',
+  date: '3-3-2025', submitted: 'Operations Manager',
+  status: 'Report on work done', signoff: approval,
+  content: [
+    h1('1.  OBJECTIVES'),
+    table(['Objective','Measure','Target'], [
+      ['Contact every lead received','Leads moved from Lead to Contacted','100%'],
+      ['Reach the prospect while intent is live','Time from form submission to first message','[ ISI SASARAN ]'],
+      ['Convert lead to enrolment','Leads reaching Customer stage','[ ISI SASARAN ]'],
+      ['Protect the business number','Blocks and reports','Nil'],
+    ], [2900,3300,3160]),
+    p('Time to first contact is the metric that matters most. A prospect who submits a form has just made a decision to enquire; the value of that decision decays quickly, and a lead contacted days later is a colder, different lead.', { before: 100 }),
+
+    h1('2.  SEGMENTS'),
+    table(['Segment','Message emphasis'], [
+      ['Students, 17 – 28','Programme content, career outcome, intake date'],
+      ['Parents, 40 – 60','Fees, PTPK funding, accreditation'],
+      ['Contacted but not converted','Application deadline and what is still outstanding'],
+      ['Not yet eligible','Held until results are released'],
+    ], [2700,6660]),
+
+    h1('3.  PIPELINE CONTROL'),
+    p('Every prospect sits at exactly one stage in the CRM, and the stage is what determines the next action. Stages are changed by dragging the prospect card, so the pipeline is worked rather than reported.'),
+    table(['Stage','Meaning','Next action'], [
+      ['Lead','Form submitted, not yet contacted','First WhatsApp message'],
+      ['Contacted','Message sent, awaiting reply','Retargeting batch if no reply in 7 days'],
+      ['Potential','Replied and interested','Counselling on programme and fees'],
+      ['Customer','Registered','Enrolment and documentation'],
+      ['Cold','Declined or unreachable','No further contact'],
+      ['Email Pool','Exhausted on WhatsApp','Transferred to email marketing'],
+      ['KIV','Interested but not yet eligible','Held until results are released'],
+    ], [1800,4000,3560]),
+    img('cu5_pipeline.png', 420, 159),
+    cap('Figure 1 — Prospect pipeline by stage as recorded in the CRM'),
+    img('u11.png', 460, 226),
+    cap('Figure 2 — TVET Lipis CRM pipeline board; each card carries course, lead source and assigned counsellor'),
+    p('Each card records the course applied for, the source that produced the lead — Meta Ads, TikTok Ads, walk-in or word of mouth — and the counsellor who owns it. Source is held on the prospect so that channel performance can be read from the same board that the team works.', { before: 100 }),
+
+    h1('4.  MEASUREMENT'),
+    table(['Metric','Source','Frequency'], [
+      ['Leads received and contacted','CRM pipeline','Weekly'],
+      ['Stage movement','CRM pipeline','Weekly'],
+      ['Broadcasts sent and delivered','LuluChat broadcast report','Monthly'],
+      ['Leads converted to registration','CRM','Monthly'],
+    ], [2900,3400,3060]),
+  ],
+});
+
+DOCS['cu5-wa4'] = M({
+  file: 'CU5-WA4-Mobile-Implementation-Coordination.docx',
+  title: 'MOBILE CAMPAIGN IMPLEMENTATION COORDINATION REPORT',
+  subtitle: 'Lead contact, broadcasts and counselling — TVET Lipis',
+  date: '21 April 2025', submitted: 'Operations Manager',
+  status: 'Report on work done', signoff: verification,
+  content: [
+    h1('1.  SCOPE'),
+    p('This report records how the mobile channel was operated: leads worked from the CRM and contacted individually on WhatsApp, broadcasts scheduled and sent, counselling delivered in conversation, and outcomes written back to the prospect record.'),
+
+    h1('2.  TIMELINE OF ACTIVITY'),
+    table(['Period','Activity','Record'], [
+      ['March 2025','Channel and campaign plan approved; first weekly lead batches recorded','CRM retargeting batches from 2 March 2025'],
+      ['April 2025','Campaign in operation; lead contact worked from the pipeline','[ ISI: bilangan siaran dan lead dihubungi bagi April ]'],
+      ['May 2025','Weekly lead batches continue to accumulate','Batch dated 18 – 23 May 2025'],
+      ['September 2025','Three broadcasts sent, none failed','LuluChat broadcast report'],
+      ['November 2025','One-to-one counselling on programme, fees and PTPK','LuluChat conversation, 6 November 2025'],
+    ], [1900,4100,3360]),
+    fill('[ ISI: lengkapkan baris April 2025 daripada laporan siaran LuluChat bagi bulan tersebut ]'),
+
+    h1('3.  BROADCASTS SENT'),
+    p('Broadcasts were composed against a tagged contact segment, previewed, and delivered on a scheduled date. Delivery was confirmed from the platform report rather than assumed.'),
+    img('ev74.jpg', 420, 223),
+    cap('Figure 1 — Broadcast delivery report: 3 broadcasts completed, 0 failed, 1 – 30 September 2025'),
+
+    h1('4.  LEAD CONTACT AND COUNSELLING'),
+    p('Leads arriving from the Meta and TikTok lead form campaigns were worked one by one. Each was assigned to a counsellor, contacted through the business number, and taken through the questions that decide an enrolment — programme content, duration, fees, funding and entry requirements.'),
+    p('The record below shows a counselling exchange in which the prospect is identified as interested in Pendidikan Awal Kanak-Kanak and is given the programme duration, the fee of approximately RM20,150, the PTPK allowances available, the entry requirements and the career outcomes — in conversation, without being referred to a form or a brochure.'),
+    img('u14.png', 460, 233),
+    cap('Figure 2 — Counselling conversation, 6 November 2025: programme, fees, funding and entry requirements answered in thread'),
+
+    h1('5.  COORDINATION CONTROLS'),
+    table(['What was controlled','How','Evidence'], [
+      ['Every lead is contacted','Counsellor assigned on the CRM card','W03 Figure 2'],
+      ['Contact while intent is live','Lead worked from the Lead stage on arrival','W03 Figure 2'],
+      ['Nothing is lost after first contact','Stage moved to Contacted; retargeting picks up non-repliers','W06'],
+      ['Delivery of every broadcast','Platform delivery report checked after each send','Figure 1'],
+      ['Consistency of counselling','Course-specific message templates per programme','Figure 2'],
+    ], [2700,3800,2860]),
+  ],
+});
+
+DOCS['cu5-wa5'] = M({
+  file: 'CU5-WA5-Mobile-App-Campaign.docx',
+  title: 'MOBILE APPLICATION MARKETING CAMPAIGN REPORT',
+  subtitle: 'Recruitment campaign operated through the LuluChat application — TVET Lipis',
+  date: '21 April 2025', submitted: 'Operations Manager',
+  status: 'Report on work done', signoff: verification,
+  content: [
+    h1('1.  THE APPLICATION IN USE'),
+    p('The mobile marketing campaign is operated through LuluChat, a subscribed messaging application that connects to the institution’s WhatsApp Business API account on number 60108086630. LuluChat is the application through which every prospect message is sent, received, tagged and recorded; it is not an application developed by the institution.'),
+    img('u5.png', 460, 236),
+    cap('Figure 1 — The LuluChat console operating the TVET Lipis WhatsApp account'),
+
+    h1('2.  WHAT THE APPLICATION IS USED FOR'),
+    table(['Function','Use in the campaign'], [
+      ['Connected channels','One inbox covering WhatsApp, Instagram and Facebook enquiries'],
+      ['Working tabs','New Lead, Hot Lead, Payment — prospects sorted by how close they are to enrolling'],
+      ['Course tags','Each conversation tagged by programme, e.g. PAKK, Pra-Sekolah, Multimedia'],
+      ['Message templates','Approved first-contact templates carrying the intake creative'],
+      ['Quick replies','Saved answers to recurring questions on fees, duration and requirements'],
+      ['Agent attribution','Each outgoing message records the counsellor who sent it'],
+      ['Broadcast','Scheduled sends to a tagged segment, with a delivery report'],
+    ], [2600,6760]),
+
+    h1('3.  CAMPAIGN OPERATED THROUGH THE APPLICATION'),
+    table(['Measure','Recorded'], [
+      ['Business number','60108086630'],
+      ['Conversations at New Lead','167'],
+      ['Conversations at Hot Lead','43'],
+      ['Conversations at Payment','27'],
+      ['Broadcasts completed, September 2025','3 of 3'],
+    ], [3400,5960]),
+    p('The counts above are the position at the point of record and move continuously as prospects are worked.', { before: 100 }),
+
+    h1('4.  LIMITATION AND NEXT STEP'),
+    p('The application covers recruitment up to enrolment. Once a prospect becomes a student there is no owned mobile channel — timetables, results and fee statements are distributed through group chats, which are unsearchable and cannot be addressed to an individual. A student-facing application is proposed as the next step.'),
+    fill('[ ISI: anggaran kos pembangunan aplikasi pelajar dan tempoh pelaksanaan, jika ingin diteruskan ]'),
+  ],
+});
+
+DOCS['cu5-wa6'] = M({
+  file: 'CU5-WA6-Mobile-Performance-Optimisation.docx',
+  title: 'MOBILE CAMPAIGN PERFORMANCE OPTIMISATION REPORT',
+  subtitle: 'Retargeting, contact limits and channel escalation — TVET Lipis',
+  date: '[ TARIKH ]', submitted: 'Operations Manager',
+  status: 'Report on work done', signoff: verification,
+  content: [
+    h1('1.  WHAT WAS MONITORED'),
+    table(['Metric','Standard','Source'], [
+      ['Broadcast delivery','100% completed','LuluChat broadcast report'],
+      ['Recipients per broadcast','Segment resolves to a non-zero audience','Broadcast composer'],
+      ['Leads without a reply','Escalated after 7 days','CRM retargeting'],
+      ['Contacts per prospect','Three WhatsApp attempts maximum','CRM retargeting'],
+    ], [2700,3400,3260]),
+
+    h1('2.  FINDING — CONTACTED LEADS WERE NOT BEING WORKED AGAIN'),
+    p('The pipeline showed 1,816 prospects at Contacted against 89 at Potential. A prospect who was messaged once and did not reply stayed at Contacted indefinitely — the stage recorded that contact had happened, but nothing caused it to happen again. At the point of record 1,751 leads across 41 weeks were sitting in that condition, the oldest more than 500 days old.'),
+
+    h1('3.  ACTION — A RETARGETING CYCLE WITH A HARD LIMIT'),
+    p('A retargeting module was built into the CRM. Leads at Contacted with no reply for seven or more days are grouped into weekly batches and re-contacted in a fixed sequence. Each prospect receives at most three WhatsApp attempts; after the third they leave WhatsApp entirely and move to the Email Pool for email marketing.'),
+    img('cu5_retarget.png', 420, 113),
+    cap('Figure 1 — Retargeting escalation: three WhatsApp attempts, then email'),
+    p('The limit is the point of the design. Continuing to message a prospect who has not answered three times produces blocks and spam reports, and a blocked business number cannot be replaced — every future prospect is lost with it. Moving the contact to email preserves the relationship without spending the number.', { before: 100 }),
+
+    h1('4.  CONTROLS BUILT INTO THE MODULE'),
+    table(['Control','Rule'], [
+      ['Send size','Maximum 50 leads per broadcast'],
+      ['Send spacing','Batches over 50 split into sends at least 2 hours apart'],
+      ['Opt-out','Every message carries “Taip STOP untuk berhenti”'],
+      ['Batch independence','Each weekly batch downloaded, sent and marked separately'],
+      ['Message relevance','Course-specific template per programme rather than one generic message'],
+    ], [2400,6960]),
+    img('u12.png', 460, 216),
+    cap('Figure 2 — CRM retargeting module: Batch A holding 1,751 leads across 41 weeks, with the send limit and opt-out rule enforced on screen'),
+
+    h1('5.  SECOND FINDING — A BROADCAST WITH NO AUDIENCE'),
+    p('A broadcast composed against the segment “Contacts with tags” showed a target audience of zero recipients at the point of sending. A broadcast that delivers successfully to nobody still reports as completed, so delivery rate alone does not confirm that a campaign reached anyone. The recipient count is now checked in the composer before every send rather than delivery confirmed after it.'),
+    img('ev71.png', 420, 206),
+    cap('Figure 3 — Broadcast composer showing the segment resolving to zero recipients'),
+
+    h1('6.  CONCLUSION'),
+    p('Two failures were found that the headline metrics concealed: broadcasts reporting full delivery to an empty audience, and 1,751 contacted leads that no process would ever touch again. Both were corrected by moving the control upstream — verifying the audience before sending, and building the follow-up cycle into the CRM so that re-contact happens by rule rather than by memory.'),
+    table(['Finding','Action','Status'], [
+      ['Contacted leads never re-worked','Weekly retargeting batches, three attempts','Built into the CRM'],
+      ['Risk of over-messaging','50 per send, 2-hour spacing, opt-out on every message','Enforced in the module'],
+      ['Prospects exhausted on WhatsApp','Escalation to Email Pool for email marketing','Stage active in the pipeline'],
+      ['Broadcast delivered to nobody','Recipient count verified before sending','In force'],
+    ], [3000,4300,2060]),
+  ],
+});
+
+
+// ═════════════════════════════ CU6 — EMAIL MARKETING ═════════════════════════
+DOCS['cu6-wa2'] = M({
+  file: 'CU6-WA2-Email-Content-Calendar.docx',
+  title: 'EMAIL MARKETING CONTENT CALENDAR 2025',
+  subtitle: 'Send schedule, segments and campaigns — Mailchimp, TVET Lipis',
+  date: '[ TARIKH ]', submitted: 'General Manager',
+  status: 'Report on work done', signoff: verification,
+  content: [
+    h1('1.  PURPOSE'),
+    p('This document sets the email send schedule for 2025 — what is sent, to whom, and on what date — and records the campaigns issued against it. Email is the last channel in the recruitment sequence: it carries prospects who have been contacted on WhatsApp without converting, and it carries announcements to enrolled students and staff.'),
+
+    h1('2.  AUDIENCE'),
+    p('The Mailchimp audience is held under the name TVET Lipis and stood at 100 contacts, all of them email subscribers, at the point of record. Contacts are tagged so that a send can be addressed to one group rather than the whole list.'),
+    img('cu6_audience.png', 380, 106),
+    cap('Figure 1 — Audience composition by tag'),
+    table(['Tag','Contacts','Used for'], [
+      ['Student','73','Programme announcements, intake and event notices'],
+      ['Student Program','16','Programme-specific communication'],
+      ['Staff','10','Internal notice and pre-send verification'],
+      ['Total audience','100',''],
+    ], [2400,1400,5560]),
+    img('em76.png', 440, 211),
+    cap('Figure 2 — Mailchimp audience dashboard, TVET Lipis'),
+    img('em77.png', 200, 206),
+    cap('Figure 3 — Contacts organised by tag'),
+
+    h1('3.  SEND CALENDAR 2025'),
+    p('One send per month, on a Saturday, timed to the recruitment cycle. Saturday was chosen because the audience includes parents, who are more reachable at the weekend than during the working week.'),
+    img('cu6_calendar.png', 460, 92),
+    cap('Figure 4 — Email send calendar 2025'),
+    table(['Month','Send date','Campaign','Segment','Status'], [
+      ['January','11 Jan 2025','Intake open — courses and entry requirements','Student','Scheduled'],
+      ['February','8 Feb 2025','Programme highlight — Pendidikan Awal Kanak-Kanak','Student','Scheduled'],
+      ['March','8 Mar 2025','Government funding (PTPK) — allowances explained','All contacts','Scheduled'],
+      ['April','12 Apr 2025','SPM results — options without full credits','Student','Scheduled'],
+      ['May','10 May 2025','Programme highlight — Kandungan Kreatif Multimedia','Student','Scheduled'],
+      ['June','14 Jun 2025','Mid-year intake reminder','All contacts','Scheduled'],
+      ['July','12 Jul 2025','Alumni outcome — where graduates are working','Student','Scheduled'],
+      ['August','9 Aug 2025','Funding and fee instalment reminder','All contacts','Scheduled'],
+      ['September','13 Sep 2025','Open day — save the date','Student','Scheduled'],
+      ['October','4 Oct 2025','Hari Terbuka TVET Lipis — invitation','All contacts (101)','SENT'],
+      ['November','8 Nov 2025','Open day — final reminder before 15 Nov','Student','Scheduled'],
+      ['December','6 Dec 2025','Final intake call for the year','All contacts','Scheduled'],
+    ], [1200,1600,3600,1700,1260]),
+    p('Rows marked SENT are evidenced in Section 4. The remainder are the scheduled positions on the calendar.', { before: 100 }),
+
+    h1('4.  CAMPAIGNS ISSUED'),
+    p('Two campaigns were issued on Saturday 4 October 2025, both promoting the open day of 15 November 2025. The staff segment was sent first, at 03:45, as a live check on rendering and links; the full audience followed at 04:06 once the staff send had gone through.'),
+    table(['Time','Campaign','Segment','Recipients','Opens','Clicks'], [
+      ['03:45','Hari Terbuka TVET Lipis 2025','Staff','10','40.0%','30.0%'],
+      ['04:06','Hari Terbuka TVET Lipis','Full audience','101','0.0%','0.0%'],
+    ], [900,3300,1600,1400,1080,1080]),
+    img('em78.png', 440, 230),
+    cap('Figure 5 — Campaign record: both sends, 4 October 2025'),
+    fill('[ SAHKAN: kempen 101 penerima menunjukkan 0.0% dibuka — sahkan sama ada laporan belum dikemas kini atau penghantaran gagal ]'),
+
+    h1('5.  CAMPAIGN CONTENT'),
+    p('The October campaign carried the open day creative and the event detail — 15 November 2025, 10 a.m. to 12 noon, delivered by Zoom webinar — followed by what the session would cover and two call-to-action buttons.'),
+    img('em79.png', 440, 224),
+    cap('Figure 6 — “Hari Terbuka TVET Lipis” campaign as sent'),
+
+    h1('6.  SENDING RULES'),
+    table(['Rule','Reason'], [
+      ['One send per contact per month','The list is small; over-sending produces unsubscribes it cannot afford'],
+      ['Staff segment first','Rendering and links verified on a live send before the full audience'],
+      ['Saturday send','Parents are reachable at the weekend'],
+      ['Segment before sending','A send addressed to everyone is relevant to no one'],
+      ['Event mail lands 6 weeks ahead','Enough notice to reserve the date, with a reminder closer in'],
+    ], [3000,6360]),
+  ],
+});
+
+
+DOCS['cu6-wa4'] = M({
+  file: 'CU6-WA4-Email-Implementation-Coordination.docx',
+  title: 'EMAIL MARKETING IMPLEMENTATION COORDINATION REPORT',
+  subtitle: 'Campaign build, segmentation, verification and release — Mailchimp, TVET Lipis',
+  date: '[ TARIKH ]', submitted: 'Operations Manager',
+  status: 'Report on work done', signoff: verification,
+  content: [
+    h1('1.  SCOPE'),
+    p('This report records how email campaigns were put out: the account they were sent from, the sequence followed on send day, the segments addressed, and how delivery was confirmed. It covers the campaigns issued on 4 October 2025 promoting the open day of 15 November 2025.'),
+
+    h1('2.  SENDING ACCOUNT'),
+    p('Sends are made from a Mailchimp account held in the institution’s name, so that campaigns carry the TVET Lipis identity and the audience, tags and campaign history remain with the institution rather than with an individual.'),
+    img('em75_redacted.png', 430, 206),
+    cap('Figure 1 — Mailchimp account, TVET Lipis (account username redacted)'),
+
+    h1('3.  SEND SEQUENCE'),
+    p('Every campaign follows the same five steps. The verification step is the one that matters: the campaign is released to the Staff segment first and only goes to the full audience once that send has gone through cleanly.'),
+    img('cu6_sendflow.png', 460, 105),
+    cap('Figure 2 — Send-day sequence'),
+    table(['Step','What is done','Why'], [
+      ['Build','Campaign assembled from the calendar entry','Content is decided in advance, not on send day'],
+      ['Segment','Recipient list selected by tag','A send addressed to everyone is relevant to no one'],
+      ['Verify','Released to the Staff segment','Rendering, links and sender name checked on a live send'],
+      ['Send','Released to the full audience','Only after the verification send has landed'],
+      ['Confirm','Delivery and engagement read from the campaign report','Sending is not the same as arriving'],
+    ], [1500,4200,3660]),
+
+    h1('4.  CAMPAIGNS COORDINATED — 4 OCTOBER 2025'),
+    p('Two campaigns were released 21 minutes apart on Saturday 4 October 2025. The Staff segment received the campaign at 03:45 as the verification send; the full audience followed at 04:06.'),
+    table(['Time','Campaign','Segment','Recipients','Opens','Clicks'], [
+      ['03:45','Hari Terbuka TVET Lipis 2025','Staff','10','40.0%','30.0%'],
+      ['04:06','Hari Terbuka TVET Lipis','Full audience','101','0.0%','0.0%'],
+    ], [900,3300,1600,1400,1080,1080]),
+    img('em78.png', 440, 230),
+    cap('Figure 3 — Campaign record showing both sends, their segments and delivery status'),
+    fill('[ SAHKAN: audiens direkodkan 100 kenalan tetapi kempen dihantar kepada 101 penerima — jelaskan perbezaan ]'),
+    fill('[ SAHKAN: kempen 101 penerima menunjukkan 0.0% dibuka — sahkan sama ada laporan belum dikemas kini atau penghantaran gagal ]'),
+
+    h1('5.  CONTENT COORDINATED ACROSS CHANNELS'),
+    p('The campaign carried the open day creative and the event detail — 15 November 2025, 10 a.m. to 12 noon, by Zoom webinar — followed by what the session would cover and two call-to-action buttons directing the reader to contact the college or open the website.'),
+    p('The same event was promoted on WhatsApp and on social media in the same period. Date, time, platform and contact number were taken from a single source so that a prospect meeting the announcement twice on different channels reads the same details, and the college is not contradicting itself.'),
+    img('em79.png', 440, 224),
+    cap('Figure 4 — Campaign as issued, carrying the open day date, time and platform'),
+
+    h1('6.  COORDINATION CONTROLS'),
+    table(['What was controlled','How','Evidence'], [
+      ['Campaign identity','Sent from the institution’s own account','Figure 1'],
+      ['Right list receives the right message','Segment selected by tag before sending','Figure 3'],
+      ['Errors caught before the full send','Staff verification send released first','Figure 3'],
+      ['Delivery confirmed, not assumed','Status and engagement read from the campaign report','Figure 3'],
+      ['Consistency with other channels','Event detail taken from one source for email, WhatsApp and social','Figure 4'],
+      ['Notice period','Invitation issued six weeks before the event','Figures 3, 4'],
+    ], [2700,3800,1860]),
+
+    h1('7.  OUTCOME'),
+    p('Both campaigns were built, segmented, verified and released on the scheduled date, and the open day they promoted took place on 15 November 2025 as announced. The verification send performed as intended, returning 40% opens and 30% clicks from the Staff segment before the full audience send was released.'),
+    p('One item is carried forward for the performance review: the full-audience campaign records no opens against a staff segment that recorded 40%. That is addressed under reference EML/CU6/W06/2025.'),
+  ],
+});
+
+
+// ═════════════════════════════ CU2 — SEO ═════════════════════════════════════
+DOCS['cu2-wa1'] = M({
+  file: 'CU2-WA1-SEO-Channel-Analysis.docx', ref: 'TVET/SEO/OPS',
+  title: 'SEO CHANNEL PERFORMANCE ANALYSIS',
+  subtitle: 'Organic search performance of tvetlipis.my — Google Search Console',
+  date: 'March 2026', submitted: 'General Manager',
+  status: 'Report on work done', signoff: () => verifyShort('Jery Yew', 'General Manager'),
+  content: [
+    h1('1.  SCOPE'),
+    p('This report analyses the organic search performance of tvetlipis.my using Google Search Console. It covers a sixteen-month window from 22 September 2025, with a three-month window used for current query and page detail.'),
+
+    h1('2.  PERFORMANCE RECORDED'),
+    table(['Metric','16 months','Last 3 months'], [
+      ['Total clicks','1,050','284  (down 8%)'],
+      ['Total impressions','14,100','4,100  (up 8%)'],
+      ['Average click-through rate','7.4%','—'],
+      ['Average position','3.7','—'],
+    ], [3200,3100,3060]),
+    img('gsc_perf.png', 440, 284),
+    cap('Figure 1 — Search Console Performance, 16 months'),
+    p('Read on their own these are good numbers. An average position of 3.7 means the site typically appears near the top of the first page, and a click-through rate of 7.4% is healthy. The site is not failing to rank.', { before: 100 }),
+
+    sub('2.1   Where the channel started'),
+    p('When the property was first verified, Search Console recorded 24 clicks and 509 impressions in the opening 28 days, against a previous period of zero. That is the baseline the figures above are measured from, and it establishes the point at which the search channel began.'),
+    img('seo_baseline.png', 440, 213),
+    cap('Figure 2 — Search Console Insights at launch: 24 clicks, 509 impressions, previously zero'),
+    table(['Measure','At launch (28 days)','Now (16 months)'], [
+      ['Clicks','24','1,050'],
+      ['Impressions','509','14,100'],
+      ['Pages carrying the traffic','1','1'],
+    ], [3200,3100,3060]),
+
+    h1('3.  WHAT THE QUERIES SHOW'),
+    p('The queries producing that traffic tell a different story. Every one of them is a brand name — the institution, its former name, or its town.'),
+    img('cu2_queries.png', 440, 162),
+    cap('Figure 3 — Queries leading to the site, last three months'),
+    img('gsc_queries.png', 440, 330),
+    cap('Figure 4 — Queries report as recorded'),
+    table(['Query','Clicks','Change','Type'], [
+      ['tvet lipis','107','up 6%','Brand'],
+      ['tvet kuala lipis','24','up 500%','Brand + location'],
+      ['kolej islam antarabangsa kuala lipis','13','down 28%','Former name'],
+      ['plk lipis','2','up 100%','Brand'],
+      ['uia kuala lipis','1','no change','Parent institution'],
+    ], [3800,1300,1700,2560]),
+    p('No course query appears. Nobody arrives searching for a diploma in early childhood education, a multimedia course, or skills training in Pahang. The site captures demand from people who already know the name and are looking for it; it captures none from people deciding what to study.', { before: 100 }),
+
+    h1('4.  WHERE THE TRAFFIC LANDS'),
+    p('All 284 clicks in the three-month window landed on a single page — the home page, recorded in Search Console as UTAMA. Page indexing shows why: of three known pages, one is indexed and two are not, for two different reasons.'),
+    table(['Status','Pages','Reason given','Assessment'], [
+      ['Indexed','1','—','The home page — carries all traffic'],
+      ['Not indexed','1','Page with redirect','Normal. The URL redirects elsewhere; Google indexes the destination instead. Not a defect'],
+      ['Not indexed','1','Crawled – currently not indexed','The real issue. Google fetched the page and declined to index it'],
+    ], [1500,900,2600,4360]),
+    p('The distinction matters. Only one page is genuinely failing. “Crawled – currently not indexed” means Google reached the page and judged it not worth adding — usually because it carries too little readable content to be worth serving.', { before: 100 }),
+    p('This is consistent with how the site is built. It was produced in Canva as a presentation-quality landing page rather than as a search asset, and where headings and body copy are rendered as part of the design rather than as selectable text, a crawler finds a page with almost nothing on it to read.'),
+    img('gsc_index.png', 440, 312),
+    cap('Figure 5 — Page indexing status'),
+    img('gsc_reasons.png', 440, 322),
+    cap('Figure 6 — Reasons given for pages not indexed'),
+
+    h1('5.  GOOGLE BUSINESS PROFILE'),
+    p('The website is not the only search surface. The institution also holds a Google Business Profile, which for a locally recruiting college frequently appears above the website on the results page.'),
+    table(['Measure','Recorded'], [
+      ['Profile name','Hub Pendidikan TVET Lipis (Kolej Islam Antarabangsa & Akademi USIM)'],
+      ['Category','College in Kuala Lipis'],
+      ['Customer interactions','748'],
+      ['Monthly views','463'],
+      ['Rating','3.7 from 3 reviews'],
+    ], [2400,6960]),
+    p('At 463 views a month the profile is seen more often than the website converts, and it does that on three reviews. Review volume, not the website, is the binding constraint on local search performance.', { before: 100 }),
+    img('gbp.png', 440, 300),
+    cap('Figure 7 — Google Business Profile as managed'),
+
+    h1('6.  CONCLUSION'),
+    p('The constraint is not ranking ability. The site ranks at position 3.7 for what it has. The constraint is that there is almost nothing to rank — one indexed page, built as a brochure rather than as a set of answers, addressing only people who already know the institution by name.'),
+    p('The growth in “tvet kuala lipis” of 500% indicates that local, location-qualified search is rising. That demand is currently met by one general page and a profile with three reviews. Addressing it is the subject of TVET/SEO/OPS and TVET/SEO/OPS.'),
+
+  ],
+});
+
+DOCS['cu2-wa2'] = M({
+  file: 'CU2-WA2-SEO-Campaign-Plan.docx', ref: 'TVET/SEO/OPS',
+  title: 'SEO CAMPAIGN PLAN',
+  subtitle: 'Target queries, page structure and measurement — tvetlipis.my',
+  date: 'March 2026', submitted: 'General Manager',
+  status: 'Report on work done', signoff: () => verifyShort('Jery Yew', 'General Manager'),
+  content: [
+    h1('1.  OBJECTIVE'),
+    p('To win search traffic from prospects who do not yet know TVET Lipis by name — people searching for a course, a qualification or skills training in Pahang — while holding the brand positions the site already occupies.'),
+
+    h1('2.  TARGET QUERIES'),
+    p('Queries were checked in a keyword research tool before being adopted, so that the plan targets terms that are actually searched rather than terms the institution would like to be found for. The brand term “tvet lipis” returns an SEO difficulty of 17 out of 100 and a paid difficulty of 1, with all its volume in Malaysia — easy to hold, but small.'),
+    img('seo_ubersuggest.png', 440, 147),
+    cap('Figure 1 — Keyword research: difficulty and location breakdown'),
+    p('Two groups follow. Brand queries are already held and need defending. Non-brand queries are the growth, and none is currently served.'),
+    table(['Group','Example queries','Status'], [
+      ['Brand','tvet lipis · tvet kuala lipis · kolej islam antarabangsa kuala lipis','Held — position 3.7'],
+      ['Course','diploma pendidikan awal kanak-kanak · kursus multimedia · sijil pengurusan halal','Not served'],
+      ['Location + course','kolej kemahiran pahang · diploma kuala lipis · kursus tvet pahang','Not served'],
+      ['Funding','pembiayaan PTPK · kursus tanpa SPM penuh','Not served'],
+    ], [1900,5100,2360]),
+
+    h1('3.  PAGE STRUCTURE'),
+    p('A page can only rank for what it is about. One general page cannot answer four different searches, so the plan is one page per subject a prospect actually searches for.'),
+    img('cu2_structure.png', 460, 198),
+    cap('Figure 2 — Current site against the proposed structure'),
+    table(['Page','Query it is built to answer'], [
+      ['Home','Brand searches — tvet lipis'],
+      ['Diploma Pendidikan Awal Kanak-Kanak','Course name and career pathway'],
+      ['Diploma Pendidikan Pra-Sekolah','Course name and career pathway'],
+      ['Diploma Kandungan Kreatif Multimedia','Course name and career pathway'],
+      ['Sijil Pengurusan Halal','Course name and entry route'],
+      ['Yuran dan Pembiayaan PTPK','Cost and funding searches'],
+      ['Syarat dan Tarikh Kemasukan','Entry requirement and intake searches'],
+      ['Hubungi Kami','Location and contact searches'],
+    ], [3400,5960]),
+
+  ],
+});
+
+DOCS['cu2-wa3'] = M({
+  file: 'CU2-WA3-SEO-Improvement-Plan.docx', ref: 'TVET/SEO/OPS',
+  title: 'SEO IMPROVEMENT PLAN',
+  subtitle: 'Issues identified and corrective actions — tvetlipis.my',
+  date: 'March 2026', submitted: 'General Manager',
+  status: 'Report on work done', signoff: () => verifyShort('Jery Yew', 'General Manager'),
+  content: [
+    h1('1.  ISSUES IDENTIFIED'),
+    table(['#','Issue','Evidence','Effect'], [
+      ['1','One page crawled but not indexed','Search Console — “Crawled – currently not indexed”, 1 page','Google reached the page and judged it not worth serving'],
+      ['2','Page content is rendered as graphics, not text','Site built in Canva; text cannot be selected on the page','A crawler finds almost nothing readable to index'],
+      ['3','One page serves every search','All 284 clicks land on the home page','Nothing exists that can rank for a course query'],
+      ['4','No non-brand query appears','Queries report — all five queries are brand names','Prospects who do not know the name are never reached'],
+      ['5','Former name traffic is falling','“kolej islam antarabangsa kuala lipis” down 28%','Traffic lost as the old name fades from use'],
+      ['6','Business Profile rests on three reviews','Google Business Profile — 3.7 from 3 reviews, 463 views a month','Local ranking and trust both capped by review volume'],
+    ], [500,2700,3200,2960]),
+    p('Item 2 is the root cause of item 1, and items 1 to 3 together explain item 4. Fixing the readable-text problem is therefore the first action, not the last.', { before: 100 }),
+
+    h1('2.  ITEM CLOSED WITHOUT ACTION'),
+    p('Search Console also lists one page under “Page with redirect”. This is expected behaviour — the URL redirects to another page and Google indexes the destination instead. It is recorded here as reviewed and requires no corrective action.'),
+
+    h1('3.  CORRECTIVE ACTIONS'),
+    table(['Issue','Action','Owner'], [
+      ['2','Republish page content as real text rather than as part of the design','Marketing Manager'],
+      ['1','Re-inspect the URL, request indexing, then run Validation — currently “Not Started” on both reasons','Marketing Manager'],
+      ['1','Submit a sitemap so pages are discovered without manual request','Marketing Manager'],
+      ['3','Publish one page per programme, per Section 3 of TVET/SEO/OPS','Marketing team'],
+      ['4','Write titles and descriptions around the course name, not the institution name','Marketing Manager'],
+      ['5','Retain a page naming the former institution so that traffic is captured rather than lost','Marketing Manager'],
+      ['6','Request reviews from graduating students; complete the profile fields Google prompts for','Marketing team'],
+    ], [600,6000,2760]),
+
+    h1('4.  PLATFORM CONSTRAINT'),
+    p('The site presents a full navigation menu — Utama, Kolej, Program, Fasiliti, PTPK, Yuran, Kelab, Borang and Hubungi Kami — which reads to a visitor as nine sections of content. Search Console knows three URLs. The menu items are positions within a single page rather than separate pages, so nine subjects compete for one address and none of them can rank on its own.'),
+    img('seo_site.png', 440, 213),
+    cap('Figure 1 — tvetlipis.my: nine navigation items, one indexed page'),
+    p('The page also carries its headline content as part of the design rather than as text, which is consistent with Google crawling the site and declining to index it.'),
+    p('The website was built in Canva and is served through Cloudflare. It was produced as a presentation-quality landing page to establish credibility, not as a search asset, and that decision was appropriate to its purpose at the time — the recruitment funnel runs through paid social and WhatsApp, not through the website.'),
+    p('The consequence is that the site cannot carry the structure Section 3 requires: a page for each programme, each with its own editable title and description, and content in readable text. Where the platform cannot support that, the constraint is the platform rather than the content, and replacement should be assessed rather than further optimisation attempted.'),
+
+    h1('5.  SUPPORTING CHANNEL — GOOGLE BUSINESS PROFILE'),
+    p('The profile records 748 customer interactions and 463 views a month against three reviews. For a locally recruiting college this is the fastest available improvement: review volume moves local ranking, and it costs nothing but asking.'),
+    table(['Action','Measure'], [
+      ['Request reviews from graduating students, asking them to describe their study journey','Reviews above [ ISI ]'],
+      ['Complete the profile fields Google prompts for','Profile strength complete'],
+      ['Add interior and facility photographs','Photographs published'],
+      ['Post monthly — intake dates, open day, programme news','One post per month'],
+      ['List every programme under Services','All programmes listed'],
+    ], [5200,4160]),
+
+    h1('6.  SEQUENCE'),
+    table(['Step','Action','Gate'], [
+      ['1','Make page content readable text','Text can be selected on the live page'],
+      ['2','Re-inspect and validate indexing','Page moves to Indexed'],
+      ['3','Publish programme pages','Each page live and indexed'],
+      ['4','Rewrite titles and descriptions','Non-brand terms present in titles'],
+      ['5','Submit sitemap and re-inspect','Pages discovered automatically'],
+      ['6','Build Business Profile reviews in parallel','Review count rising'],
+      ['7','Review after one full month','Non-brand queries appear in the report'],
+    ], [700,5000,3660]),
+  ],
+});
+
+DOCS['cu2-wa4'] = M({
+  file: 'CU2-WA4-SEO-Implementation-Coordination.docx', ref: 'TVET/SEO/OPS',
+  title: 'SEO IMPLEMENTATION COORDINATION REPORT',
+  subtitle: 'Actions carried out, dependencies and verification — tvetlipis.my',
+  date: 'March 2026', submitted: 'General Manager',
+  status: 'Report on work done', signoff: () => verifyShort('Jery Yew', 'General Manager'),
+  content: [
+    h1('1.  SCOPE'),
+    p('This report records the coordination of the search presence: what was established and verified, what is blocked and on what dependency, who is responsible for each part, and what the search data showed across the period.'),
+    p('Coordination here spans two surfaces. The website is one; the Google Business Profile, the Linktree and the campaign links that point into the site are the other. They are managed as one presence because a prospect searching for the institution meets whichever of them ranks, not the one the institution prefers.'),
+
+    h1('2.  IMPLEMENTATION TIMELINE'),
+    table(['Period','Action','Verified by'], [
+      ['September 2025','Search Console property verified and reporting begun','Baseline recorded — 24 clicks, 509 impressions, previously zero'],
+      ['September 2025','Website published at tvetlipis.my with nine navigation sections','Live site; property returns data'],
+      ['September 2025','Cloudflare placed in front of the domain for DNS and delivery','Cloudflare dashboard'],
+      ['July 2024','Google Business Profile created, categorised and verified','Profile live — “College in Kuala Lipis”'],
+      ['February 2025','Linktree published and linked from every social bio','Linktree live; link present in TikTok and Instagram profiles'],
+      ['4 October 2025','Email campaign issued carrying a website link','Mailchimp campaign record'],
+      ['July 2026','Third page discovered by Google','Page indexing history — known pages rise from 2 to 3'],
+      ['August 2026','Indexing reasons retrieved and diagnosed','“Page with redirect” and “Crawled – currently not indexed”'],
+    ], [1700,4000,3660]),
+
+    h1('3.  ESTABLISHED AND VERIFIED'),
+    p('The following are complete. Each was confirmed from the platform itself rather than assumed.'),
+    table(['Item','Status','Verification'], [
+      ['Domain and website','Live','tvetlipis.my resolves and is returning search data'],
+      ['Search Console','Verified and reporting','16 months of performance data available'],
+      ['Cloudflare','Active','DNS and delivery in front of the site'],
+      ['Google Business Profile','Live and categorised','748 customer interactions, 463 views a month'],
+      ['Linktree','Live','Carries the website link from every social bio'],
+      ['Campaign links','Active','Email campaign of 4 October 2025 carries a website button'],
+      ['Indexing monitoring','In force','Page indexing checked; reasons retrieved and read'],
+    ], [2400,1700,5260]),
+    img('cloudflare.png', 440, 326),
+    cap('Figure 1 — Delivery and performance layer'),
+
+    sub('3.1   Links into the site'),
+    p('Link equity reaches the site from the channels the institution already runs, rather than from a link-building exercise. The Linktree profile carries the website link from every social bio, and email campaigns carry it as a button.'),
+    img('seo_linktree.png', 195, 290),
+    cap('Figure 2 — Linktree profile linking to the website from social bios'),
+    img('seo_email.png', 440, 229),
+    cap('Figure 3 — Email campaign carrying a “Website TVET Lipis” link'),
+
+    h1('4.  OPEN, AND THE DEPENDENCY THAT HOLDS THEM'),
+    p('The remaining actions in the improvement plan are on-page: readable text, editable titles, and a page for each programme. None can be completed on the current platform, so all four are held against a single dependency rather than being attempted and repeated.'),
+    table(['Action','Status','Blocked on'], [
+      ['Republish content as readable text','Held','Website rebuild'],
+      ['Revise page titles and descriptions','Held','Website rebuild'],
+      ['Publish programme pages','First draft prepared','Website rebuild'],
+      ['Re-inspect and run indexing validation','Held','Completion of the above — validating an unchanged page returns the same result'],
+      ['Submit sitemap','Held','Pages existing to be listed'],
+    ], [3400,1900,4060]),
+    p('Holding these deliberately is the coordination decision. Requesting indexing on a page that has not changed, or validating a fault that has not been fixed, spends the site’s crawl budget and returns the same answer — so the sequence is enforced rather than the tasks being worked in parallel.', { before: 100 }),
+
+    h1('5.  MOVEMENT OBSERVED'),
+    p('The channel was monitored across the period. Traffic grew substantially while the number of pages carrying it did not, which is the pattern the improvement plan predicts and the reason the rebuild is the binding action.'),
+    table(['Measure','At launch','Latest'], [
+      ['Clicks','24  (28 days)','1,050  (16 months)'],
+      ['Impressions','509','14,100'],
+      ['Known pages','2','3'],
+      ['Indexed pages','1','1'],
+      ['Non-brand queries','None','None'],
+    ], [3400,2980,2980]),
+    p('Known pages rose from two to three at the end of July 2026. Indexed pages remained at one, so the additional page was discovered but not admitted — the specific fault the improvement plan addresses, observed rather than assumed.', { before: 100 }),
+
+    h1('6.  RESPONSIBILITIES'),
+    table(['Part','Responsible','Scope'], [
+      ['Search Console and monitoring','Marketing Manager','Property, reporting, indexing checks, diagnosis'],
+      ['Google Business Profile','Marketing team','Profile completeness, photographs, posts, reviews'],
+      ['Website content','Marketing team','Programme copy, titles and descriptions'],
+      ['Website rebuild','Creative Outsourced Team','Platform, page structure, technical implementation'],
+      ['Campaign links into the site','Marketing team','Linktree, social bios, email campaign buttons'],
+    ], [2600,2400,4360]),
+
+    h1('7.  COORDINATION CONTROLS'),
+    table(['What was controlled','How'], [
+      ['A change is not assumed to have worked','Every action verified in the platform before being closed'],
+      ['Indexing precedes ranking','No ranking target judged until the page is indexed'],
+      ['Effort is not spent against a blocked dependency','On-page actions held until the rebuild, not repeated'],
+      ['Brand positions are not damaged','Average position on brand queries monitored alongside new pages'],
+      ['Search presence is treated as one','Website, Business Profile and campaign links reviewed together'],
+    ], [3400,5960]),
+
+    h1('8.  STATUS'),
+    p('The measurement and off-site parts of the search presence are established and verified. The on-page work is specified, drafted and held against the website rebuild, which is the single dependency preventing it. The indexing fault identified in the improvement plan therefore remains open at the date of this report, by decision rather than by omission.'),
+  ],
+});
+
+
+// ═════════════════════════════ CU3 — SEM ═════════════════════════════════════
+// TVET Lipis Google Ads, account 245-694-3044. Figures read from the Level 3
+// portfolio screenshots; nothing estimated.
+DOCS['cu3-wa1'] = M({
+  file: 'CU3-WA1-SEM-Campaign-Plan.docx', ref: 'TVET/SEM/OPS',
+  title: 'SEARCH ENGINE MARKETING CAMPAIGN PLAN',
+  subtitle: 'Google Ads campaign for student recruitment — TVET Lipis, 2025',
+  date: 'March 2026', submitted: 'General Manager',
+  status: 'Report on work done', signoff: () => verifyShort('Jery Yew', 'General Manager'),
+  content: [
+    h1('1.  WHY PAID SEARCH'),
+    p('Analysis of the organic search channel found the site holding an average position of 3.7 but appearing only for brand queries — people already looking for TVET Lipis by name. Nobody arrived searching for a course. With one indexed page there was nothing that could rank for a course term, and building that takes months.'),
+    p('Paid search buys the position that organic cannot yet earn. It places the institution in front of somebody typing “diploma pendidikan awal kanak-kanak” today, while the site is rebuilt to earn that position later. It also differs from the social campaigns in kind: social interrupts a person scrolling, search answers a person already looking.'),
+
+    h1('2.  CAMPAIGN TYPE SELECTED'),
+    p('A Google Ads Smart campaign was chosen. Smart campaigns are managed by Google — targeting, bidding and placement are automated from the business profile and a short ad — which suited a first paid-search test on a small budget without a dedicated search specialist.'),
+    table(['Consideration','Assessment'], [
+      ['Budget available','Small; a managed campaign avoids spending the budget on management time'],
+      ['Local intent','The institution recruits locally; Smart campaigns draw on the Business Profile and Maps'],
+      ['Trade-off accepted','No keyword-level control, and no way to exclude Google partner websites'],
+      ['Alternative held','A standard Search campaign, once the account has data and the site can convert'],
+    ], [2600,6760]),
+
+    h1('3.  OBJECTIVES AND TARGETS'),
+    table(['#','Objective','Measure','Target set'], [
+      ['1','Hold the top of the paid results for category searches','Ad position on “tvet”, “tvet pahang”, “tvet kuala lipis”','Appear above the organic results for the category'],
+      ['2','Appear for programme searches, not only the institution name','Impressions on programme terms','Ads shown for early childhood, pre-school and digital marketing searches'],
+      ['3','Bring prospects to register for a diploma','Enquiries and registrations traced to the campaign','A registration at a cost below the RM500 referral fee paid to agents'],
+      ['4','Keep a visit affordable','Cost per click','Low enough for the budget to sustain a full intake cycle'],
+    ], [500,3100,2900,2860]),
+    p('Objective 3 is the one that matters. Objectives 1 and 2 are visibility, and visibility is only worth buying if it produces a signed enrolment. The RM500 referral fee — what the institution pays an agent for a recruited student — is the benchmark any recruitment channel is judged against.', { before: 100 }),
+    p('Numeric targets for impressions and clicks were not set before launch. This was the institution’s first paid search campaign and no baseline existed to set them from; the run was intended to establish what a click and a visit cost. Whether the targets were met is assessed in TVET/SEM/OPS W03.'),
+
+    h1('4.  TARGETING AND MESSAGE'),
+    table(['Parameter','Setting'], [
+      ['Location','Kuala Lipis and surrounding Pahang'],
+      ['Landing page','https://tvetlipis.my/'],
+      ['Headline','Hub Pendidikan TVET Kemahiran — Diploma Pendidikan Kanak-Kanak'],
+      ['Description','Diploma Pendidikan Awal Kanak-Kanak dan Pra-Sekolah, Diploma Digital Marketing'],
+      ['Programmes named','Early childhood education, pre-school education, digital marketing'],
+    ], [2200,7160]),
+    p('The ad names the programmes rather than the institution, because the searches worth buying are course searches. The institution name is already held organically and does not need to be paid for.', { before: 100 }),
+    img('sem_ad.png', 400, 198),
+    cap('Figure 1 — The advertisement as published'),
+
+    h1('5.  MEASUREMENT'),
+    table(['Metric','Source','Frequency'], [
+      ['Impressions and clicks','Google Ads campaign summary','Monthly'],
+      ['Click-through rate and cost per click','Google Ads campaign summary','Monthly'],
+      ['Local actions','Google Ads local action report','Monthly'],
+      ['Spend against budget','Google Ads billing summary','Monthly'],
+    ], [2900,3400,3060]),
+  ],
+});
+
+DOCS['cu3-wa2'] = M({
+  file: 'CU3-WA2-SEM-Implementation.docx', ref: 'TVET/SEM/OPS',
+  title: 'SEM CAMPAIGN IMPLEMENTATION REPORT',
+  subtitle: 'Google Ads campaign as run — TVET Lipis, May to July 2025',
+  date: 'March 2026', submitted: 'General Manager',
+  status: 'Report on work done', signoff: () => verifyShort('Jery Yew', 'General Manager'),
+  content: [
+    h1('1.  SCOPE'),
+    p('This report records the campaign as implemented: the account established, the campaign published, the period it ran, the funding managed against it, and what it delivered.'),
+
+    h1('2.  ACCOUNT AND CAMPAIGN'),
+    table(['Item','Record'], [
+      ['Google Ads account','245-694-3044'],
+      ['Campaign name','Hub Pendidikan TVET Kemahiran'],
+      ['Campaign type','Smart campaign'],
+      ['Landing page','https://tvetlipis.my/'],
+      ['Period live','26 May – 28 July 2025'],
+      ['Total campaign spend','RM150.06'],
+      ['Net cost including service tax','RM161.91'],
+    ], [3000,6360]),
+
+    h1('3.  TIMELINE'),
+    table(['Period','Activity','Record'], [
+      ['26 May 2025','Campaign launched','First impressions recorded'],
+      ['June 2025','Campaign at full delivery','Spend RM99.14; peak above 1,700 impressions'],
+      ['11 June 2025','Payment made','Threshold charge RM50.00'],
+      ['1 July 2025','Payment made','Monthly charge RM56.96'],
+      ['July 2025','Delivery continues, then falls','Spend RM50.92'],
+      ['28 July 2025','Delivery ends','Impressions and clicks return to zero'],
+      ['August – September 2025','No spend','Billing shows nil'],
+    ], [1900,3600,3860]),
+    img('cu3_spend.png', 440, 163),
+    cap('Figure 1 — Campaign spend by month'),
+
+    h1('4.  DELIVERED'),
+    table(['Metric','Result','Derived'], [
+      ['Impressions','7,267',''],
+      ['Clicks','217','Click-through rate 2.99%'],
+      ['Spend','RM150.06','Cost per click RM0.69'],
+      ['Local actions','115','Cost per local action RM1.31'],
+      ['Call clicks','4',''],
+      ['Conversions','Not recorded','Tracking never configured — see W03'],
+    ], [2600,2400,4360]),
+    img('sem_perf.png', 430, 322),
+    cap('Figure 2 — Campaign performance, all time'),
+
+    sub('4.1   Where the clicks came from'),
+    img('cu3_clicks.png', 440, 107),
+    cap('Figure 3 — Click sources'),
+    img('sem_clicks.png', 340, 334),
+    cap('Figure 4 — Click source breakdown as recorded'),
+
+    sub('4.2   Local actions'),
+    p('Local actions are the measure a Smart campaign reports in place of website conversions. Of 115 recorded, 41 were people viewing directions to the campus and 3 were calls placed from the advertisement.'),
+    img('sem_local.png', 320, 344),
+    cap('Figure 5 — Local action detail'),
+
+    h1('5.  FUNDING MANAGED'),
+    p('The account was funded by card against a threshold, and each month reconciled against the campaign spend and service tax.'),
+    img('sem_billing.png', 440, 213),
+    cap('Figure 6 — Billing summary, May to October 2025 (account email redacted)'),
+    img('sem_june.png', 400, 278),
+    cap('Figure 7 — June 2025 statement: campaign RM99.14, service tax RM7.92'),
+    img('sem_july.png', 400, 295),
+    cap('Figure 8 — July 2025 statement: campaign RM50.92, service tax RM4.07'),
+
+    h1('6.  OUTCOME'),
+    p('The campaign was published, ran for nine weeks, delivered 7,267 impressions and 217 clicks at RM0.69 each, and produced 115 local actions at RM1.31 each. Spend stayed inside the funded balance throughout, and delivery stopped in July 2025 by decision rather than by exhaustion of funds — the reasoning is recorded in TVET/SEM/OPS W03.'),
+  ],
+});
+
+DOCS['cu3-wa3'] = M({
+  file: 'CU3-WA3-SEM-Optimisation.docx', ref: 'TVET/SEM/OPS',
+  title: 'SEM CAMPAIGN PERFORMANCE OPTIMISATION REPORT',
+  subtitle: 'Monitoring, channel comparison and budget decision — TVET Lipis Google Ads',
+  date: 'March 2026', submitted: 'General Manager',
+  status: 'Report on work done', signoff: () => verifyShort('Jery Yew', 'General Manager'),
+  content: [
+    h1('1.  WHAT WAS MONITORED'),
+    table(['Metric','Source','Result'], [
+      ['Impressions and clicks','Campaign summary','7,267 / 217'],
+      ['Click-through rate','Derived','2.99%'],
+      ['Cost per click','Derived','RM0.69'],
+      ['Local actions','Local action report','115 at RM1.31 each'],
+      ['Enquiries and enrolments from the campaign','CRM','None attributable'],
+    ], [2900,2800,3660]),
+
+    h1('2.  DELIVERY WAS SOUND'),
+    p('The campaign delivered as intended. A click at RM0.69 and a local action at RM1.31 are inexpensive, the click-through rate of 2.99% is normal for search, and 41 people looked up directions to the campus. Nothing in the account settings was performing badly, and no bid, budget or targeting change was called for.'),
+    img('sem_perf.png', 420, 315),
+    cap('Figure 1 — Campaign performance, all time'),
+
+    h1('3.  WHAT COULD NOT BE MEASURED'),
+    p('Against the objectives set in the campaign plan, objectives 1, 2 and 4 were met. The advertisement appeared for category and programme searches and delivered 7,267 impressions, and a visit cost RM0.69. Objective 3 — bringing a prospect to register — could not be assessed at all.'),
+    p('The reason is visible in the campaign summary. Where a figure for conversions should appear, Google Ads displays a “Get Started” button instead. That button is an invitation to set conversion tracking up; it means no conversion action was ever created, so Google was never told what a successful outcome looks like and recorded nothing after the click.'),
+    p('The second half of the problem is where the clicks landed. All 217 went to https://tvetlipis.my/, a single page with no enquiry form and no programme detail, so even with tracking in place there would have been no completed action to record. A visitor arriving from an advertisement for a diploma had no defined next step to take.'),
+    p('The campaign therefore did not fail. Its measurement did. RM150.06 bought 217 visits whose outcome is unknown, and cost per registration could not be calculated or compared against the RM500 referral benchmark.'),
+
+    h1('4.  COMPARED AGAINST THE OTHER CHANNELS'),
+    p('The campaign ran between May and July 2025, inside the April to September social media campaign. The two therefore compete for the same budget over the same recruitment cycle, and can be compared directly.'),
+    table(['','Google Ads','Meta and TikTok'], [
+      ['Period','May – July 2025','April – September 2025'],
+      ['Spend','RM150.06','RM11,267.97'],
+      ['Impressions','7,267','2,370,268'],
+      ['Clicks','217','23,056'],
+      ['Leads captured','None attributable','3,470'],
+      ['Cost per lead','Not measurable','RM3.25'],
+      ['Route to the CRM','None — clicks land on a static page','Instant lead form feeds the CRM directly'],
+    ], [2400,3400,3560]),
+    p('The final row is the decisive one. The social campaigns carry an instant lead form that writes the prospect straight into the CRM, where a counsellor works it. The search campaign had no equivalent — it delivered a visitor to a page that could not capture them.', { before: 100 }),
+
+    h1('5.  DECISION — BUDGET REALLOCATED TO SOCIAL MEDIA'),
+    p('The campaign was ended on 28 July 2025 and the budget directed to Meta and TikTok. The reasoning was not that paid search performs badly, but that every ringgit spent on social media was producing a measurable lead at RM3.25 through a pipeline already proven, while the same ringgit on search produced a visit that could not be traced, captured or followed up.'),
+    img('cu3_decision.png', 430, 168),
+    cap('Figure 2 — Where the recruitment budget was directed'),
+    p('Given a fixed recruitment budget, the correct optimisation was to move money to the channel that converts and can be measured, rather than to keep tuning a channel whose limitation sat outside the ad account altogether.', { before: 100 }),
+    img('cu3_spend.png', 430, 159),
+    cap('Figure 3 — Spend by month: delivery ends after July 2025'),
+
+    h1('6.  SECONDARY OBSERVATIONS'),
+    p('Two further limitations were noted at the time. Neither drove the decision, and both are recorded for whoever restarts the channel.'),
+    table(['Observation','Detail'], [
+      ['Part of the spend went off Google','25 of 217 clicks came from Google partner websites rather than Google Search — roughly RM17. A Smart campaign has no setting to exclude them'],
+      ['No keyword-level control','A Smart campaign does not report or allow bidding on individual search terms, so the words people typed could not be read or refined'],
+    ], [2900,6460]),
+    img('cu3_clicks.png', 430, 104),
+    cap('Figure 4 — Click sources'),
+
+    h1('7.  CONDITIONS FOR RESTARTING'),
+    p('Paid search remains a reasonable channel for this institution — it reaches people actively searching for a course, which social media does not. It is worth funding again once the conditions that made it unmeasurable have been removed.'),
+    table(['Condition','Why it must come first'], [
+      ['Website rebuilt with a page for each programme','An advertisement for a diploma must land on a page describing that diploma'],
+      ['Enquiry form on the site, feeding the CRM','Without a capture point there is nothing for a click to become'],
+      ['Conversion tracking configured','Cost per registration cannot be calculated until conversions are recorded'],
+      ['Standard Search campaign instead of Smart','Gives keyword control and excludes the partner network'],
+    ], [3400,5960]),
+
+    sub('7.1   How the tracking gap is closed'),
+    p('Conversion tracking is what turns a click into a countable outcome. The steps below are in dependency order — the first cannot be done on the current website, which is why the rebuild heads the list above.'),
+    table(['Step','Action','Depends on'], [
+      ['1','Decide what counts as a conversion — enquiry form submitted, WhatsApp button clicked, phone call placed','Nothing'],
+      ['2','Create the conversion action in Google Ads under Goals → Conversions','Step 1'],
+      ['3','Install the Google tag on the website','A platform that permits custom code — not available on the current site'],
+      ['4','Place the tag on the thank-you page or the form-submit event','Enquiry form existing'],
+      ['5','Submit a test enquiry and confirm it registers as a conversion','Steps 3 and 4'],
+      ['6','Import the conversion into the campaign and report cost per registration','Step 5'],
+    ], [600,5400,3360]),
+    p('Two conversion types need no website code and can be enabled sooner: call conversions, which record a call placed from the advertisement, and Google Business Profile actions, which record directions and calls from the profile. The campaign already recorded 4 call clicks and 41 direction views without any tag, so partial measurement is available immediately — it simply cannot capture a registration, which happens on the website.', { before: 100 }),
+    p('Until the website can carry a form and a tag, the budget stays where outcomes are measurable. The decision is reviewed when the rebuild is complete.', { before: 100 }),
+  ],
+});
+
+const CU3_ORDER = ['cu3-wa1','cu3-wa2','cu3-wa3'];
+
+DOCS['cu3-full'] = {
+  file: 'CU3-SEM-Plan-and-Implementation.docx',
+  compiled: true, footer: 'TVET Lipis',
+  body: [
+    tvetEdgeBar, LETTERHEADS.tvet, RULES.tvet,
+    new Paragraph({ children: [new TextRun({ text: 'SEARCH ENGINE MARKETING', font: F, size: 36, bold: true, color: NAVY })],
+      alignment: AlignmentType.CENTER, spacing: { before: 700, after: 40 } }),
+    new Paragraph({ children: [new TextRun({ text: 'PLAN AND IMPLEMENTATION', font: F, size: 36, bold: true, color: NAVY })],
+      alignment: AlignmentType.CENTER, spacing: { after: 120 } }),
+    new Paragraph({ children: [new TextRun({ text: 'TVET Lipis · Google Ads · May – July 2025', font: F, size: 24, color: '555555' })],
+      alignment: AlignmentType.CENTER, spacing: { after: 700 } }),
+    new Table({ width: { size: 7000, type: WidthType.DXA }, columnWidths: [2400, 4600], rows: [
+      new TableRow({ children: [cell('Competency Unit',{w:2400,bold:true,fill:'EDF1F7'}), cell('C03 — Implement SEM plan',{w:4600})] }),
+      new TableRow({ children: [cell('Standard',{w:2400,bold:true,fill:'EDF1F7'}), cell('NOSS M731-001-4:2021, Level 4',{w:4600})] }),
+      new TableRow({ children: [cell('Work activities',{w:2400,bold:true,fill:'EDF1F7'}), cell('W01 – W03 (three)',{w:4600})] }),
+      new TableRow({ children: [cell('Prepared by',{w:2400,bold:true,fill:'EDF1F7'}), cell('Zuriel Seong Ming Ee, Marketing Manager',{w:4600})] }),
+      new TableRow({ children: [cell('Date',{w:2400,bold:true,fill:'EDF1F7'}), cell('March 2026',{w:4600})] }),
+    ]}),
+    pageBreak(),
+    h1('DOCUMENT REGISTER'),
+    table(['Part','WA','Document','Type'], [
+      ['1','W01','SEM Campaign Plan','Report'],
+      ['2','W02','SEM Campaign Implementation Report','Report'],
+      ['3','W03','SEM Campaign Performance Optimisation Report','Report'],
+    ], [800,900,4700,2960]),
+    h1('SUMMARY'),
+    p('A Google Ads Smart campaign, “Hub Pendidikan TVET Kemahiran”, ran from 26 May to 28 July 2025 on account 245-694-3044. It spent RM150.06 and delivered 7,267 impressions and 217 clicks at RM0.69 each, producing 115 local actions at RM1.31 — including 41 people viewing directions to the campus.'),
+    p('Delivery was sound and no account setting needed changing. What the campaign could not do was show a single enquiry resulting from it: conversion tracking was never configured, and the clicks landed on a static page with no enquiry form. Over the same recruitment cycle the social campaigns were producing leads at RM3.25 each through a form that writes straight into the CRM. The budget was therefore moved to social media on 28 July 2025 — not because paid search performs badly, but because it could not be measured or converted until the website is rebuilt.'),
+    ...CU3_ORDER.flatMap(k => part(DOCS[k])),
+  ],
+};
+
+
+// ═════════════════════════════ CU1 — SOCIAL MEDIA ════════════════════════════
+// TVET Lipis, April–September 2025. Every figure is taken from the LPKT
+// (Laporan Projek DKM) and its appendices; nothing estimated.
+DOCS['cu1-wa1'] = M({
+  file: 'CU1-WA1-Channel-Selection.docx', ref: 'TVET/SOCMED/OPS',
+  title: 'SOCIAL MEDIA CHANNEL SELECTION REPORT',
+  subtitle: 'Channels determined for student recruitment — TVET Lipis',
+  date: 'March 2026', submitted: 'General Manager',
+  status: 'Report on work done', signoff: () => verifyShort('Jery Yew', 'General Manager'),
+  content: [
+    h1('1.  PURPOSE'),
+    p('This report records which social media channels were selected to carry student recruitment for the April to September 2025 intake cycle, and the reasoning behind the selection.'),
+
+    h1('2.  THE AUDIENCE IS NOT EVENLY DISTRIBUTED'),
+    p('The institution holds accounts on TikTok, Instagram and Facebook. They are not comparable assets. At the point of record the TikTok account held 13,800 followers and 118,500 likes; the Instagram account held 165 followers across 127 posts.'),
+    img('cu1_channels.png', 440, 161),
+    cap('Figure 1 — Followers by channel'),
+    p('An eighty-four fold difference is not a matter of tuning. It decides where organic content is worth producing, and it is why TikTok was determined as the primary channel rather than the one the institution might have preferred on brand grounds.', { before: 100 }),
+    img('lp7.png', 165, 359),
+    cap('Figure 2 — TikTok @tvet_lipis: 13.8K followers, 118.5K likes'),
+    img('lp8.png', 165, 359),
+    cap('Figure 3 — Instagram @tvet_lipis: 165 followers, 127 posts'),
+
+    h1('3.  CHANNELS DETERMINED'),
+    table(['Channel','Role','Basis'], [
+      ['TikTok','Primary organic channel','Established audience of 13,800; the format carries the content the campaign needs'],
+      ['TikTok Ads','Paid lead generation, from June 2025','Added once the organic channel proved the audience was present'],
+      ['Meta Ads','Paid lead generation, from April 2025','Instant lead forms feed the CRM directly'],
+      ['Instagram','Supporting organic channel','Small audience; used for reach among parents and for reposting'],
+      ['Facebook','Supporting organic channel','Used mainly for parent-facing content'],
+    ], [1900,2700,4760]),
+    p('The split is deliberate. TikTok earns attention; Meta captures it. A campaign run only on TikTok reaches people but has no proven route into the CRM, and a campaign run only on Meta captures leads from a much smaller organic base.', { before: 100 }),
+  ],
+});
+
+DOCS['cu1-wa2'] = M({
+  file: 'CU1-WA2-Content-Calendar.docx', ref: 'TVET/SOCMED/OPS',
+  title: 'SOCIAL MEDIA CONTENT CALENDAR REPORT',
+  subtitle: 'Content pillars, format and publishing schedule — April to September 2025',
+  date: 'March 2026', submitted: 'General Manager',
+  status: 'Report on work done', signoff: () => verifyShort('Jery Yew', 'General Manager'),
+  content: [
+    h1('1.  CONTENT PILLARS'),
+    p('Six pillars were set, each addressing a specific objection or question that stops a prospect enrolling. They are not topics; they are answers.'),
+    table(['Pillar','What it answers','Audience'], [
+      ['Peluang kedua','“My results are not good enough to continue studying”','Students 17 – 28'],
+      ['Maklumat ibu bapa','“What is TVET and how is it paid for?”','Parents 40 – 60'],
+      ['Miskonsepsi TVET','“TVET graduates cannot go on to a degree”','Students and parents'],
+      ['Sorotan program','“What is this course actually about?”','Students'],
+      ['Jelajah sekolah','Awareness among local school leavers','Local students'],
+      ['Kandungan tempatan','Brand familiarity without selling','General'],
+    ], [2100,4600,2660]),
+
+    h1('2.  FORMAT AND FREQUENCY'),
+    table(['Format','Frequency','Platform'], [
+      ['Short-form video','Once every two weeks','TikTok, Instagram Reels, Facebook'],
+      ['Graphic poster','Weekly','Instagram, Facebook'],
+      ['Minimum output','At least one new item each week','All platforms'],
+    ], [2600,3200,3560]),
+
+    h1('3.  THE CALENDAR AS PUBLISHED'),
+    img('cu1_kalendar.png', 460, 336),
+    cap('Figure 1 — Content calendar, April to September 2025'),
+
+    h1('4.  WHAT THE PILLARS PRODUCED'),
+    p('Three items carried a disproportionate share of the reach, and all three came from the pillars addressing an objection rather than describing a programme.'),
+    table(['Pillar','Content','Views'], [
+      ['Peluang kedua','“Ini adalah peluang kedua anda!”','3,800,000'],
+      ['Maklumat ibu bapa','“Perhatian Kepada Ibu Bapa”','502,900'],
+      ['Kandungan tempatan','“Tempat Makan Underrated Kuala Lipis”','99,400'],
+    ], [2400,4400,2560]),
+    p('A single video answering “my results are not good enough” reached 3.8 million views — more than the entire paid campaign delivered in impressions. That result is why the pillar structure was retained rather than replaced with programme-led content.', { before: 100 }),
+    img('lp6.png', 165, 359),
+    cap('Figure 2 — TikTok Analytics for the campaign period'),
+  ],
+});
+
+DOCS['cu1-wa3'] = M({
+  file: 'CU1-WA3-Campaign-Plan.docx', ref: 'TVET/SOCMED/OPS',
+  title: 'SOCIAL MEDIA CAMPAIGN PLAN',
+  subtitle: 'Objectives, audience, phasing and measurement — April to September 2025',
+  date: 'March 2026', submitted: 'General Manager',
+  status: 'Report on work done', signoff: () => verifyShort('Jery Yew', 'General Manager'),
+  content: [
+    h1('1.  OBJECTIVES'),
+    table(['#','Objective','Measure','Outcome'], [
+      ['1','Raise awareness of TVET Lipis among school leavers and parents','Impressions and views','2,370,268 impressions delivered'],
+      ['2','Generate enquiries from prospective students','Leads captured in the CRM','3,470 leads'],
+      ['3','Convert enquiries into enrolments','Students registered','76 students'],
+      ['4','Keep acquisition below the referral benchmark','Cost per registered student','RM154.36 against RM500'],
+    ], [500,3000,2600,3260]),
+    p('Objective 4 is the controlling one. The institution pays an agent RM500 for a recruited student, so any channel costing more than that is not worth running. At RM154.36 the campaign acquired a student for roughly a third of the alternative.', { before: 100 }),
+
+    h1('2.  AUDIENCE'),
+    table(['Segment','Age','Message emphasis'], [
+      ['School leavers','17 – 28','Second chance, programme content, career outcome'],
+      ['Parents','40 – 60','Accreditation, PTPK funding, career prospects'],
+    ], [2600,1600,5160]),
+    p('Two segments were targeted separately rather than as one audience, because the decision to enrol is usually made jointly and the two are persuaded by different things.', { before: 100 }),
+
+    h1('3.  CAMPAIGN PHASES'),
+    table(['Phase','Activity'], [
+      ['1  Channel determination','Audience analysed and platforms selected'],
+      ['2  Campaign plan','Objectives, segments, locations, period, budget and targets set'],
+      ['3  Content calendar','Pillars, formats, platforms and publishing dates planned'],
+      ['4  Paid advertisement proposal','Lead generation objective, budget allocation and targeting parameters prepared'],
+      ['5  Implementation','Content published to calendar; Meta Ads from April 2025, TikTok Ads from June 2025'],
+      ['6  Optimisation','Monthly performance reviewed and budget reallocated'],
+    ], [2900,6460]),
+    img('lp1.png', 200, 400),
+    cap('Figure 1 — Campaign implementation flow'),
+
+    h1('4.  MEASUREMENT'),
+    table(['Metric','Source','Frequency'], [
+      ['Impressions, clicks, click-through rate','Meta Ads Manager, TikTok Ads Manager','Monthly'],
+      ['Video views and engagement','TikTok Analytics','Monthly'],
+      ['Leads and cost per lead','CRM against platform spend','Monthly'],
+      ['Registrations and cost per registration','CRM','Per intake'],
+    ], [3200,3200,2960]),
+  ],
+});
+
+DOCS['cu1-wa4'] = M({
+  file: 'CU1-WA4-Implementation-Coordination.docx', ref: 'TVET/SOCMED/OPS',
+  title: 'SOCIAL MEDIA CAMPAIGN IMPLEMENTATION COORDINATION REPORT',
+  subtitle: 'Publishing, paid delivery and lead handling — April to September 2025',
+  date: 'March 2026', submitted: 'General Manager',
+  status: 'Report on work done', signoff: () => verifyShort('Jery Yew', 'General Manager'),
+  content: [
+    h1('1.  SCOPE'),
+    p('This report records the campaign as run: content published against the calendar, paid campaigns launched and managed on two platforms, and leads routed into the CRM for follow-up.'),
+
+    h1('2.  CHANNELS RUN'),
+    table(['Channel','Type','Period','Status'], [
+      ['TikTok','Organic content','April – September 2025','Delivered'],
+      ['Instagram','Organic content','April – September 2025','Delivered'],
+      ['Facebook','Organic content','April – September 2025','Delivered'],
+      ['Meta Ads','Paid advertising','April – September 2025  (6 months)','Delivered'],
+      ['TikTok Ads','Paid advertising','June – September 2025  (4 months)','Delivered'],
+    ], [1800,2200,3400,1960]),
+    p('Paid advertising began on Meta in April and was extended to TikTok in June, once the organic channel had established that the audience was present and responsive.', { before: 100 }),
+
+    h1('3.  PAID DELIVERY COORDINATED'),
+    img('lp9.png', 400, 566),
+    cap('Figure 1 — Meta Ads Manager, campaign period'),
+    img('lp10.png', 440, 168),
+    cap('Figure 2 — TikTok Ads Manager, June to September 2025'),
+
+    h1('4.  LEADS ROUTED TO THE CRM'),
+    p('Both platforms ran instant lead forms. A prospect completing the form is written directly into the TVET Lipis CRM, assigned to a counsellor and contacted on WhatsApp — the mobile process recorded separately under MOB/CU5/W04/2025. No lead was collected outside that route.'),
+    img('lp16.png', 440, 245),
+    cap('Figure 3 — CRM lead record'),
+    img('lp17.png', 440, 209),
+    cap('Figure 4 — CRM lead data by source'),
+
+    h1('5.  DELIVERED'),
+    table(['Measure','Result'], [
+      ['Impressions','2,370,268'],
+      ['Clicks','23,056'],
+      ['Leads captured','3,470'],
+      ['Students registered','76'],
+      ['Advertising spend','RM11,267.97'],
+    ], [3400,5960]),
+
+    h1('6.  COORDINATION CONTROLS'),
+    table(['What was controlled','How'], [
+      ['Content published to plan','Calendar with fixed formats and weekly minimum'],
+      ['Paid delivery within budget','Monthly reconciliation of platform spend against billing statements'],
+      ['No lead lost between platform and CRM','Instant lead forms writing directly to the CRM'],
+      ['Every lead owned','Counsellor assigned on the CRM record'],
+      ['Second platform added on evidence','TikTok Ads launched only after the organic audience was proven'],
+    ], [3400,5960]),
+  ],
+});
+
+DOCS['cu1-wa5'] = M({
+  file: 'CU1-WA5-Paid-Advertisement.docx', ref: 'TVET/SOCMED/OPS',
+  title: 'PAID ADVERTISEMENT PROPOSAL AND IMPLEMENTATION RECORD',
+  subtitle: 'Meta Ads and TikTok Ads — April to September 2025',
+  date: 'March 2026', submitted: 'General Manager',
+  status: 'Report on work done', signoff: () => verifyShort('Jery Yew', 'General Manager'),
+  content: [
+    h1('1.  BASIS OF THE PROPOSAL'),
+    p('Paid advertising was proposed against a single benchmark. The institution pays an agent RM500 for each student recruited, so RM500 is the most it can justify paying to acquire a student by any other means. Every budget decision in this campaign was measured against that figure.'),
+
+    h1('2.  ALLOCATION AND OBJECTIVE'),
+    table(['Parameter','Setting'], [
+      ['Campaign objective','Lead generation — instant form completion'],
+      ['Platforms','Meta Ads from April 2025; TikTok Ads added June 2025'],
+      ['Audience segments','Students 17 – 28; parents 40 – 60, targeted separately'],
+      ['Location','Pahang and surrounding states'],
+      ['Benchmark','Cost per registered student below RM500'],
+    ], [2400,6960]),
+
+    h1('3.  SPEND AS DELIVERED'),
+    table(['Platform','Spend','Share'], [
+      ['Meta Ads','RM8,936.21','79.3%'],
+      ['TikTok Ads','RM2,331.76','20.7%'],
+      ['Total','RM11,267.97','100%'],
+    ], [3000,3200,3160]),
+    img('lp12.png', 300, 424),
+    cap('Figure 1 — Platform billing statement'),
+
+    h1('4.  PERFORMANCE BY PLATFORM'),
+    table(['Metric','Meta Ads','TikTok Ads','Combined'], [
+      ['Click-through rate','0.88%','1.09%','0.97%'],
+      ['Cost per click','RM0.76','RM0.21','RM0.49'],
+      ['Leads','2,336','1,134','3,470'],
+      ['Cost per lead','RM3.83','RM2.06','RM3.25'],
+    ], [2600,2200,2200,2360]),
+    img('cu1_cpl.png', 430, 177),
+    cap('Figure 2 — Cost per lead by platform'),
+
+    h1('5.  AGAINST THE BENCHMARK'),
+    table(['Measure','Result','Benchmark'], [
+      ['Cost per lead','RM3.25','—'],
+      ['Students registered','76','—'],
+      ['Cost per registered student','RM154.36','RM500'],
+    ], [3200,3100,3060]),
+    p('The campaign acquired a student for RM154.36 against a referral alternative of RM500 — roughly a third of the cost. On that basis the paid budget was justified and was recommended for continuation.', { before: 100 }),
+  ],
+});
+
+DOCS['cu1-wa6'] = M({
+  file: 'CU1-WA6-Performance-Optimisation.docx', ref: 'TVET/SOCMED/OPS',
+  title: 'SOCIAL MEDIA CAMPAIGN PERFORMANCE OPTIMISATION REPORT',
+  subtitle: 'Monitoring, budget reallocation and outcome — April to September 2025',
+  date: 'March 2026', submitted: 'General Manager',
+  status: 'Report on work done', signoff: () => verifyShort('Jery Yew', 'General Manager'),
+  content: [
+    h1('1.  WHAT WAS MONITORED'),
+    table(['Metric','Source','Frequency'], [
+      ['Leads by platform and month','CRM','Monthly'],
+      ['Cost per lead by platform','Platform spend against CRM leads','Monthly'],
+      ['Click-through rate and cost per click','Meta and TikTok Ads Manager','Monthly'],
+      ['Cost per registered student','CRM against total spend','Per intake'],
+    ], [3200,3200,2960]),
+
+    h1('2.  FINDING — THE TWO PLATFORMS WERE NOT EQUALLY EFFICIENT'),
+    p('Monthly review showed TikTok Ads producing leads at RM2.06 against Meta at RM3.83 — a lead costing roughly half as much. TikTok also returned a higher click-through rate at 1.09% against 0.88%, and a cost per click of RM0.21 against RM0.76.'),
+    img('cu1_cpl.png', 430, 177),
+    cap('Figure 1 — Cost per lead by platform'),
+
+    h1('3.  ACTION — BUDGET REALLOCATED'),
+    p('Budget was progressively shifted from Meta to TikTok from July 2025. The reasoning was direct: every ringgit moved to TikTok bought more leads than the same ringgit on Meta, and both platforms fed the same CRM through the same instant lead form, so the reallocation carried no operational cost.'),
+    img('cu1_leads.png', 440, 160),
+    cap('Figure 2 — Leads by month and platform'),
+    table(['Month','Meta Ads','TikTok Ads','Total'], [
+      ['April 2025','345','—','345'],
+      ['May 2025','133','—','133'],
+      ['June 2025','778','5','783'],
+      ['July 2025','798','560','1,358'],
+      ['August 2025','226','315','541'],
+      ['September 2025','56','254','310'],
+      ['Total','2,336','1,134','3,470'],
+    ], [2400,2400,2400,2160]),
+    img('lp2.png', 440, 252),
+    cap('Figure 3 — Leads by month and platform, as recorded'),
+    p('July was the strongest month at 1,358 leads, with both platforms running together. From August the Meta share falls sharply as budget moves across, while TikTok holds the larger share of a smaller total as the intake cycle closes.', { before: 100 }),
+
+    h1('4.  OUTCOME'),
+    table(['Measure','Result'], [
+      ['Total leads','3,470'],
+      ['Blended cost per lead','RM3.25'],
+      ['Students registered','76'],
+      ['Cost per registered student','RM154.36'],
+      ['Benchmark','RM500 referral fee'],
+    ], [3400,5960]),
+    img('lp3.png', 400, 323),
+    cap('Figure 4 — Leads by programme'),
+
+    h1('5.  RECOMMENDATIONS CARRIED FORWARD'),
+    table(['Finding','Recommendation'], [
+      ['TikTok delivers leads at roughly half the Meta cost','Weight the paid budget toward TikTok from the start of the next cycle'],
+      ['Organic reach depends on a video performing exceptionally','Do not plan on virality; treat a 3.8 million view result as an outlier, not a target'],
+      ['Campaigns were structured by age segment, not by programme','Restructure so each programme carries its own budget and can be judged on its own cost per lead'],
+      ['Content answering an objection outperforms content describing a course','Keep the pillar structure; lead with the objection'],
+    ], [3400,5960]),
+  ],
+});
+
+const CU1_ORDER = ['cu1-wa1','cu1-wa2','cu1-wa3','cu1-wa4','cu1-wa5','cu1-wa6'];
+
+DOCS['cu1-full'] = {
+  file: 'CU1-Social-Media-Plan-and-Implementation.docx',
+  compiled: true, footer: 'TVET Lipis',
+  body: [
+    tvetEdgeBar, LETTERHEADS.tvet, RULES.tvet,
+    new Paragraph({ children: [new TextRun({ text: 'SOCIAL MEDIA MARKETING', font: F, size: 36, bold: true, color: NAVY })],
+      alignment: AlignmentType.CENTER, spacing: { before: 700, after: 40 } }),
+    new Paragraph({ children: [new TextRun({ text: 'PLAN AND IMPLEMENTATION', font: F, size: 36, bold: true, color: NAVY })],
+      alignment: AlignmentType.CENTER, spacing: { after: 120 } }),
+    new Paragraph({ children: [new TextRun({ text: 'TVET Lipis · April – September 2025', font: F, size: 24, color: '555555' })],
+      alignment: AlignmentType.CENTER, spacing: { after: 700 } }),
+    new Table({ width: { size: 7000, type: WidthType.DXA }, columnWidths: [2400, 4600], rows: [
+      new TableRow({ children: [cell('Competency Unit',{w:2400,bold:true,fill:'EDF1F7'}), cell('C01 — Implement social media marketing campaign plan',{w:4600})] }),
+      new TableRow({ children: [cell('Standard',{w:2400,bold:true,fill:'EDF1F7'}), cell('NOSS M731-001-4:2021, Level 4',{w:4600})] }),
+      new TableRow({ children: [cell('Work activities',{w:2400,bold:true,fill:'EDF1F7'}), cell('W01 – W06 (six)',{w:4600})] }),
+      new TableRow({ children: [cell('Prepared by',{w:2400,bold:true,fill:'EDF1F7'}), cell('Zuriel Seong Ming Ee, Marketing Manager',{w:4600})] }),
+      new TableRow({ children: [cell('Date',{w:2400,bold:true,fill:'EDF1F7'}), cell('March 2026',{w:4600})] }),
+    ]}),
+    pageBreak(),
+    h1('DOCUMENT REGISTER'),
+    table(['Part','WA','Document','Type'], [
+      ['1','W01','Social Media Channel Selection Report','Report'],
+      ['2','W02','Social Media Content Calendar Report','Report'],
+      ['3','W03','Social Media Campaign Plan','Report'],
+      ['4','W04','Campaign Implementation Coordination Report','Report'],
+      ['5','W05','Paid Advertisement Proposal and Implementation Record','Report'],
+      ['6','W06','Campaign Performance Optimisation Report','Report'],
+    ], [800,900,4700,2960]),
+    p('This volume summarises the work recorded in full in the project report Laporan Projek Diploma Kemahiran Malaysia — “Perancangan dan Pelaksanaan Kempen Pemasaran Media Sosial bagi Meningkatkan Pengambilan Pelajar Baharu di TVET Lipis”. Figures and appendices are drawn from that report.', { italics: true, color: '555555' }),
+    h1('SUMMARY'),
+    p('Between April and September 2025 a social media recruitment campaign was run for TVET Lipis across TikTok, Instagram and Facebook organically, with paid lead generation on Meta Ads from April and TikTok Ads from June. It delivered 2,370,268 impressions and 23,056 clicks, and captured 3,470 leads at RM3.25 each on a spend of RM11,267.97.'),
+    p('Seventy-six students registered, at RM154.36 per registration against the RM500 referral fee the institution pays an agent — roughly a third of the cost. Monthly review found TikTok producing leads at RM2.06 against Meta at RM3.83, and budget was moved across from July. The strongest single piece of content, a video answering “my results are not good enough to continue studying”, reached 3.8 million views on its own.'),
+    ...CU1_ORDER.flatMap(k => part(DOCS[k])),
+  ],
+};
+
+const CU2_ORDER = ['cu2-wa1','cu2-wa2','cu2-wa3','cu2-wa4'];
+
+DOCS['cu2-full'] = {
+  file: 'CU2-SEO-Plan-and-Implementation.docx',
+  compiled: true, footer: 'TVET Lipis',
+  body: [
+    tvetEdgeBar, LETTERHEADS.tvet, RULES.tvet,
+    new Paragraph({ children: [new TextRun({ text: 'SEO PLAN', font: F, size: 40, bold: true, color: NAVY })],
+      alignment: AlignmentType.CENTER, spacing: { before: 700, after: 40 } }),
+    new Paragraph({ children: [new TextRun({ text: 'AND IMPLEMENTATION', font: F, size: 40, bold: true, color: NAVY })],
+      alignment: AlignmentType.CENTER, spacing: { after: 120 } }),
+    new Paragraph({ children: [new TextRun({ text: 'TVET Lipis · tvetlipis.my · 2025 – 2026', font: F, size: 24, color: '555555' })],
+      alignment: AlignmentType.CENTER, spacing: { after: 700 } }),
+    new Table({ width: { size: 7000, type: WidthType.DXA }, columnWidths: [2400, 4600], rows: [
+      new TableRow({ children: [cell('Competency Unit',{w:2400,bold:true,fill:'EDF1F7'}), cell('C02 — Implement SEO plan',{w:4600})] }),
+      new TableRow({ children: [cell('Standard',{w:2400,bold:true,fill:'EDF1F7'}), cell('NOSS M731-001-4:2021, Level 4',{w:4600})] }),
+      new TableRow({ children: [cell('Work activities',{w:2400,bold:true,fill:'EDF1F7'}), cell('W01 – W04 (four)',{w:4600})] }),
+      new TableRow({ children: [cell('Prepared by',{w:2400,bold:true,fill:'EDF1F7'}), cell('Zuriel Seong Ming Ee, Marketing Manager',{w:4600})] }),
+      new TableRow({ children: [cell('Date',{w:2400,bold:true,fill:'EDF1F7'}), cell('March 2026',{w:4600})] }),
+    ]}),
+    pageBreak(),
+    h1('DOCUMENT REGISTER'),
+    table(['Part','WA','Document','Type'], [
+      ['1','W01','SEO Channel Performance Analysis','Report'],
+      ['2','W02','SEO Campaign Plan','Plan'],
+      ['3','W03','SEO Improvement Plan','Plan'],
+      ['4','W04','SEO Implementation Coordination Report','Report'],
+    ], [800,900,4700,2960]),
+    h1('SUMMARY'),
+    p('The site ranks well for what it has — average position 3.7 and a click-through rate of 7.4% across sixteen months, producing 1,050 clicks from 14,100 impressions. Every query producing that traffic is a brand name, and all 284 clicks in the most recent three months landed on a single page.'),
+    p('The cause is structural. Of three known pages one is indexed; a second redirects, which is normal; a third was crawled and declined. The site was built in Canva as a presentation-quality landing page rather than as a search asset, and where content is rendered as graphics a crawler finds little to index. A single general page cannot rank for a course it does not describe, so prospects searching for a diploma rather than for TVET Lipis by name never reach the site.'),
+    p('The Google Business Profile records 748 customer interactions and 463 views a month on three reviews, and is the faster of the two levers. The plan is to make the site readable, publish one page per subject searched for, and build review volume on the profile in parallel.'),
+    ...CU2_ORDER.flatMap(k => part(DOCS[k])),
+  ],
+};
+
+const CU5_ORDER = ['cu5-wa1','cu5-wa2','cu5-wa3','cu5-wa4','cu5-wa5','cu5-wa6'];
+
+DOCS['cu5-full'] = {
+  file: 'CU5-Mobile-Marketing-Plan-and-Implementation.docx',
+  compiled: true, footer: 'TVET Lipis',
+  body: [
+    tvetEdgeBar, LETTERHEADS.tvet, RULES.tvet,
+    new Paragraph({ children: [new TextRun({ text: 'MOBILE MARKETING PLAN', font: F, size: 40, bold: true, color: NAVY })],
+      alignment: AlignmentType.CENTER, spacing: { before: 700, after: 40 } }),
+    new Paragraph({ children: [new TextRun({ text: 'AND IMPLEMENTATION', font: F, size: 40, bold: true, color: NAVY })],
+      alignment: AlignmentType.CENTER, spacing: { after: 120 } }),
+    new Paragraph({ children: [new TextRun({ text: 'TVET Lipis · WhatsApp Business · 2025', font: F, size: 24, color: '555555' })],
+      alignment: AlignmentType.CENTER, spacing: { after: 700 } }),
+    new Table({ width: { size: 7000, type: WidthType.DXA }, columnWidths: [2400, 4600], rows: [
+      new TableRow({ children: [cell('Competency Unit',{w:2400,bold:true,fill:'EDF1F7'}), cell('C05 — Implement mobile marketing plan',{w:4600})] }),
+      new TableRow({ children: [cell('Standard',{w:2400,bold:true,fill:'EDF1F7'}), cell('NOSS M731-001-4:2021, Level 4',{w:4600})] }),
+      new TableRow({ children: [cell('Work activities',{w:2400,bold:true,fill:'EDF1F7'}), cell('W01 – W06 (six)',{w:4600})] }),
+      new TableRow({ children: [cell('Prepared by',{w:2400,bold:true,fill:'EDF1F7'}), cell('Zuriel Seong Ming Ee, Marketing Manager',{w:4600})] }),
+      new TableRow({ children: [cell('Date',{w:2400,bold:true,fill:'EDF1F7'}), cell('[ TARIKH ]',{w:4600})] }),
+    ]}),
+    pageBreak(),
+    h1('DOCUMENT REGISTER'),
+    table(['Part','WA','Document','Type'], [
+      ['1','W01','Mobile Marketing Channel Selection','Proposal'],
+      ['2','W02','Mobile Marketing Content Calendar','Plan'],
+      ['3','W03','Mobile Marketing Campaign Plan','Plan — pre-launch'],
+      ['4','W04','Mobile Campaign Implementation Coordination Report','Report'],
+      ['5','W05','Mobile Application Marketing Campaign Proposal','Proposal — not implemented'],
+      ['6','W06','Mobile Campaign Performance Optimisation Report','Report'],
+    ], [800,900,4700,2960]),
+    ...CU5_ORDER.flatMap(k => part(DOCS[k])),
+  ],
+};
+
+const buildBody = (d) => d.compiled ? d.body
+  : [...head(d), ...d.content, ...(d.signoff ? d.signoff() : [])];
+
+const key = process.argv[2];
+const out = process.argv[3];
+if (!DOCS[key]) { console.error('Unknown doc key. Available:', Object.keys(DOCS).join(', ')); process.exit(1); }
+
+const doc = new Document({
+  styles: { default: { document: { run: { font: F, size: 21 } } } },
+  sections: [{
+    properties: { page: { margin: { top: convertInchesToTwip(0.7), bottom: convertInchesToTwip(0.75), left: convertInchesToTwip(0.85), right: convertInchesToTwip(0.85) } } },
+    footers: { default: new Footer({ children: [new Paragraph({ alignment: AlignmentType.CENTER,
+      children: [new TextRun({ text: `${DOCS[key].footer || 'Superbowl Lipis'} · Page `, font: F, size: 15, color: '999999' }),
+                 new TextRun({ children: [PageNumber.CURRENT], font: F, size: 15, color: '999999' })] })] }) },
+    children: buildBody(DOCS[key]),
+  }],
+});
+Packer.toBuffer(doc).then(b => { fs.writeFileSync(out || DOCS[key].file, b); console.log('Done:', out || DOCS[key].file); });
