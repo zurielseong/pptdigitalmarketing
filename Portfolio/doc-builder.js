@@ -150,6 +150,20 @@ const verification = () => ([
   p('______________________________________________________________________________', { after: 120 }),
 ]);
 
+const verifyShort = (verifier, position) => ([
+  h1('VERIFICATION'),
+  p('This report is submitted as a record of work completed. Verification below confirms that the work described was carried out as reported and that the supporting evidence is a true record.'),
+  table(['','Prepared By','Verified By'], [
+    ['Name','Zuriel Seong Ming Ee', verifier], ['Position','Marketing Manager', position],
+    ['Signature','',''], ['Date','',''],
+  ], [1600,3880,3880]),
+  p(''),
+  p('Verification:      \u2610  Verified as implemented            \u2610  Verified with comments            \u2610  Further evidence required', { bold: true, after: 140 }),
+  p('Comments:', { bold: true, after: 100 }),
+  p('______________________________________________________________________________', { after: 120 }),
+  p('______________________________________________________________________________', { after: 120 }),
+]);
+
 const approval = () => ([
   h1('APPROVAL'),
   table(['','Prepared By','Reviewed By','Approved By'], [
@@ -1057,11 +1071,11 @@ DOCS['cu6-wa4'] = M({
 
 // ═════════════════════════════ CU2 — SEO ═════════════════════════════════════
 DOCS['cu2-wa1'] = M({
-  file: 'CU2-WA1-SEO-Channel-Analysis.docx', ref: 'SEO/CU2/W01/2026',
+  file: 'CU2-WA1-SEO-Channel-Analysis.docx', ref: 'TVET/SEO/OPS',
   title: 'SEO CHANNEL PERFORMANCE ANALYSIS',
   subtitle: 'Organic search performance of tvetlipis.my — Google Search Console',
-  date: '[ TARIKH ]', submitted: 'General Manager',
-  status: 'Report on work done', signoff: verification,
+  date: 'March 2026', submitted: 'General Manager',
+  status: 'Report on work done', signoff: () => verifyShort('Jery Yew', 'General Manager'),
   content: [
     h1('1.  SCOPE'),
     p('This report analyses the organic search performance of tvetlipis.my using Google Search Console. It covers a sixteen-month window from 22 September 2025, with a three-month window used for current query and page detail.'),
@@ -1073,16 +1087,26 @@ DOCS['cu2-wa1'] = M({
       ['Average click-through rate','7.4%','—'],
       ['Average position','3.7','—'],
     ], [3200,3100,3060]),
-    shot('[ TAMPAL DI SINI: Search Console → Performance, julat 16 bulan, menunjukkan Total clicks, Total impressions, Average CTR dan Average position ]'),
+    img('gsc_perf.png', 440, 284),
     cap('Figure 1 — Search Console Performance, 16 months'),
     p('Read on their own these are good numbers. An average position of 3.7 means the site typically appears near the top of the first page, and a click-through rate of 7.4% is healthy. The site is not failing to rank.', { before: 100 }),
+
+    sub('2.1   Where the channel started'),
+    p('When the property was first verified, Search Console recorded 24 clicks and 509 impressions in the opening 28 days, against a previous period of zero. That is the baseline the figures above are measured from, and it establishes the point at which the search channel began.'),
+    img('seo_baseline.png', 440, 213),
+    cap('Figure 2 — Search Console Insights at launch: 24 clicks, 509 impressions, previously zero'),
+    table(['Measure','At launch (28 days)','Now (16 months)'], [
+      ['Clicks','24','1,050'],
+      ['Impressions','509','14,100'],
+      ['Pages carrying the traffic','1','1'],
+    ], [3200,3100,3060]),
 
     h1('3.  WHAT THE QUERIES SHOW'),
     p('The queries producing that traffic tell a different story. Every one of them is a brand name — the institution, its former name, or its town.'),
     img('cu2_queries.png', 440, 162),
-    cap('Figure 2 — Queries leading to the site, last three months'),
-    shot('[ TAMPAL DI SINI: Search Console → Insights → Queries, menunjukkan lima pertanyaan teratas dan bilangan klik ]'),
-    cap('Figure 3 — Queries report as recorded'),
+    cap('Figure 3 — Queries leading to the site, last three months'),
+    img('gsc_queries.png', 440, 330),
+    cap('Figure 4 — Queries report as recorded'),
     table(['Query','Clicks','Change','Type'], [
       ['tvet lipis','107','up 6%','Brand'],
       ['tvet kuala lipis','24','up 500%','Brand + location'],
@@ -1101,10 +1125,10 @@ DOCS['cu2-wa1'] = M({
     ], [1500,900,2600,4360]),
     p('The distinction matters. Only one page is genuinely failing. “Crawled – currently not indexed” means Google reached the page and judged it not worth adding — usually because it carries too little readable content to be worth serving.', { before: 100 }),
     p('This is consistent with how the site is built. It was produced in Canva as a presentation-quality landing page rather than as a search asset, and where headings and body copy are rendered as part of the design rather than as selectable text, a crawler finds a page with almost nothing on it to read.'),
-    shot('[ TAMPAL DI SINI: Search Console → Pages → Page indexing, menunjukkan Indexed 1 dan Not indexed 2 ]'),
-    cap('Figure 4 — Page indexing status'),
-    shot('[ TAMPAL DI SINI: Search Console → “Why pages aren’t indexed”, menunjukkan sebab “Page with redirect” dan “Crawled – currently not indexed” ]'),
-    cap('Figure 5 — Reasons given for pages not indexed'),
+    img('gsc_index.png', 440, 312),
+    cap('Figure 5 — Page indexing status'),
+    img('gsc_reasons.png', 440, 322),
+    cap('Figure 6 — Reasons given for pages not indexed'),
     fill('[ SAHKAN: buka tvetlipis.my dan cuba sorot teks dengan kursor. Jika teks tidak boleh disorot, ia adalah grafik dan bukan teks yang boleh diindeks ]'),
 
     h1('5.  GOOGLE BUSINESS PROFILE'),
@@ -1118,28 +1142,31 @@ DOCS['cu2-wa1'] = M({
       ['Profile completeness','Incomplete — Google prompts for further information'],
     ], [2400,6960]),
     p('At 463 views a month the profile is seen more often than the website converts, and it does that on three reviews. Review volume, not the website, is the binding constraint on local search performance.', { before: 100 }),
-    shot('[ TAMPAL DI SINI: Google Business Profile — paparan pengurusan menunjukkan nama profil, kategori, interaksi pelanggan, penilaian dan bilangan ulasan ]'),
-    cap('Figure 6 — Google Business Profile as managed'),
+    img('gbp.png', 440, 300),
+    cap('Figure 7 — Google Business Profile as managed'),
 
     h1('6.  CONCLUSION'),
     p('The constraint is not ranking ability. The site ranks at position 3.7 for what it has. The constraint is that there is almost nothing to rank — one indexed page, built as a brochure rather than as a set of answers, addressing only people who already know the institution by name.'),
-    p('The growth in “tvet kuala lipis” of 500% indicates that local, location-qualified search is rising. That demand is currently met by one general page and a profile with three reviews. Addressing it is the subject of SEO/CU2/W02/2026 and SEO/CU2/W03/2026.'),
+    p('The growth in “tvet kuala lipis” of 500% indicates that local, location-qualified search is rising. That demand is currently met by one general page and a profile with three reviews. Addressing it is the subject of TVET/SEO/OPS and TVET/SEO/OPS.'),
 
   ],
 });
 
 DOCS['cu2-wa2'] = M({
-  file: 'CU2-WA2-SEO-Campaign-Plan.docx', ref: 'SEO/CU2/W02/2026',
+  file: 'CU2-WA2-SEO-Campaign-Plan.docx', ref: 'TVET/SEO/OPS',
   title: 'SEO CAMPAIGN PLAN',
   subtitle: 'Target queries, page structure and measurement — tvetlipis.my',
-  date: '[ TARIKH ]', submitted: 'General Manager',
-  status: 'For approval', signoff: approval,
+  date: 'March 2026', submitted: 'General Manager',
+  status: 'Report on work done', signoff: () => verifyShort('Jery Yew', 'General Manager'),
   content: [
     h1('1.  OBJECTIVE'),
     p('To win search traffic from prospects who do not yet know TVET Lipis by name — people searching for a course, a qualification or skills training in Pahang — while holding the brand positions the site already occupies.'),
 
     h1('2.  TARGET QUERIES'),
-    p('Two groups. Brand queries are already held and need defending. Non-brand queries are the growth, and none is currently served.'),
+    p('Queries were checked in a keyword research tool before being adopted, so that the plan targets terms that are actually searched rather than terms the institution would like to be found for. The brand term “tvet lipis” returns an SEO difficulty of 17 out of 100 and a paid difficulty of 1, with all its volume in Malaysia — easy to hold, but small.'),
+    img('seo_ubersuggest.png', 440, 147),
+    cap('Figure 1 — Keyword research: difficulty and location breakdown'),
+    p('Two groups follow. Brand queries are already held and need defending. Non-brand queries are the growth, and none is currently served.'),
     table(['Group','Example queries','Status'], [
       ['Brand','tvet lipis · tvet kuala lipis · kolej islam antarabangsa kuala lipis','Held — position 3.7'],
       ['Course','diploma pendidikan awal kanak-kanak · kursus multimedia · sijil pengurusan halal','Not served'],
@@ -1150,7 +1177,7 @@ DOCS['cu2-wa2'] = M({
     h1('3.  PAGE STRUCTURE'),
     p('A page can only rank for what it is about. One general page cannot answer four different searches, so the plan is one page per subject a prospect actually searches for.'),
     img('cu2_structure.png', 460, 198),
-    cap('Figure 1 — Current site against the proposed structure'),
+    cap('Figure 2 — Current site against the proposed structure'),
     table(['Page','Query it is built to answer'], [
       ['Home','Brand searches — tvet lipis'],
       ['Diploma Pendidikan Awal Kanak-Kanak','Course name and career pathway'],
@@ -1174,11 +1201,11 @@ DOCS['cu2-wa2'] = M({
 });
 
 DOCS['cu2-wa3'] = M({
-  file: 'CU2-WA3-SEO-Improvement-Plan.docx', ref: 'SEO/CU2/W03/2026',
+  file: 'CU2-WA3-SEO-Improvement-Plan.docx', ref: 'TVET/SEO/OPS',
   title: 'SEO IMPROVEMENT PLAN',
   subtitle: 'Issues identified and corrective actions — tvetlipis.my',
-  date: '[ TARIKH ]', submitted: 'General Manager',
-  status: 'For approval', signoff: approval,
+  date: 'March 2026', submitted: 'General Manager',
+  status: 'Report on work done', signoff: () => verifyShort('Jery Yew', 'General Manager'),
   content: [
     h1('1.  ISSUES IDENTIFIED'),
     table(['#','Issue','Evidence','Effect'], [
@@ -1200,7 +1227,7 @@ DOCS['cu2-wa3'] = M({
       ['2','Republish page content as real text rather than as part of the design','Marketing Manager'],
       ['1','Re-inspect the URL, request indexing, then run Validation — currently “Not Started” on both reasons','Marketing Manager'],
       ['1','Submit a sitemap so pages are discovered without manual request','Marketing Manager'],
-      ['3','Publish one page per programme, per Section 3 of SEO/CU2/W02/2026','Marketing team'],
+      ['3','Publish one page per programme, per Section 3 of TVET/SEO/OPS','Marketing team'],
       ['4','Write titles and descriptions around the course name, not the institution name','Marketing Manager'],
       ['5','Retain a page naming the former institution so that traffic is captured rather than lost','Marketing Manager'],
       ['6','Request reviews from graduating students; complete the profile fields Google prompts for','Marketing team'],
@@ -1208,6 +1235,10 @@ DOCS['cu2-wa3'] = M({
     ], [600,6000,2760]),
 
     h1('4.  PLATFORM CONSTRAINT'),
+    p('The site presents a full navigation menu — Utama, Kolej, Program, Fasiliti, PTPK, Yuran, Kelab, Borang and Hubungi Kami — which reads to a visitor as nine sections of content. Search Console knows three URLs. The menu items are positions within a single page rather than separate pages, so nine subjects compete for one address and none of them can rank on its own.'),
+    img('seo_site.png', 440, 213),
+    cap('Figure 1 — tvetlipis.my: nine navigation items, one indexed page'),
+    p('The page also carries its headline content as part of the design rather than as text, which is consistent with Google crawling the site and declining to index it.'),
     p('The website was built in Canva and is served through Cloudflare. It was produced as a presentation-quality landing page to establish credibility, not as a search asset, and that decision was appropriate to its purpose at the time — the recruitment funnel runs through paid social and WhatsApp, not through the website.'),
     p('The consequence is that the site cannot carry the structure Section 3 requires: a page for each programme, each with its own editable title and description, and content in readable text. Where the platform cannot support that, the constraint is the platform rather than the content, and replacement should be assessed rather than further optimisation attempted.'),
 
@@ -1235,11 +1266,11 @@ DOCS['cu2-wa3'] = M({
 });
 
 DOCS['cu2-wa4'] = M({
-  file: 'CU2-WA4-SEO-Implementation-Coordination.docx', ref: 'SEO/CU2/W04/2026',
+  file: 'CU2-WA4-SEO-Implementation-Coordination.docx', ref: 'TVET/SEO/OPS',
   title: 'SEO IMPLEMENTATION COORDINATION REPORT',
   subtitle: 'Actions carried out and verification — tvetlipis.my',
-  date: '[ TARIKH ]', submitted: 'General Manager',
-  status: 'Report on work done', signoff: verification,
+  date: 'March 2026', submitted: 'General Manager',
+  status: 'Report on work done', signoff: () => verifyShort('Jery Yew', 'General Manager'),
   content: [
     h1('1.  SCOPE'),
     p('This report records the implementation of the SEO improvement plan: what was changed on the site, how each change was verified, and what the search data showed afterwards.'),
@@ -1253,6 +1284,13 @@ DOCS['cu2-wa4'] = M({
     ], [2400,3000,3960]),
     shot('[ TAMPAL DI SINI: Cloudflare — ringkasan trafik dan Core Web Vitals bagi tvetlipis.my ]'),
     cap('Figure 1 — Delivery and performance layer'),
+
+    h1('2.1  LINKS INTO THE SITE'),
+    p('Traffic and link equity reach the site from the channels the institution already runs. A Linktree profile carries the website link from every social bio, and email campaigns carry it as a button.'),
+    img('seo_linktree.png', 195, 290),
+    cap('Figure 2 — Linktree profile linking to the website from social bios'),
+    img('seo_email.png', 440, 229),
+    cap('Figure 3 — Email campaign carrying a “Website TVET Lipis” link'),
 
     h1('3.  ACTIONS CARRIED OUT'),
     table(['Action','Date','Verification'], [
@@ -1305,7 +1343,7 @@ DOCS['cu2-full'] = {
       new TableRow({ children: [cell('Standard',{w:2400,bold:true,fill:'EDF1F7'}), cell('NOSS M731-001-4:2021, Level 4',{w:4600})] }),
       new TableRow({ children: [cell('Work activities',{w:2400,bold:true,fill:'EDF1F7'}), cell('W01 – W04 (four)',{w:4600})] }),
       new TableRow({ children: [cell('Prepared by',{w:2400,bold:true,fill:'EDF1F7'}), cell('Zuriel Seong Ming Ee, Marketing Manager',{w:4600})] }),
-      new TableRow({ children: [cell('Date',{w:2400,bold:true,fill:'EDF1F7'}), cell('[ TARIKH ]',{w:4600})] }),
+      new TableRow({ children: [cell('Date',{w:2400,bold:true,fill:'EDF1F7'}), cell('March 2026',{w:4600})] }),
     ]}),
     pageBreak(),
     h1('DOCUMENT REGISTER'),
