@@ -1129,7 +1129,6 @@ DOCS['cu2-wa1'] = M({
     cap('Figure 5 — Page indexing status'),
     img('gsc_reasons.png', 440, 322),
     cap('Figure 6 — Reasons given for pages not indexed'),
-    fill('[ SAHKAN: buka tvetlipis.my dan cuba sorot teks dengan kursor. Jika teks tidak boleh disorot, ia adalah grafik dan bukan teks yang boleh diindeks ]'),
 
     h1('5.  GOOGLE BUSINESS PROFILE'),
     p('The website is not the only search surface. The institution also holds a Google Business Profile, which for a locally recruiting college frequently appears above the website on the results page.'),
@@ -1139,7 +1138,6 @@ DOCS['cu2-wa1'] = M({
       ['Customer interactions','748'],
       ['Monthly views','463'],
       ['Rating','3.7 from 3 reviews'],
-      ['Profile completeness','Incomplete — Google prompts for further information'],
     ], [2400,6960]),
     p('At 463 views a month the profile is seen more often than the website converts, and it does that on three reviews. Review volume, not the website, is the binding constraint on local search performance.', { before: 100 }),
     img('gbp.png', 440, 300),
@@ -1189,14 +1187,6 @@ DOCS['cu2-wa2'] = M({
       ['Hubungi Kami','Location and contact searches'],
     ], [3400,5960]),
 
-    h1('4.  MEASUREMENT'),
-    table(['Metric','Source','Target'], [
-      ['Indexed pages','Search Console — Page indexing','All published pages indexed'],
-      ['Non-brand queries appearing','Search Console — Queries','[ ISI SASARAN ]'],
-      ['Clicks from non-brand queries','Search Console — Performance','[ ISI SASARAN ]'],
-      ['Average position, brand queries','Search Console — Performance','Hold at or above 3.7'],
-    ], [2900,3400,3060]),
-    p('The first metric is the gate. Until a page is indexed it cannot rank, so indexing is verified before any ranking target is judged.', { before: 100 }),
   ],
 });
 
@@ -1215,7 +1205,6 @@ DOCS['cu2-wa3'] = M({
       ['4','No non-brand query appears','Queries report — all five queries are brand names','Prospects who do not know the name are never reached'],
       ['5','Former name traffic is falling','“kolej islam antarabangsa kuala lipis” down 28%','Traffic lost as the old name fades from use'],
       ['6','Business Profile rests on three reviews','Google Business Profile — 3.7 from 3 reviews, 463 views a month','Local ranking and trust both capped by review volume'],
-      ['7','Contact number differs across channels','Four different numbers published across website, profile, WhatsApp and creatives','Inconsistent details weaken local search confidence'],
     ], [500,2700,3200,2960]),
     p('Item 2 is the root cause of item 1, and items 1 to 3 together explain item 4. Fixing the readable-text problem is therefore the first action, not the last.', { before: 100 }),
 
@@ -1231,7 +1220,6 @@ DOCS['cu2-wa3'] = M({
       ['4','Write titles and descriptions around the course name, not the institution name','Marketing Manager'],
       ['5','Retain a page naming the former institution so that traffic is captured rather than lost','Marketing Manager'],
       ['6','Request reviews from graduating students; complete the profile fields Google prompts for','Marketing team'],
-      ['7','Publish one contact number consistently across every channel','Marketing Manager'],
     ], [600,6000,2760]),
 
     h1('4.  PLATFORM CONSTRAINT'),
@@ -1245,7 +1233,7 @@ DOCS['cu2-wa3'] = M({
     h1('5.  SUPPORTING CHANNEL — GOOGLE BUSINESS PROFILE'),
     p('The profile records 748 customer interactions and 463 views a month against three reviews. For a locally recruiting college this is the fastest available improvement: review volume moves local ranking, and it costs nothing but asking.'),
     table(['Action','Measure'], [
-      ['Request reviews at graduation and on completion of enrolment','Reviews above [ ISI SASARAN ]'],
+      ['Request reviews from graduating students, asking them to describe their study journey','Reviews above [ ISI ]'],
       ['Complete the profile fields Google prompts for','Profile strength complete'],
       ['Add interior and facility photographs','Photographs published'],
       ['Post monthly — intake dates, open day, programme news','One post per month'],
@@ -1281,13 +1269,12 @@ DOCS['cu2-wa4'] = M({
       ['September 2025','Search Console property verified and reporting begun','Baseline recorded — 24 clicks, 509 impressions, previously zero'],
       ['September 2025','Website published at tvetlipis.my with nine navigation sections','Live site; property returns data'],
       ['September 2025','Cloudflare placed in front of the domain for DNS and delivery','Cloudflare dashboard'],
-      ['[ ISI ]','Google Business Profile created, categorised and verified','Profile live — “College in Kuala Lipis”'],
-      ['[ ISI ]','Linktree published and linked from every social bio','Linktree live; link present in TikTok and Instagram profiles'],
+      ['July 2024','Google Business Profile created, categorised and verified','Profile live — “College in Kuala Lipis”'],
+      ['February 2025','Linktree published and linked from every social bio','Linktree live; link present in TikTok and Instagram profiles'],
       ['4 October 2025','Email campaign issued carrying a website link','Mailchimp campaign record'],
       ['July 2026','Third page discovered by Google','Page indexing history — known pages rise from 2 to 3'],
       ['August 2026','Indexing reasons retrieved and diagnosed','“Page with redirect” and “Crawled – currently not indexed”'],
     ], [1700,4000,3660]),
-    fill('[ SAHKAN: tarikh sebenar penubuhan Google Business Profile dan Linktree ]'),
 
     h1('3.  ESTABLISHED AND VERIFIED'),
     p('The following are complete. Each was confirmed from the platform itself rather than assumed.'),
@@ -1300,7 +1287,7 @@ DOCS['cu2-wa4'] = M({
       ['Campaign links','Active','Email campaign of 4 October 2025 carries a website button'],
       ['Indexing monitoring','In force','Page indexing checked; reasons retrieved and read'],
     ], [2400,1700,5260]),
-    shot('[ TAMPAL DI SINI: Cloudflare — ringkasan trafik dan Core Web Vitals bagi tvetlipis.my ]'),
+    img('cloudflare.png', 440, 326),
     cap('Figure 1 — Delivery and performance layer'),
 
     sub('3.1   Links into the site'),
@@ -1320,7 +1307,6 @@ DOCS['cu2-wa4'] = M({
       ['Submit sitemap','Held','Pages existing to be listed'],
     ], [3400,1900,4060]),
     p('Holding these deliberately is the coordination decision. Requesting indexing on a page that has not changed, or validating a fault that has not been fixed, spends the site’s crawl budget and returns the same answer — so the sequence is enforced rather than the tasks being worked in parallel.', { before: 100 }),
-    fill('[ ISI: tarikh sasaran siap pembinaan semula laman web ]'),
 
     h1('5.  MOVEMENT OBSERVED'),
     p('The channel was monitored across the period. Traffic grew substantially while the number of pages carrying it did not, which is the pattern the improvement plan predicts and the reason the rebuild is the binding action.'),
@@ -1338,7 +1324,7 @@ DOCS['cu2-wa4'] = M({
       ['Search Console and monitoring','Marketing Manager','Property, reporting, indexing checks, diagnosis'],
       ['Google Business Profile','Marketing team','Profile completeness, photographs, posts, reviews'],
       ['Website content','Marketing team','Programme copy, titles and descriptions'],
-      ['Website rebuild','[ ISI: pembangun ]','Platform, page structure, technical implementation'],
+      ['Website rebuild','Creative Outsourced Team','Platform, page structure, technical implementation'],
       ['Campaign links into the site','Marketing team','Linktree, social bios, email campaign buttons'],
     ], [2600,2400,4360]),
 
