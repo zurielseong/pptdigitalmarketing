@@ -1367,13 +1367,14 @@ DOCS['cu3-wa1'] = M({
     ], [2600,6760]),
 
     h1('3.  OBJECTIVES AND TARGETS'),
-    table(['Objective','Measure','Target'], [
-      ['Appear for course searches','Impressions','[ ISI SASARAN ]'],
-      ['Draw qualified visits','Clicks and click-through rate','[ ISI SASARAN ]'],
-      ['Generate local enquiry','Local actions — directions, calls','[ ISI SASARAN ]'],
-      ['Control cost','Cost per click','[ ISI SASARAN ]'],
-    ], [2900,3300,3160]),
-    fill('[ ISI: sasaran yang ditetapkan sebelum kempen dilancarkan; jika tiada sasaran formal ditetapkan, nyatakan demikian ]'),
+    table(['#','Objective','Measure','Target set'], [
+      ['1','Hold the top of the paid results for category searches','Ad position on “tvet”, “tvet pahang”, “tvet kuala lipis”','Appear above the organic results for the category'],
+      ['2','Appear for programme searches, not only the institution name','Impressions on programme terms','Ads shown for early childhood, pre-school and digital marketing searches'],
+      ['3','Bring prospects to register for a diploma','Enquiries and registrations traced to the campaign','A registration at a cost below the RM500 referral fee paid to agents'],
+      ['4','Keep a visit affordable','Cost per click','Low enough for the budget to sustain a full intake cycle'],
+    ], [500,3100,2900,2860]),
+    p('Objective 3 is the one that matters. Objectives 1 and 2 are visibility, and visibility is only worth buying if it produces a signed enrolment. The RM500 referral fee — what the institution pays an agent for a recruited student — is the benchmark any recruitment channel is judged against.', { before: 100 }),
+    p('Numeric targets for impressions and clicks were not set before launch. This was the institution’s first paid search campaign and no baseline existed to set them from; the run was intended to establish what a click and a visit cost. Whether the targets were met is assessed in TVET/SEM/OPS W03.'),
 
     h1('4.  TARGETING AND MESSAGE'),
     table(['Parameter','Setting'], [
@@ -1489,9 +1490,11 @@ DOCS['cu3-wa3'] = M({
     img('sem_perf.png', 420, 315),
     cap('Figure 1 — Campaign performance, all time'),
 
-    h1('3.  BUT NOTHING COULD BE ATTRIBUTED'),
-    p('What the campaign could not show was any enquiry or enrolment resulting from it. Conversion tracking had not been configured — the conversions column reads “Get Started” — so activity after the click was never recorded. And the clicks were sent to https://tvetlipis.my/, a single page with no enquiry form and no programme detail, so a visitor arriving from the advertisement had no defined next step to take.'),
-    p('The result is that RM150.06 bought 217 visits and no measurable outcome. Cost per enquiry could not be calculated, and the campaign could not be compared against the RM500 referral fee the institution pays an agent for a recruited student — the benchmark used elsewhere in the recruitment budget.'),
+    h1('3.  WHAT COULD NOT BE MEASURED'),
+    p('Against the objectives set in the campaign plan, objectives 1, 2 and 4 were met. The advertisement appeared for category and programme searches and delivered 7,267 impressions, and a visit cost RM0.69. Objective 3 — bringing a prospect to register — could not be assessed at all.'),
+    p('The reason is visible in the campaign summary. Where a figure for conversions should appear, Google Ads displays a “Get Started” button instead. That button is an invitation to set conversion tracking up; it means no conversion action was ever created, so Google was never told what a successful outcome looks like and recorded nothing after the click.'),
+    p('The second half of the problem is where the clicks landed. All 217 went to https://tvetlipis.my/, a single page with no enquiry form and no programme detail, so even with tracking in place there would have been no completed action to record. A visitor arriving from an advertisement for a diploma had no defined next step to take.'),
+    p('The campaign therefore did not fail. Its measurement did. RM150.06 bought 217 visits whose outcome is unknown, and cost per registration could not be calculated or compared against the RM500 referral benchmark.'),
 
     h1('4.  COMPARED AGAINST THE OTHER CHANNELS'),
     p('The campaign ran between May and July 2025, inside the April to September social media campaign. The two therefore compete for the same budget over the same recruitment cycle, and can be compared directly.'),
@@ -1528,16 +1531,22 @@ DOCS['cu3-wa3'] = M({
     table(['Condition','Why it must come first'], [
       ['Website rebuilt with a page for each programme','An advertisement for a diploma must land on a page describing that diploma'],
       ['Enquiry form on the site, feeding the CRM','Without a capture point there is nothing for a click to become'],
-      ['Conversion tracking configured','Cost per enquiry cannot be calculated until conversions are recorded'],
+      ['Conversion tracking configured','Cost per registration cannot be calculated until conversions are recorded'],
       ['Standard Search campaign instead of Smart','Gives keyword control and excludes the partner network'],
     ], [3400,5960]),
-    p('Until then the budget stays where it is measurable. The decision is reviewed when the website rebuild is complete.', { before: 100 }),
 
-    h1('8.  SUPPORTING RECORD'),
-    p('One optional capture would strengthen the file by dating the decision inside the platform itself.'),
-    shot('[ TAMPAL DI SINI (pilihan): Google Ads → Tools → Change history, menunjukkan tarikh kempen dijeda pada Julai 2025 ]'),
-    cap('Figure 5 — Change history recording the pause'),
-    p('The pause is already evidenced by the billing summary showing nil spend from August 2025 and by the performance chart returning to zero after 28 July. The change history simply names the date and the person who made the change.', { before: 100 }),
+    sub('7.1   How the tracking gap is closed'),
+    p('Conversion tracking is what turns a click into a countable outcome. The steps below are in dependency order — the first cannot be done on the current website, which is why the rebuild heads the list above.'),
+    table(['Step','Action','Depends on'], [
+      ['1','Decide what counts as a conversion — enquiry form submitted, WhatsApp button clicked, phone call placed','Nothing'],
+      ['2','Create the conversion action in Google Ads under Goals → Conversions','Step 1'],
+      ['3','Install the Google tag on the website','A platform that permits custom code — not available on the current site'],
+      ['4','Place the tag on the thank-you page or the form-submit event','Enquiry form existing'],
+      ['5','Submit a test enquiry and confirm it registers as a conversion','Steps 3 and 4'],
+      ['6','Import the conversion into the campaign and report cost per registration','Step 5'],
+    ], [600,5400,3360]),
+    p('Two conversion types need no website code and can be enabled sooner: call conversions, which record a call placed from the advertisement, and Google Business Profile actions, which record directions and calls from the profile. The campaign already recorded 4 call clicks and 41 direction views without any tag, so partial measurement is available immediately — it simply cannot capture a registration, which happens on the website.', { before: 100 }),
+    p('Until the website can carry a form and a tag, the budget stays where outcomes are measurable. The decision is reviewed when the rebuild is complete.', { before: 100 }),
   ],
 });
 
