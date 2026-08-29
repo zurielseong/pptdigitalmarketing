@@ -22,7 +22,7 @@ doc = open('ok/xJPK15/word/document.xml', encoding='utf8').read()
 t = tables(doc)[0]
 vals = [ID_PPT, NAMA, KP, KOD, TAJUK]
 rs = rows(t)
-new = [set_row(rs[i], [None, vals[i]], bold={1: True}) for i in range(5)]
+new = [set_row(rs[i], [None, vals[i]], bold={}) for i in range(5)]
 doc = replace_table(doc, 0, rebuild(t, new))
 
 # (B) Senarai bukti — clone the blank row out to 37
@@ -42,7 +42,7 @@ for cu in CUS:
         [cu['nama'], '', f"{KOD} - {cu['kod']}"],
         ['•  ' + r for r in cu['ring']],
         cu['tempoh'].split('\n'),
-    ], bold={0: True}))
+    ], bold={}))
 doc = replace_table(doc, 2, rebuild(t, [rs[0]] + body))
 
 # (D) Jadual Perbandingan 2
@@ -59,7 +59,7 @@ for i, cu in enumerate(CUS):
         [f"W0{j+1}  {w}" for j, w in enumerate(cu['was'])],
         codes,
         '',
-    ], bold={1: True}))
+    ], bold={}))
 doc = replace_table(doc, 4, rebuild(t, head + body))
 
 repack('ok/JPK15.docx', doc, 'JPK-PPT-1-5_DKM_ZurielSeong.docx')
@@ -71,17 +71,17 @@ doc = open('ok/xJPK35/word/document.xml', encoding='utf8').read()
 # (A) Maklumat calon
 t = tables(doc)[0]
 rs = rows(t)
-new = [set_row(rs[0], [None, ID_PPT], bold={1: True}),
-       set_row(rs[1], [None, NAMA], bold={1: True}),
-       set_row(rs[2], [None, KP], bold={1: True}),
-       set_row(rs[3], [None, ALAMAT], bold={1: True}),
-       set_row(rs[4], [None, None, None, TELBIMBIT], bold={3: True})]
+new = [set_row(rs[0], [None, ID_PPT], bold={}),
+       set_row(rs[1], [None, NAMA], bold={}),
+       set_row(rs[2], [None, KP], bold={}),
+       set_row(rs[3], [None, ALAMAT], bold={}),
+       set_row(rs[4], [None, None, None, TELBIMBIT], bold={})]
 doc = replace_table(doc, 0, rebuild(t, new + rs[5:]))
 
 # (B) Maklumat permohonan
 t = tables(doc)[1]
 rs = rows(t)
-doc = replace_table(doc, 1, rebuild(t, [rs[0], set_row(rs[1], [KOD, TAJUK, 'TAHAP 4 (DKM)'], bold={0: True, 1: True, 2: True})]))
+doc = replace_table(doc, 1, rebuild(t, [rs[0], set_row(rs[1], [KOD, TAJUK, 'TAHAP 4 (DKM)'], bold={})]))
 
 # C1 core competency list — 6 blank rows, need 7
 t = tables(doc)[2]

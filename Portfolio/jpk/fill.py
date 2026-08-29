@@ -33,23 +33,29 @@ def tables(doc):
 def ctext(c):
     return html.unescape(re.sub(r'<[^>]+>', '', ''.join(re.findall(r'<w:t[^>]*>.*?</w:t>', c, re.S)))).strip()
 
-RPR = ('<w:rPr><w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>'
-       '{b}<w:sz w:val="{sz}"/><w:szCs w:val="{sz}"/></w:rPr>')
+DEFAULT_RPR = ('<w:rPr><w:rFonts w:ascii="Arial" w:hAnsi="Arial" w:cs="Arial"/>'
+               '<w:sz w:val="20"/><w:szCs w:val="20"/></w:rPr>')
 
-def para(text, bold=False, sz=16, ppr=''):
-    r = ('<w:r>' + RPR.format(b='<w:b/>' if bold else '', sz=sz) +
-         f'<w:t xml:space="preserve">{html.escape(text)}</w:t></w:r>') if text else ''
+def para(text, rpr, ppr=''):
+    r = f'<w:r>{rpr}<w:t xml:space="preserve">{html.escape(text)}</w:t></w:r>' if text else ''
     return f'<w:p>{ppr}{r}</w:p>'
 
-def set_cell(cell, lines, bold=False, sz=16):
-    """Replace every paragraph in the cell with paragraphs built from lines."""
+def set_cell(cell, lines, bold=False, sz=None):
+    """Replace paragraphs in the cell, reusing the cell's own run formatting."""
     if isinstance(lines, str): lines = [lines]
     ps = spans(cell, 'w:p')
     if not ps: return cell
     first = cell[ps[0][0]:ps[0][1]]
     m = re.search(r'<w:pPr>.*?</w:pPr>', first, re.S)
     ppr = m.group(0) if m else ''
-    body = ''.join(para(l, bold, sz, ppr) for l in lines) or para('', ppr=ppr)
+    # the run formatting the form itself intends for this cell
+    rm = re.search(r'<w:rPr>.*?</w:rPr>', ppr, re.S) if ppr else None
+    rpr = rm.group(0) if rm else DEFAULT_RPR
+    if bold and '<w:b/>' not in rpr:
+        rpr = rpr.replace('<w:rPr>', '<w:rPr><w:b/>', 1)
+    if not bold:
+        rpr = rpr.replace('<w:b/>', '').replace('<w:bCs/>', '')
+    body = ''.join(para(l, rpr, ppr) for l in lines) or para('', rpr, ppr)
     return cell[:ps[0][0]] + body + cell[ps[-1][1]:]
 
 def set_row(row, values, bold=None, sz=16):
